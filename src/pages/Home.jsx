@@ -1,13 +1,11 @@
 import '../styles/HomeStyles.css';
-
-// import cirugia from '../assets/cirugia.jpg';
-
-// import consulta from "../assets/consulta.jpg";
-// import uci from "../assets/uci.jpg";
+import cirugia from '../assets/cirugia.jpg';
+import consulta from "../assets/consulta.jpg";
+import uci from "../assets/uci.jpg";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
-// import { Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 
 
 const Home = () => {
@@ -16,8 +14,8 @@ const Home = () => {
         document.title = 'Home';
       }, []);
   return (
-    <div className='home-container'>
-        {/* <div className='Carosel'>
+    <div >
+        <div className='Carosel'>
           <Carousel>
             <Carousel.Item>
               <img className="immg" src={cirugia} alt={"lindo1536x864"} />
@@ -29,7 +27,7 @@ const Home = () => {
               <img className="immg" src={uci} alt={"lindo1536x864"} />
             </Carousel.Item>
           </Carousel>
-        </div> */}
+        </div>
         <h1>Bienvenido a TuCitaYa</h1>
         <div className='welcome-section'>
           <h2>Tu plataforma de citas médicas de confianza</h2>
