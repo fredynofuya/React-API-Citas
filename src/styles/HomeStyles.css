@@ -1,0 +1,58 @@
+.home-container {
+    padding: 60px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    background: white;
+}
+
+.home-container h1 {
+    color: #568281;
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(86, 130, 129, 0.1);
+}
+
+.home-container p {
+    color: #555;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.welcome-section {
+    background: linear-gradient(135deg, #568281 0%, #3d5f5c 100%);
+    color: white;
+    padding: 60px 40px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.welcome-section h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #91B8C1;
+}
+
+.welcome-section p {
+    color: #e0e0e0;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        padding: 20px 15px;
+    }
+    
+    .home-container h1 {
+        font-size: 32px;
+    }
+    
+    .welcome-section {
+        padding: 40px 20px;
+    }
+}

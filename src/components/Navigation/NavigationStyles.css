@@ -1,0 +1,168 @@
+.barraNavegacion {
+    width: 100%;
+    background-color: #568281;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Navigation {
+    display: flex;
+    align-items: center;
+    background-color:#568281;
+    padding: 15px 40px;
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    gap: 80px;
+}
+
+.title {
+    display: flex;
+    position:relative;
+    font-size: 40px;
+    margin-left: 0;
+    flex: 0 0 auto;
+  }
+
+  .navega-Med {
+    color: white;
+    font-family: Bold 700;
+    float: left;
+    margin: 0;
+  }
+
+  .navega-care {
+    color: #91B8C1;
+    font-family: Bold 700;
+    float: left;
+    margin: 0;
+  }
+  .navega-Antioq {
+    color: white;
+    font-family: Thin 100;
+    font-size: medium;
+    float: left;
+    margin: 0;
+  }
+
+  .u {
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+.navbar{
+    display: flex;
+    list-style: none;
+    position: relative;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 25px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-item {
+    margin-left: 0;
+}
+
+
+.nav-link {
+    color:white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size:20px;
+    position: relative;
+    transition: all 0.3s ease;
+    padding-bottom: 8px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #91B8C1;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #91B8C1;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:active,
+.nav-link:focus {
+    color: #91B8C1;
+}
+
+.login-icon {
+    margin-left: auto;
+    margin-right: 2px;
+}
+
+.login-icon img {
+    width: 45px;
+    height: 45px;
+    filter: brightness(0) invert(1);
+}
+
+.login-link {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .title {
+        margin-left: 3rem;
+        font-size: 32px;
+    }
+    
+    .nav-item {
+        margin-left: 40px;
+    }
+    
+    .nav-link {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .Navigation {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+    }
+    
+    .title {
+        margin-left: 1rem;
+        font-size: 24px;
+    }
+    
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .nav-item {
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    
+    .nav-link {
+        font-size: 14px;
+    }
+}
