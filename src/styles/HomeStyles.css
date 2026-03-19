@@ -1,3 +1,20 @@
+.Carosel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin: auto;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+  }
+
+  .immg {
+    display: flex;
+    align-items: center;
+    width: 1300px;
+    height: 350px;
+  }
+  
 .home-container {
     padding: 60px 40px;
     max-width: 1200px;
