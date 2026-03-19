@@ -3,18 +3,25 @@
     align-items: center;
     position: relative;
     width: 100%;
-    margin: auto;
+     margin: auto;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
   }
 
-  .immg {
+.immg {
     display: flex;
     align-items: center;
-    width: 1300px;
-    height: 350px;
+    width: 100vw;
+    height: 55vh;
+    object-fit: cover;
   }
-  
+
+.carousel-indicators [data-bs-target] {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%; 
+  }
+
 .home-container {
     padding: 60px 40px;
     max-width: 1200px;
