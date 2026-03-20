@@ -24,12 +24,11 @@ const Home = () => {
     <div className='Carosel'>
           <Carousel interval={5000} controls={true} indicators={true}> 
             <Carousel.Item>
-              <div className="carousel-box">
-                <button className="btn-cita"><FontAwesomeIcon icon={faCalendarDays}/> Solicitar cita</button>
+              <div className="carousel-box-1">
+                <h1>Agenda tu cita médica de forma rápida y segura</h1>
               </div>
-              <img className="immg" src={servicio} alt="servicio" />
+              <img className="immg" src={servicio} alt={"lindo1536x864"} />
             </Carousel.Item>
-
             <Carousel.Item>
               <div className="carousel-box-1">
                 <h1>Estamos contigo en cada paso de tu camino</h1>

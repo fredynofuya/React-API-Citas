@@ -51,8 +51,8 @@ const Navigation = () => {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link className='nav-link' aria-current='page' to='/solicitudcita'>
-                Solicitar Cita
+              <Link to='/solicitudcita' className='btn-cita'>
+                Solicitar una cita
               </Link>
             </li>
           </ul>
