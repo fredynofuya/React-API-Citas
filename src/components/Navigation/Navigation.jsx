@@ -52,7 +52,7 @@ const Navigation = () => {
             </li>
             <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/solicitudcita'>
-                SOLICITAR UNA CITA
+                Solicitar Cita
               </Link>
             </li>
           </ul>

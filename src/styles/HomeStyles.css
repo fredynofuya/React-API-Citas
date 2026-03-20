@@ -3,7 +3,7 @@
     align-items: center;
     position: relative;
     width: 100%;
-     margin: auto;
+    margin: auto;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
   }
@@ -130,21 +130,24 @@
 
 .carousel-box-1 {
   position: absolute;
-  top: 70%;
-  left: 10%;
+  top: 82%;
+  left: 3%;
   transform: translateY(-50%);
-  background:#568281;
-  padding: 12px;
+  background:#3d5f5c;
+  padding: 6px;
   border-radius: 2px;
-  max-width: 400px; 
-  
+  max-width: 90%; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   z-index: 2;
-
   animation: fadeUp 0.8s ease;
+  display: inline-block;
+  width: auto;
+  max-width: 80%;
+  text-align: center;
 }
 
 .carousel-box-1 h1 {
   color: white;
   font-size: 50px;
+  margin: 0;
 }

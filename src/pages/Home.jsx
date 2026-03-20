@@ -3,7 +3,7 @@ import '../styles/HomeStyles.css';
 import cirugia from '../assets/cirugia.jpg';
 
 import consulta from "../assets/consulta.jpg";
-import ensayo from "../assets/ensayo.webp";
+
 
 
 import servicio from "../assets/servicio.jpg";
@@ -23,10 +23,10 @@ const Home = () => {
   return (
     <div>
     <div className='Carosel'>
-          <Carousel  interval={6000} controls={true} indicators={true}> 
+          <Carousel interval={600000} controls={true} indicators={true}> 
             <Carousel.Item>
               <div className="carousel-box">
-                <button className="btn-cita"><FontAwesomeIcon icon={faCalendarDays}/> Agendar cita</button>
+                <button className="btn-cita"><FontAwesomeIcon icon={faCalendarDays}/> Solicitar cita</button>
               </div>
               <img className="immg" src={servicio} alt="servicio" />
             </Carousel.Item>
@@ -44,13 +44,9 @@ const Home = () => {
               </div>
               <img className="immg" src={consulta} alt={"lindo1536x864"} />
             </Carousel.Item>
-            <Carousel.Item>
-              <img className="immg" src={ensayo} alt={"lindo1536x864"} />
-            </Carousel.Item>
           </Carousel>
     </div>
     <div className='home-container'>
-        
         <h1>Bienvenido a TuCitaYa</h1>
         <div className='welcome-section'>
           <h2>Tu plataforma de citas médicas de confianza</h2>

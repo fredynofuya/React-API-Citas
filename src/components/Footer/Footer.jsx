@@ -5,6 +5,7 @@ const Footer = () => {
     <footer className='footer'>
       <div className='footer-content'>
         <div className='footer-section'>
+          
           <h3>TuCitaYa</h3>
           <p>Tu plataforma de citas médicas confiable</p>
         </div>
@@ -20,6 +21,7 @@ const Footer = () => {
           <h4>Contacto</h4>
           <p>Email: info@tucitaya.com</p>
           <p>Teléfono: +57 1 234 5678</p>
+        
         </div>
       </div>
       <div className='footer-bottom'>
