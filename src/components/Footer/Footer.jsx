@@ -1,6 +1,6 @@
 import './FooterStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
