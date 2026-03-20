@@ -82,3 +82,22 @@
         font-size: 14px;
     }
 }
+
+.icons {
+    display: flex;
+    justify-content: left;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.icons a {
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.icons a:hover {
+            color: #3d5f5c;
+        }
+

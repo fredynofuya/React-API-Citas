@@ -10,8 +10,7 @@ import servicio from "../assets/servicio.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+
 
 
 const Home = () => {

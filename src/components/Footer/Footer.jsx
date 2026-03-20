@@ -1,4 +1,10 @@
 import './FooterStyles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const Footer = () => {
   return (
@@ -18,10 +24,23 @@ const Footer = () => {
           </ul>
         </div>
         <div className='footer-section'>
-          <h4>Contacto</h4>
+          <h4>Contactanos</h4>
           <p>Email: info@tucitaya.com</p>
           <p>Teléfono: +57 1 234 5678</p>
-        
+          <div className='icons'>
+            <a href="#" target="_blank">
+                <FontAwesomeIcon icon={faFacebook} />
+            </a>
+            <a href="#" target="_blank">
+                <FontAwesomeIcon icon={faInstagram} />
+            </a>
+            <a href="#" target="_blank">
+                <FontAwesomeIcon icon={faLinkedin} />
+            </a>
+            <a href="#" target="_blank">
+                <FontAwesomeIcon icon={faTwitter} />
+            </a>
+          </div>
         </div>
       </div>
       <div className='footer-bottom'>
