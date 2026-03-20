@@ -80,3 +80,71 @@
         padding: 40px 20px;
     }
 }
+
+.carousel-box {
+  position: absolute;
+  top: 70%;
+  left: 10%;
+  transform: translateY(-50%);
+  
+  background:transparent;
+  padding: 12px;
+  border-radius: 12px;
+  max-width: 400px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 2;
+
+  animation: fadeUp 0.8s ease;
+}
+
+.carousel-box p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.btn-cita {
+  background: #568281;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cita:hover {
+  background: #3d5f5c;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+.carousel-box-1 {
+  position: absolute;
+  top: 70%;
+  left: 10%;
+  transform: translateY(-50%);
+  background:#568281;
+  padding: 12px;
+  border-radius: 2px;
+  max-width: 400px; 
+  
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 2;
+
+  animation: fadeUp 0.8s ease;
+}
+
+.carousel-box-1 h1 {
+  color: white;
+  font-size: 50px;
+}

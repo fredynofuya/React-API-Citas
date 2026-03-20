@@ -1,0 +1,110 @@
+d-flex {
+    width: 30rem;
+    height: 3rem;
+    margin-left: 25rem;
+    margin-top: 1rem;
+  }
+  
+  .title-inven {
+    margin-top: -3rem;
+    margin-left: 4rem;
+    color: azure;
+  }
+  
+  .grid-inventario {
+    display: grid;
+    margin-top: 3rem;
+    margin-left: 4rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 17px;
+  }
+  
+  .grid-item {
+    background-color: white;
+    padding: 10px;
+  }
+  
+  .imag{
+    width: 19rem;
+    height: 16rem;
+    margin-left: 0rem;
+  }
+  
+  .button {
+    background-color: #91B8C1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 80px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 20px;
+    transition: background-color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #568281;
+}
+
+.Add {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+} 
+
+.Btn {
+  background-color: #91B8C1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 80px;
+  font-size: 20px;
+  transition: background-color 0.3s;
+  right: 500px;
+  top: 0;
+  width: 188px;
+  height: 50px;
+}
+
+.Btn:hover {
+    background-color: #568281;
+}
+
+.TitleList {
+    font-size: 15px;
+    margin: 40px;
+}
+
+.Services {
+    font-size: 20px;
+    margin: 40px;
+}
+
+.table {
+    border-bottom: 1px solid #ddd;
+    margin: auto;
+    width: 90%;
+    align-self: center;
+    margin-bottom: 8%;
+}
+  
+.table th {
+    background-color: #C7D8D9;
+    color: #2f3e44;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.table td {
+    padding: 20px;
+    text-align: center;
+}
+
+.TitleList h1 {
+    color: #568281;
+    text-align: left;
+    font-size: 35px;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(86, 130, 129, 0.1);
+}

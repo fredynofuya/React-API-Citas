@@ -3,6 +3,7 @@ import '../styles/HomeStyles.css';
 import cirugia from '../assets/cirugia.jpg';
 
 import consulta from "../assets/consulta.jpg";
+import ensayo from "../assets/ensayo.webp";
 
 
 import servicio from "../assets/servicio.jpg";
@@ -10,6 +11,8 @@ import servicio from "../assets/servicio.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 
 
 const Home = () => {
@@ -20,15 +23,29 @@ const Home = () => {
   return (
     <div>
     <div className='Carosel'>
-          <Carousel  interval={4000} controls={false} indicators={true}> 
+          <Carousel  interval={6000} controls={true} indicators={true}> 
             <Carousel.Item>
-              <img className="immg" src={servicio} alt={"lindo1536x864"} />
+              <div className="carousel-box">
+                <button className="btn-cita"><FontAwesomeIcon icon={faCalendarDays}/> Agendar cita</button>
+              </div>
+              <img className="immg" src={servicio} alt="servicio" />
             </Carousel.Item>
+
             <Carousel.Item>
+              <div className="carousel-box-1">
+                <h1>Estamos contigo en cada paso de tu camino</h1>
+              </div>
               <img className="immg" src={cirugia} alt={"lindo1536x864"} />
             </Carousel.Item>
+
             <Carousel.Item>
+              <div className="carousel-box-1">
+                <h1>Especialistas en tu bienestar</h1>
+              </div>
               <img className="immg" src={consulta} alt={"lindo1536x864"} />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img className="immg" src={ensayo} alt={"lindo1536x864"} />
             </Carousel.Item>
           </Carousel>
     </div>
