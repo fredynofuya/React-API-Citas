@@ -1,76 +1,51 @@
-//import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/DashboardStyles.css';
-
+import { listaPacientes } from '../services/PacientesService';
 //import config from '../config'
 //import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     
-    // const [userViews, setUserViews] = useState([]);
-    // useEffect(() => {
-    //     document.title = 'Dashboard';
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch(`${config.backendUrl}/paciente`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setUserViews(data);
-    //             } else {
-    //                 console.error('Error fetching data:', response.statusText);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-
-    // const [userViews1, setUserViews1] = useState([]);
-    // useEffect(() => {
-    //     document.title = 'Consolidado';
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch(`${config.backendUrl}/criterios`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setUserViews1(data);
-    //             } else {
-    //                 console.error('Error fetching data:', response.statusText);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
+    const [pacientes, setPacientes] = useState([]);
+        useEffect(() => {
+        // document.title = 'Dashboard';
+        listaPacientes()
+            .then(response => {
+                setPacientes(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
 
     return (
         <div className="home">
             <div className="TitleList">
-                <h1>Citas API-CRUD:</h1>
-                <table className="table">
+                <h1 className='text-left'>Citas API-CRUD:</h1>
+                <table className="table table-striped table-bordered">
                     <thead className="Thead">
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
                             <th>Telefono</th>
-                            <th>Estado</th>
+                            <th>Fecha Regristro</th>
+                            <th>Accion</th>
                         </tr>
                     </thead>
-                    {/* <tbody>
-                        {userViews1.map((audit, index) => (
+                    <tbody>
+                        {pacientes.map((paciente, index) => (
                             <tr key={index}>
-                                <td>{audit.titulo}</td>
-                                <td>{(new Date(audit.fecha)).toLocaleDateString('es-CO')}</td>
-                                <td>{audit.sede}</td>
-                                <td>
+                                <td>{paciente.id}</td>
+                                <td>{paciente.nombre}</td>
+                                {/* <td>{(new Date(audit.fecha)).toLocaleDateString('es-CO')}</td> */}
+                                <td>{paciente.telefono}</td>
+                                <td>{paciente.fecha_registro}</td>
+                                {/* <td>
                                     <Link to="/criteriosProcess" state={{ audit: audit}}>{audit.estado}</Link>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
-                    </tbody> */}
+                    </tbody>
                 </table>
             </div>
         </div>
