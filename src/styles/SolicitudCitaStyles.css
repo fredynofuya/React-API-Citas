@@ -110,7 +110,7 @@ textarea {
   cursor: pointer;
 }
 
-button {
+.btn-sol {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, #568281 0%, #3d5f5c 100%);
@@ -123,12 +123,12 @@ button {
   font-weight: bold;
 }
 
-button:hover {
+.btn-sol:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(86, 130, 129, 0.3);
 }
 
-button:active {
+.btn-sol:active {
   transform: translateY(0);
 }
 

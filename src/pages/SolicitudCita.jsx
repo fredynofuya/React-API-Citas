@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import '../styles/SolicitudCitaStyles.css';
+import { useEffect } from 'react';
 
 const SolicitudCita = () => {
+
+  useEffect(() => {
+          document.title = 'Solicitud';
+        }, []);
+
   const [form, setForm] = useState({
     nombre: "",
     correo: "",
@@ -9,7 +15,7 @@ const SolicitudCita = () => {
     documento: "",
     telefono: "",
     eps: "",
-    mensaje: "",
+    mensaje: ""
   });
 
   const handleChange = (e) => {
@@ -80,7 +86,7 @@ const SolicitudCita = () => {
           <input type="file" multiple />
         </div>
 
-        <button type="submit">Enviar solicitud</button>
+        <button className="btn-sol" type="submit">Enviar solicitud</button>
       </form>
     </div>
   );

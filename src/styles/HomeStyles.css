@@ -103,7 +103,7 @@
   margin-bottom: 15px;
 }
 
-.btn-cita {
+/* .btn-cita {
   background: #568281;
   color: white;
   border: none;
@@ -115,7 +115,7 @@
 
 .btn-cita:hover {
   background: #3d5f5c;
-}
+} */
 
 @keyframes fadeUp {
   from {

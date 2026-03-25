@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import '../styles/SignInStyles.css';
+import { useEffect } from 'react';
 
 const SignIn = () => {
+  useEffect(() => {
+          document.title = 'SignIn';
+        }, []);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -46,7 +51,7 @@ const SignIn = () => {
             />
           </div>
 
-          <button type="submit">Ingresar</button>
+          <button className="btn-signin" type="submit">Ingresar</button>
         </form>
       </div>
     </div>

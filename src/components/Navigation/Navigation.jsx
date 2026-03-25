@@ -47,7 +47,7 @@ const Navigation = () => {
             </li>
             <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/dashboard'>
-                Informes
+                Dashboard
               </Link>
             </li>
             <li className='nav-item'>

@@ -67,7 +67,7 @@ input:focus {
 }
 
 /* BOTON */
-button {
+.btn-signin {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, #568281 0%, #3d5f5c 100%);
@@ -81,7 +81,7 @@ button {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-button:hover {
+.btn-signin:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(86, 130, 129, 0.3);
 }
@@ -129,7 +129,7 @@ button:hover {
     font-size: 13px;
   }
   
-  button {
+  .btn-signin {
     padding: 12px;
     font-size: 14px;
   }
