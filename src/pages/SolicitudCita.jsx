@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import '../styles/SolicitudCitaStyles.css';
 import { useEffect } from 'react';
+//import { crearCita } from '../../services/CitasService';
 
 const SolicitudCita = () => {
 
@@ -29,6 +30,17 @@ const SolicitudCita = () => {
     e.preventDefault();
     console.log(form);
   };
+
+  // function enviarSolicitud() {
+  //   crearCita(form)
+  //     .then(response => {   
+  //       console.log('Cita creada:', response.data);
+  //       // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito o redirigir al usuario
+  //     })
+  //     .catch(error => {
+  //       console.error('Error creando la cita:', error);
+  //       // Aquí puedes agregar lógica para manejar errores, como mostrar un mensaje de error al usuario
+  //     }); 
 
   return (
     <div className="solicitud-wrapper">

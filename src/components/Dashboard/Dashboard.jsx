@@ -125,8 +125,10 @@ const Dashboard = () => {
 
                                 <div className="modal-body">
                                     <p>
-                                        ¿Seguro que deseas eliminar la cita del usuario con documento:
-                                        <strong> {citaSeleccionada?.documento} </strong>?
+                                        ¿Estás seguro de que deseas eliminar la cita del usuario con los siguientes datos?:<br /> 
+                                        Documento: <strong>{citaSeleccionada?.documento}</strong><br />  
+                                        Especialidad: <strong>{citaSeleccionada?.id_especialidad}</strong><br /> 
+                                        Especialista: <strong>{citaSeleccionada?.id_medico}</strong>
                                     </p>
                                 </div>
 
