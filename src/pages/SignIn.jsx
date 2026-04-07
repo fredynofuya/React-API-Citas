@@ -29,7 +29,7 @@ const SignIn = () => {
       <div className="login-container">
         <h1>Iniciar Sesión</h1>
         <p className="subtitle">
-          Ingresa tus datos para acceder al sistema
+          Ingresa tus datos para acceder al sistema CitaYa
         </p>
 
         <form className="login-form" onSubmit={handleSubmit}>

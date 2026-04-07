@@ -16,7 +16,8 @@ import { Carousel } from 'react-bootstrap';
 const Home = () => {
 
   useEffect(() => {
-        document.title = 'Home';
+    // Cambiar el título de la página al montar el componente
+        document.title = 'HomeCitaYa';
       }, []);
   return (
     <div>
@@ -55,7 +56,12 @@ const Home = () => {
         <div className='welcome-section'>
           <h2>Tu plataforma de citas médicas de confianza</h2>
           <p>Agenda tu cita de forma rápida y sencilla con los mejores profesionales de la salud</p>
-        </div>    
+        </div>  
+        <h1>Nuestros servicios</h1>
+        <div className='welcome-section'>
+          <h2>Tu plataforma de citas médicas de confianza</h2>
+          <p>Agenda tu cita de forma rápida y sencilla con los mejores profesionales de la salud</p>
+        </div>  
     </div>
     </div>
   )
