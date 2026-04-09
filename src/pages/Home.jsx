@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 
 
-
 const Home = () => {
 
   useEffect(() => {
