@@ -30,51 +30,12 @@ d-flex {
     margin-left: 0rem;
   }
   
-  /* .button {
-    background-color: #91B8C1;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 80px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 20px;
-    transition: background-color 0.3s;
-  }
-
-  .button:hover {
-    background-color: #568281;
-} */
-
 .Add {
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content:flex-end;
 } 
-
-/* .Btn {
-  background-color: #91B8C1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 80px;
-  font-size: 20px;
-  transition: background-color 0.3s;
-  right: 500px;
-  top: 0;
-  width: 188px;
-  height: 50px;
-}
-
-.Btn:hover {
-    background-color: #568281;
-} */
-
-.TitleList {
-    font-size: 15px;
-    margin: 40px;
-}
 
 .Services {
     font-size: 20px;
@@ -141,4 +102,14 @@ d-flex {
     font-size: 14px;
     text-align: center;
     color: white;
+}
+
+.table-responsive-custom {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.TitleList {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
 }
