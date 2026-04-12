@@ -11,6 +11,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 
+const valores = [
+  {
+    titulo: "Responsabilidad",
+    descripcion:
+      "Nos hacemos cargo de las consecuencias de nuestras acciones y decisiones.",
+    img: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3"
+  },
+  {
+    titulo: "Respeto",
+    descripcion:
+      "Valoramos y consideramos las opiniones y necesidades de los demás.",
+    img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118"
+  },
+  {
+    titulo: "Humanización",
+    descripcion:
+      "Actuamos con honestidad y coherencia en todas nuestras acciones.",
+    img: "https://www.mutualmedica.com/documents/20123/0/MUTUAL+MEDICA3661.jpg/b03bf2dd-0e02-51a5-201d-19fd854f695a?t=1693381260657"
+  }
+];
 
 const Home = () => {
 
@@ -52,15 +72,52 @@ const Home = () => {
     </div>
     <div className='home-container'>
         <h1>Bienvenido a TuCitaYa</h1>
-        <div className='welcome-section'>
-          <h2>Tu plataforma de citas médicas de confianza</h2>
-          <p>Agenda tu cita de forma rápida y sencilla con los mejores profesionales de la salud</p>
-        </div>  
-        <h1>Nuestros servicios</h1>
-        <div className='welcome-section'>
-          <h2>Tu plataforma de citas médicas de confianza</h2>
-          <p>Agenda tu cita de forma rápida y sencilla con los mejores profesionales de la salud</p>
-        </div>  
+        {/* SECCIÓN QUIÉNES SOMOS */}
+      <section className="about-section">
+        
+        <div className="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3"
+            alt="clinica"
+          />
+          <div className="overlay">
+            Instalaciones Modernas y Confortables
+          </div>
+        </div>
+
+        <div className="about-text">
+          <h2>¿Quiénes Somos?</h2>
+          <p>
+            Somos una institución comprometida con brindar servicios de salud
+            de alta calidad, enfocados en el bienestar de nuestros pacientes.
+            Contamos con un equipo profesional altamente capacitado y más de
+            10 años de experiencia.
+          </p>
+
+          <div className="buttons">
+            <button className="btn-primary">Conoce más</button>
+            <button className="btn-outline">📞 Llámanos</button>
+          </div>
+        </div>
+
+      </section>
+
+      {/* SECCIÓN VALORES */}
+      <section className="valores-section">
+        <h2>Nuestros valores</h2>
+
+        <div className="valores-grid">
+          {valores.map((valor, index) => (
+            <div className="valor-card" key={index}>
+              <img src={valor.img} alt={valor.titulo} />
+              <div className="valor-content">
+                <h3>{valor.titulo}</h3>
+                <p>{valor.descripcion}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
     </div>
   )
