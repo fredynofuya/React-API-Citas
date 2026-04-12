@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer.jsx';
 import SignIn from './pages/SignIn.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx'; 
 import Contacto from './pages/Contacto.jsx'; 
+import Servicios from './pages/Servicio.jsx';
 import './styles/AppStyles.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
+      <Route path='/servicio' element={<Servicios />} />
       <Route path='/contacto' element={<Contacto />} />
       <Route path='/solicitudcita' element={<SolicitudCita />} />
       <Route path='/signin' element={<SignIn />} />

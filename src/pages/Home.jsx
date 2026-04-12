@@ -15,7 +15,7 @@ import { Carousel } from 'react-bootstrap';
 const Home = () => {
 
   useEffect(() => {
-    // Cambiar el título de la página al montar el componente
+    
         document.title = 'HomeCitaYa';
       }, []);
   return (
@@ -26,7 +26,7 @@ const Home = () => {
               <div className="carousel-box-1">
                 <h1>Agenda tu cita médica de forma rápida y segura</h1>
               </div>
-              <img className="immg" src={servicio} alt={"lindo1536x864"} />
+              <img className="immg" src={servicio} alt={"lindo"} />
             </Carousel.Item>
             <Carousel.Item>
               <div className="carousel-box-1">
