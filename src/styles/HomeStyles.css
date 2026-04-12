@@ -196,7 +196,7 @@
 }
 
 .btn-primary {
-  background: #568281;
+  background: #1a7f8c;
   color: white;
   border: none;
   padding: 10px 18px;
@@ -207,11 +207,15 @@
 
 .btn-outline {
   background: transparent;
-  border: 2px solid #568281;
+  border: 2px solid #1a7f8c;
   padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
   color: black;
+}
+
+.btn-primary:hover {
+  background: #146b75;
 }
 
 /* 🔹 VALORES */
