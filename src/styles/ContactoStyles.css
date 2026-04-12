@@ -1,0 +1,74 @@
+.contact-container {
+  padding: 40px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.contact-title {
+  font-size: 48px;
+  color: #568281;
+  margin-bottom: 10px;
+}
+
+.contact-subtitle {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.contact-content {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Card izquierda */
+.contact-card {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.contact-card h2 {
+  color: #146b75;
+  margin-bottom: 20px;
+}
+
+.contact-item {
+  margin-bottom: 15px;
+}
+
+.contact-item span {
+  font-weight: bold;
+  display: block;
+}
+
+.contact-item p {
+  margin: 5px 0;
+  color: #146b75;
+}
+
+/* Cajas */
+.contact-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+/* Mapa */
+.map-container {
+  width: 400px;
+  height: 350px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}

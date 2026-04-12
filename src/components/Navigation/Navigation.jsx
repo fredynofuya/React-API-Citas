@@ -25,23 +25,15 @@ const Navigation = () => {
                 Home
               </Link>
             </li>
-            <li className='nav-item'>
-              <Link className='nav-link' aria-current='page' to='/home'>
-                ¿Quiénes Somos?
-              </Link>
-            </li>
+         
             <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/home'>
                 Servicios
               </Link>
             </li>
+            
             <li className='nav-item'>
-              <Link className='nav-link' aria-current='page' to='/home'>
-                Directorio Médico
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link className='nav-link' aria-current='page' to='/home'>
+              <Link className='nav-link' aria-current='page' to='/contacto'>
                 Contactanos
               </Link>
             </li>
