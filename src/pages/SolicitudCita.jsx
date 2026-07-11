@@ -45,7 +45,7 @@ const SolicitudCita = () => {
   return (
     <div className="solicitud-wrapper">
       <h1>Agenda tu Cita</h1> <br />
-      <p className="subtitle">
+      <p>
         Déjanos tus datos y un agente se pondrá en contacto contigo en las próximas 24 horas
       </p>
 

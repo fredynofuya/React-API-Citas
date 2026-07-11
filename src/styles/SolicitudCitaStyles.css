@@ -21,9 +21,9 @@ h1 {
   margin-right: auto;
 }
 
-.subtitle {
+.solicitud-wrapper p {
   text-align: center;
-  color: #91B8C1;
+  color: #555;
   margin-bottom: 30px;
   font-weight: 500;
   max-width: 1200px;
