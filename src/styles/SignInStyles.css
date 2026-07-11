@@ -26,11 +26,12 @@ body {
   text-align: center;
 }
 
-/* TITULO */
-h1 {
-  color: #568281;
+.login-icon-in img {
+  width: 55px;
+  height: 55px;
+  filter: brightness(1) invert(-1);        
   margin-bottom: 10px;
-}
+}  
 
 /* SUBTITULO */
 .subtitle {
@@ -114,14 +115,10 @@ input:focus {
     max-width: 350px;
     padding: 30px 20px;
   }
-  
-  h1 {
-    font-size: 28px;
-  }
-  
+
   .subtitle {
     font-size: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;  
   }
   
   input {

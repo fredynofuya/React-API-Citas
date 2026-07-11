@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import '../styles/SignInStyles.css';
 import { useEffect } from 'react';
 
+import {Link} from 'react-router-dom';
+import logo from '../assets/logo-login.png';
+
 const SignIn = () => {
   useEffect(() => {
           document.title = 'SignIn';
@@ -27,9 +30,11 @@ const SignIn = () => {
   return (
     <div className="login-wrapper">
       <div className="login-container">
-        <h1>Iniciar Sesión</h1>
+        <div className='login-icon-in'>
+          <img src={logo} />
+        </div>
         <p className="subtitle">
-          Ingresa tus datos para acceder al sistema CitaYa
+          Ingresa tus datos para iniciar sesión en CitaYa
         </p>
 
         <form className="login-form" onSubmit={handleSubmit}>
