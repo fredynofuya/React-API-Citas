@@ -33,22 +33,14 @@
 }
 
 .contact-card h2 {
-  color: #146b75;
+  color: #568281;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
-.contact-item {
-  margin-bottom: 15px;
-}
-
-.contact-item span {
-  font-weight: bold;
-  display: block;
-}
-
-.contact-item p {
+.contact-box p {
   margin: 5px 0;
-  color: #146b75;
+  color: #666;
 }
 
 /* Cajas */
@@ -58,12 +50,13 @@
   border-radius: 10px;
   margin-top: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  color: #3d5f5c;
 }
 
 /* Mapa */
 .map-container {
   width: 400px;
-  height: 350px;
+  height: 570px;
 }
 
 .map {

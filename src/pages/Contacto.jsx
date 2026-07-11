@@ -1,6 +1,12 @@
 import React from "react";
 import '../styles/ContactoStyles.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWhatsappSquare } from '@fortawesome/free-brands-svg-icons'
+import { faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
+
 const Contacto = () => {
   return (
     <div className="contact-container">
@@ -17,23 +23,23 @@ const Contacto = () => {
         <div className="contact-card">
           <h2>Información de Contacto</h2>
 
-          <div className="contact-item">
-            <span>📱 WhatsApp</span>
+          <div className="contact-box">
+            <strong><FontAwesomeIcon icon={faWhatsappSquare} /> WhatsApp</strong>
             <p>+57 3009132559</p>
           </div>
 
-          <div className="contact-item">
-            <span>📞 Teléfono</span>
+          <div className="contact-box">
+            <strong><FontAwesomeIcon icon={faPhone} /> Teléfono</strong>
             <p>(604) 4449768</p>
           </div>
 
           <div className="contact-box">
-            <strong>📍 Dirección</strong>
+            <strong><FontAwesomeIcon icon={faMapMarkerAlt} /> Dirección</strong>
             <p>Cra. 48 #34 Sur 10, Zona 2, Envigado, Antioquia</p>
           </div>
 
           <div className="contact-box">
-            <strong>🕒 Horario de Atención</strong>
+            <strong><FontAwesomeIcon icon={faClock} /> Horario de Atención</strong>
             <p>Lunes a Viernes: 7:00 AM - 6:00 PM</p>
           </div>
         </div>
