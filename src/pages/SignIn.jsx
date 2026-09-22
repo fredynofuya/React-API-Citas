@@ -34,7 +34,7 @@ const SignIn = () => {
           <img src={logo} />
         </div>
         <p className="subtitle">
-          Ingresa tus datos para iniciar sesión en CitaYa
+          Ingresa tus datos para iniciar sesión 
         </p>
 
         <form className="login-form" onSubmit={handleSubmit}>

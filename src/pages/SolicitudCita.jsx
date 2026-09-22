@@ -3,6 +3,8 @@ import '../styles/SolicitudCitaStyles.css';
 import { useEffect } from 'react';
 //import { crearCita } from '../../services/CitasService';
 
+
+
 const SolicitudCita = () => {
 
   useEffect(() => {
@@ -97,7 +99,7 @@ const SolicitudCita = () => {
           <p>Sube tus documentos</p>
           <input type="file" multiple />
         </div>
-
+        
         <button className="btn-sol" type="submit">Enviar solicitud</button>
       </form>
     </div>

@@ -4,7 +4,8 @@ import Home from './pages/Home.jsx';
 import Navbar from './components/Navigation/Navigation.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import SignIn from './pages/SignIn.jsx';
-import Dashboard from './components/Dashboard/Dashboard.jsx'; 
+import Dashboard from './components/Dashboard/Dashboard.jsx';
+import Agenda from './components/Agenda/Agenda.jsx'; 
 import Contacto from './pages/Contacto.jsx'; 
 import Servicios from './pages/Servicio.jsx';
 import './styles/AppStyles.css';
@@ -22,12 +23,15 @@ function App() {
       <Route path='/solicitudcita' element={<SolicitudCita />} />
       <Route path='/signin' element={<SignIn />} />
       <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/agenda' element={<Agenda />} />
+      
+
     </Routes>
 
     <Footer />
   </div>
 </BrowserRouter>
   );
-}
+} 
 
 export default App;

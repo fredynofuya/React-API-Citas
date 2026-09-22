@@ -10,9 +10,9 @@ const Navigation = () => {
           <ul className="title">
             <ul className="u">
               <li className="li">
-                <h1 className="navega-care">Tu</h1>
-                <h1 className="navega-Med">Cita</h1>
-                <h1 className="navega-care">Ya</h1>
+                <h1 className="navega-care">Med</h1>
+                <h1 className="navega-Med">Soft</h1>
+                <h1 className="navega-care">IA</h1>
               </li>
               <li className="li">
                 <h2 className="navega-Antioq"> </h2>
@@ -40,6 +40,11 @@ const Navigation = () => {
             <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/dashboard'>
                 Dashboard
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link className='nav-link' aria-current='page' to='/agenda'>
+                Agenda
               </Link>
             </li>
             <li className='nav-item'>
