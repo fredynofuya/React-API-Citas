@@ -68,14 +68,11 @@ const Agenda = () => {
                             <th>Documento</th>
                             <th>Nombre</th>
                             <th>Mensaje</th>
-                            <th>PDFs</th>
+                            
 
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Direccion</th>
-                            <th>Observación</th>
-                            <th>Id_Médico</th>
-                            <th>Id_Especialidad</th>
+                            
                             
                             <th>Estado</th>
                             <th>Accion</th>
@@ -87,13 +84,10 @@ const Agenda = () => {
                                 <td>{cita.documento}</td>
                                 <td>{cita.nombre}</td>
                                 <td>{cita.mensaje}</td>
-                                <td>{cita.id_documento}</td>
+                                
                                 <td>{cita.fecha}</td>
                                 <td>{cita.hora}</td>
-                                <td>{cita.id_consultorio}</td>
-                                <td>{cita.observaciones}</td>
-                                <td>{cita.id_medico}</td>
-                                <td>{cita.id_especialidad}</td>
+                                
                                 
                                 <td>{cita.estado}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}> 
