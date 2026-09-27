@@ -4,7 +4,8 @@ import { listaCitas } from '../../services/CitasService';
 //import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { deleteCita } from '../../services/CitasService';
-//import { editarCita } from '../../services/CitasService';
+import EditCitaModal from './EditCitaModal'; 
+
 // import { Link } from 'react-router-dom';
 import {IconButton} from '@mui/material';
 
@@ -32,15 +33,21 @@ const Dashboard = () => {
             });
     }, []);
     
-    function ActualizarCita(id) {
-        // Lógica para actualizar una cita existente
-        navigator(`/dashboard`, { state: { id } }); // Redirige a la página de edición de cita con el ID
-    }
-
     function abrirModalEliminar(cita) {
     setCitaSeleccionada(cita);
     setShowDeleteModal(true);
     }
+
+    function abrirModalEditar(cita) {
+    setCitaSeleccionada(cita);
+    setShowEditModal(true);
+    }
+
+    function recargarCitas() {
+        listaCitas()
+            .then(response => setCitas(response.data))
+            .catch(error => console.error('Error fetching data:', error));
+}
 
     function confirmarEliminar() {
         deleteCita(citaSeleccionada.id)
@@ -53,11 +60,7 @@ const Dashboard = () => {
             });
     }
 
-    function abrirModalEditar(cita) {
-    setCitaSeleccionada(cita);
-    setShowEditModal(true);
-    }
-
+  
     return (
         <div className="home">
             <div className="TitleList table-responsive-custom">
@@ -65,17 +68,18 @@ const Dashboard = () => {
                 <table className="table table-striped table-bordered">
                     <thead className="Thead">
                         <tr>
+                            <th>Id</th>
                             <th>Documento</th>
                             <th>Nombre</th>
                             <th>Mensaje</th>
-                            <th>PDFs</th>
+                            {/* <th>PDFs</th> */}
 
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Direccion</th>
                             <th>Observación</th>
                             <th>Id_Médico</th>
-                            <th>Id_Especialidad</th>
+                            {/* <th>Id_Especialidad</th> */}
                             
                             <th>Estado</th>
                             <th>Accion</th>
@@ -84,17 +88,17 @@ const Dashboard = () => {
                     <tbody>
                         {citas.map((cita, index) => (
                             <tr key={index}>
+                                <td>{cita.id}</td>
                                 <td>{cita.documento}</td>
                                 <td>{cita.nombre}</td>
                                 <td>{cita.mensaje}</td>
-                                <td>{cita.id_documento}</td>
+                                {/* <td>{cita.id_documento}</td> */}
                                 {/* <td>{(new Date(audit.fecha)).toLocaleDateString('es-CO')}</td> */}
                                 <td>{cita.fecha}</td>
                                 <td>{cita.hora}</td>
                                 <td>{cita.id_consultorio}</td>
                                 <td>{cita.observaciones}</td>
                                 <td>{cita.id_medico}</td>
-                                <td>{cita.id_especialidad}</td>
                                 
                                 <td>{cita.estado}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}> 
@@ -155,34 +159,12 @@ const Dashboard = () => {
                     </div>
                 )}
                 {/* Modal de edición */}
-                {showEditModal && (
-                    <div className="modal fade show d-block" tabIndex="-1">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Información del Paciente</h5>
-                                    <button className="btn-close" onClick={() => setShowEditModal(false)}></button>
-                                </div>
-
-                                <div className="modal-body">
-                                    <p><strong>Nombre:</strong> {citaSeleccionada?.nombre}</p>
-                                    <p><strong>Email:</strong> {citaSeleccionada?.email}</p>
-                                    <p><strong>Teléfono:</strong> {citaSeleccionada?.telefono}</p>
-                                    <p><strong>Documento:</strong> {citaSeleccionada?.documento}</p>
-                                </div>
-
-                                <div className="modal-footer">
-                                    <button 
-                                        className="btn btn-secondary"
-                                        onClick={() => setShowEditModal(false)}
-                                    >
-                                        Cerrar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {showEditModal && citaSeleccionada && (
+                <EditCitaModal
+                    cita={citaSeleccionada}
+                    onClose={() => setShowEditModal(false)}
+                    onGuardado={recargarCitas}
+                />
                 )}
             </div>
         </div>

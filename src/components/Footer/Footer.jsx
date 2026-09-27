@@ -12,7 +12,7 @@ const Footer = () => {
       <div className='footer-content'>
         <div className='footer-section'>
           
-          <h3>TuCitaYa</h3>
+          <h3>MedSoftIA</h3>
           <p>Tu plataforma de citas médicas confiable</p>
         </div>
         <div className='footer-section'>
@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
         <div className='footer-section'>
           <h4>Contactanos</h4>
-          <p>Email: info@tucitaya.com</p>
+          <p>Email: info@medsoftia.com</p>
           <p>Teléfono: +57 1 234 5678</p>
           <div className='icons'>
             <a href="#" target="_blank">
@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='footer-bottom'>
-        <p>&copy; 2026 TuCitaYa. Todos los derechos reservados.</p>
+        <p>&copy; 2026 MedSoftIA. Todos los derechos reservados.</p>
       </div>
     </footer>
   );
