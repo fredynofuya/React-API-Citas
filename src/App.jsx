@@ -10,6 +10,11 @@ import Contacto from './pages/Contacto.jsx';
 import Servicios from './pages/Servicio.jsx';
 import './styles/AppStyles.css';
 
+import { Navigate } from 'react-router-dom';
+import AdminLayout from './layouts/AdminLayout.jsx';
+import Pacientes from './pages/Pacientes.jsx';
+import Medicos from './pages/Medicos.jsx';
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,10 +27,16 @@ function App() {
       <Route path='/contacto' element={<Contacto />} />
       <Route path='/solicitudcita' element={<SolicitudCita />} />
       <Route path='/signin' element={<SignIn />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/agenda' element={<Agenda />} />
+    
       
-
+      <Route path="/dashboard" element={<AdminLayout />}>
+        <Route index element={<Navigate to="citas" />} />
+        <Route path="citas" element={<Dashboard />} />
+        <Route path="agenda" element={<Agenda />} />
+        <Route path="pacientes" element={<Pacientes />} />   {/* nuevo: tabla + NuevoPacienteModal */}
+        <Route path="medicos" element={<Medicos />} />        {/* nuevo: tabla + NuevoMedicoModal */}
+      </Route>
+      
     </Routes>
 
     <Footer />

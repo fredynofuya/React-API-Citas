@@ -38,15 +38,11 @@ const Navigation = () => {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link className='nav-link' aria-current='page' to='/dashboard'>
+              <Link className='nav-link' aria-current='page' to='/dashboard/citas'>
                 Dashboard
               </Link>
             </li>
-            <li className='nav-item'>
-              <Link className='nav-link' aria-current='page' to='/agenda'>
-                Agenda
-              </Link>
-            </li>
+            
             <li className='nav-item'>
               <Link to='/solicitudcita' className='btn-cita'>
                 Solicitar una cita

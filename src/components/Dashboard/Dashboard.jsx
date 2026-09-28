@@ -64,7 +64,7 @@ const Dashboard = () => {
     return (
         <div className="home">
             <div className="TitleList table-responsive-custom">
-                <h1 className='text-left'>Citas API-CRUD:</h1>
+                <h1 className='text-left'>Citas</h1>
                 <table className="table table-striped table-bordered">
                     <thead className="Thead">
                         <tr>
