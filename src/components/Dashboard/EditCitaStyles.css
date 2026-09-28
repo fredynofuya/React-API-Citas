@@ -1,0 +1,84 @@
+.cita-seccion { margin-bottom: 20px; }
+
+.cita-seccion h6 {
+  color: #3d5f5c;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.cita-buscar { display: flex; gap: 10px; }
+
+.cita-buscar input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #91B8C1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.cita-buscar input:focus {
+  outline: none;
+  border-color: #568281;
+  box-shadow: 0 0 6px rgba(86,130,129,0.25);
+}
+
+.btn-buscar {
+  background: #568281;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-weight: 700;
+}
+.btn-buscar:disabled { opacity: 0.5; }
+
+.paciente-encontrado {
+  margin-top: 12px;
+  background: #e0f2ee;
+  border-left: 4px solid #1a7f8c;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+  font-size: 13.5px;
+  color: #2f3e44;
+}
+.paciente-encontrado .nombre {
+  grid-column: 1 / -1;
+  font-weight: 700;
+  color: #1a7f8c;
+  font-size: 15px;
+}
+
+.paciente-no-encontrado {
+  margin-top: 12px;
+  background: #fff3e0;
+  border-left: 4px solid #f0ad4e;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: #6b4a00;
+}
+
+.cita-fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
+.cita-fieldset:disabled { opacity: 0.45; }
+
+.input-group-paciente textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #91B8C1;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+}
+.input-group-paciente textarea:focus {
+  outline: none;
+  border-color: #568281;
+  box-shadow: 0 0 6px rgba(86,130,129,0.25);
+}
+
+@media (max-width: 576px) {
+  .paciente-encontrado { grid-template-columns: 1fr; }
+}

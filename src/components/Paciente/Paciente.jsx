@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { listaPacientes } from '../../services/PacientesService';
-//import NuevoPacienteModal from '../components/Paciente/NuevoPacienteModal';
+import NuevoPacienteModal from './NuevoPacienteModal'; 
 import './PacienteStyles.css';
 
 const Pacientes = () => {
@@ -44,11 +44,11 @@ const Pacientes = () => {
         </tbody>
       </table>
 
-      {/* <NuevoPacienteModal
+      <NuevoPacienteModal
         show={showModal}
         onClose={() => setShowModal(false)}
         onCreated={cargar}
-      />  */}
+      />
     </div>
   );
 };

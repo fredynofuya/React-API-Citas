@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { listaMedicos, obtenerDisponibilidad, editarCita } from '../../services/CitasService';
+import './EditCitaStyles.css';
+import { HORARIOS, formatearHora12} from '../../utils/horarios';
 
-const HORARIOS = [
-  "08:00", "08:30", "09:00", "09:30", "10:00", "10:30",
-  "14:00", "14:30", "15:00"
-];
-
-const formatearHora12 = (hora24) => {
-  const [h, m] = hora24.split(':').map(Number);
-  const suffix = h >= 12 ? 'pm' : 'am';
-  const h12 = h % 12 === 0 ? 12 : h % 12;
-  return `${h12}:${m.toString().padStart(2, '0')} ${suffix}`;
-};
 
 const EditCitaModal = ({ cita, onClose, onGuardado }) => {
   const [medicos, setMedicos] = useState([]);

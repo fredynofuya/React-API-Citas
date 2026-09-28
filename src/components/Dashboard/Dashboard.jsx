@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { deleteCita } from '../../services/CitasService';
 import EditCitaModal from './EditCitaModal'; 
 
+import NuevaCitaModal from './NuevaCitaModal';
+
 // import { Link } from 'react-router-dom';
 import {IconButton} from '@mui/material';
 
@@ -21,6 +23,7 @@ const Dashboard = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [citaSeleccionada, setCitaSeleccionada] = useState(null);   
+    const [showNuevaCita, setShowNuevaCita] = useState(false);
     
     useEffect(() => {
         document.title = 'Dashboard';
@@ -64,6 +67,11 @@ const Dashboard = () => {
     return (
         <div className="home">
             <div className="TitleList table-responsive-custom">
+                <div className="Add">
+                    <button className="btn-paciente-guardar" onClick={() => setShowNuevaCita(true)}>
+                        + Nueva cita
+                    </button>
+                </div>
                 <h1 className='text-left'>Citas</h1>
                 <table className="table table-striped table-bordered">
                     <thead className="Thead">
@@ -164,6 +172,14 @@ const Dashboard = () => {
                     cita={citaSeleccionada}
                     onClose={() => setShowEditModal(false)}
                     onGuardado={recargarCitas}
+                />
+                )}
+                {/* Modal de nueva cita */}
+                {showNuevaCita && (
+                <NuevaCitaModal
+                    show={showNuevaCita}
+                    onClose={() => setShowNuevaCita(false)}
+                    onCreated={recargarCitas}
                 />
                 )}
             </div>
