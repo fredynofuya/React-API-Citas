@@ -72,6 +72,7 @@ d-flex {
 
 .btn-delete {
     background-color: #d9534f;
+    /* background-color: #ed6c02; */
 }
 .btn-edit {
     background-color: #f0ad4e;
@@ -86,6 +87,7 @@ d-flex {
 
 .btn-delete:hover {
     background-color: #C91B00;
+    /* background-color: #ed6c02; */
     transform: translateY(-2px);
 }
 .btn-edit:hover {

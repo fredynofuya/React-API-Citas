@@ -1,3 +1,238 @@
+/* ===== Base compartida (editar / eliminar) ===== */
+.cita-modal-backdrop {
+  background: rgba(15, 25, 25, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.cita-modal-content {
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.cita-modal-header {
+  background: linear-gradient(135deg, #568281 0%, #3d5f5c 100%);
+  color: #fff;
+  border: none;
+  padding: 18px 24px;
+}
+.cita-modal-header.danger {
+  /* background: linear-gradient(135deg, #d9534f 0%, #a83a36 100%); */
+  background: linear-gradient(135deg, #ed6c02 0%, #a83a36fa 100%);
+}
+.cita-modal-header .modal-title {
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+}
+/* Fuerza la X blanca sin depender de la versión de Bootstrap */
+.cita-modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+  opacity: 0.85;
+}
+.cita-modal-header .btn-close:hover { opacity: 1; }
+
+.cita-modal-body {
+  padding: 24px;
+  background: #fafdfd;
+}
+
+.cita-modal-footer {
+  border: none;
+  padding: 14px 24px 22px;
+  background: #fafdfd;
+  gap: 10px;
+}
+
+/* ===== Botones ===== */
+.btn-cita-cancelar {
+  background: transparent;
+  border: 1px solid #91B8C1;
+  color: #568281;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.btn-cita-cancelar:hover:not(:disabled) { background: #eef5f5; }
+
+.btn-cita-guardar,
+.btn-cita-eliminar {
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-cita-guardar {
+  background: linear-gradient(135deg, #1a7f8c 0%, #3d5f5c 100%);
+}
+.btn-cita-eliminar {
+  /* background: linear-gradient(135deg, #ed6c02 0%, #b83b37 100%); */
+    background: linear-gradient(135deg, #ed6c02 0%, #a83a37fa 100%);
+}
+.btn-cita-guardar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(86, 130, 129, 0.3);
+}
+.btn-cita-eliminar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(217, 83, 79, 0.35);
+}
+
+.btn-cita-cancelar:disabled,
+.btn-cita-guardar:disabled,
+.btn-cita-eliminar:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-cita-cancelar:focus-visible,
+.btn-cita-guardar:focus-visible,
+.btn-cita-eliminar:focus-visible {
+  outline: 3px solid rgba(26, 127, 140, 0.35);
+  outline-offset: 2px;
+}
+
+/* ===== Modal EDITAR ===== */
+.edit-cita-info-row {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr 1fr;
+  gap: 16px;
+  background: #eef5f5;
+  border-left: 4px solid #568281;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+}
+.edit-cita-info-row strong {
+  display: block;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #568281;
+  margin-bottom: 2px;
+}
+.edit-cita-info-row p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2f3e44;
+  word-break: break-word;
+}
+
+.edit-cita-step { margin-bottom: 22px; }
+.edit-cita-step label {
+  display: block;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #3d5f5c;
+  margin-bottom: 8px;
+}
+
+/* Scope con .cita-modal-content para ganarle a los estilos globales de input/select */
+.cita-modal-content .form-select,
+.cita-modal-content .form-control {
+  width: 100%;
+  border: 1px solid #91B8C1;
+  border-radius: 6px;
+  font-size: 14px;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+.cita-modal-content .form-control { padding-left: 0.75rem; padding-right: 0.75rem; }
+.cita-modal-content .form-select:focus,
+.cita-modal-content .form-control:focus {
+  outline: none;
+  border-color: #568281;
+  box-shadow: 0 0 0 3px rgba(86, 130, 129, 0.18);
+}
+
+.edit-cita-horarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.horario-btn {
+  padding: 10px 6px;
+  border: 1px solid #91B8C1;
+  border-radius: 8px;
+  background: #fff;
+  color: #3d5f5c;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.horario-btn:hover:not(:disabled):not(.seleccionado) {
+  border-color: #568281;
+  background: #eef5f5;
+  transform: translateY(-1px);
+}
+.horario-btn.seleccionado {
+  background: linear-gradient(135deg, #1a7f8c 0%, #3d5f5c 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 3px 10px rgba(26, 127, 140, 0.3);
+}
+.horario-btn.ocupado,
+.horario-btn:disabled {
+  text-decoration: line-through;
+  color: #aaa;
+  background: #f0f0f0;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.edit-cita-error {
+  background: #fdecea;
+  color: #c0392b;
+  border-left: 4px solid #d9534f;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ===== Modal ELIMINAR ===== */
+.delete-cita-icon {
+  text-align: center;
+  font-size: 42px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.delete-cita-texto {
+  text-align: center;
+  color: #555;
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.delete-cita-resumen {
+  background: #fff;
+  border: 1px solid #f1d4d3;
+  border-left: 4px solid #ed6c02;
+  border-radius: 10px;
+  padding: 6px 16px;
+}
+.delete-cita-resumen > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f6e6e5;
+  font-size: 14px;
+}
+.delete-cita-resumen > div:last-child { border-bottom: none; }
+.delete-cita-resumen span { color: #6b7a7a; }
+.delete-cita-resumen strong { color: #2f3e44; text-align: right; }
+
+
 .cita-seccion { margin-bottom: 20px; }
 
 .cita-seccion h6 {
@@ -79,6 +314,11 @@
   box-shadow: 0 0 6px rgba(86,130,129,0.25);
 }
 
+/* ===== Responsive ===== */
 @media (max-width: 576px) {
+  .edit-cita-info-row { grid-template-columns: 1fr; }
+  .edit-cita-horarios { grid-template-columns: repeat(2, 1fr); }
+  .cita-modal-footer { flex-direction: column-reverse; }
+  .cita-modal-footer button { width: 100%; }
   .paciente-encontrado { grid-template-columns: 1fr; }
 }

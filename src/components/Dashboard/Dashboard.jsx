@@ -85,7 +85,7 @@ const Dashboard = () => {
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Direccion</th>
-                            <th>Observación</th>
+                            {/* <th>Observación</th> */}
                             <th>Id_Médico</th>
                             {/* <th>Id_Especialidad</th> */}
                             
@@ -105,7 +105,7 @@ const Dashboard = () => {
                                 <td>{cita.fecha}</td>
                                 <td>{cita.hora}</td>
                                 <td>{cita.id_consultorio}</td>
-                                <td>{cita.observaciones}</td>
+                                {/* <td>{cita.observaciones}</td> */}
                                 <td>{cita.id_medico}</td>
                                 
                                 <td>{cita.estado}</td>
@@ -126,43 +126,50 @@ const Dashboard = () => {
                         ))}
                     </tbody>
                 </table>
-                {/* Modal de eliminación */}
                 {showDeleteModal && (
-                    <div className="modal fade show d-block" tabIndex="-1">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
+                    <div className="modal fade show d-block cita-modal-backdrop" tabIndex="-1">
+                        <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content cita-modal-content">
 
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Confirmar eliminación</h5>
-                                    <button className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
-                                </div>
-
-                                <div className="modal-body">
-                                    <p>
-                                        ¿Estás seguro de que deseas eliminar la cita del usuario con los siguientes datos?:<br /> 
-                                        Documento: <strong>{citaSeleccionada?.documento}</strong><br />  
-                                        Especialidad: <strong>{citaSeleccionada?.id_especialidad}</strong><br /> 
-                                        Especialista: <strong>{citaSeleccionada?.id_medico}</strong>
-                                    </p>
-                                </div>
-
-                                <div className="modal-footer">
-                                    <button 
-                                        className="btn btn-secondary"
-                                        onClick={() => setShowDeleteModal(false)}
-                                    >
-                                        Cancelar
-                                    </button>
-
-                                    <button 
-                                        className="btn btn-danger"
-                                        onClick={confirmarEliminar}
-                                    >
-                                        Confirmar
-                                    </button>
-                                </div>
-
+                            <div className="modal-header cita-modal-header danger">
+                            <h5 className="modal-title">Eliminar cita</h5>
+                            <button className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
                             </div>
+
+                            <div className="modal-body cita-modal-body">
+                            <div className="delete-cita-icon">⚠️</div>
+                            <p className="delete-cita-texto">
+                                Esta acción es permanente y no se puede deshacer.
+                                ¿Seguro que deseas eliminar esta cita?
+                            </p>
+                            <div className="delete-cita-resumen">
+                                <div><span>Paciente</span><strong>{citaSeleccionada?.nombre}</strong></div>
+                                <div><span>Documento</span><strong>{citaSeleccionada?.documento}</strong></div>
+                                <div>
+                                <span>Fecha y hora</span>
+                                <strong>
+                                    {citaSeleccionada?.fecha
+                                    ? `${citaSeleccionada.fecha} · ${citaSeleccionada.hora?.substring(0, 5) ?? ''}`
+                                    : 'Sin asignar'}
+                                </strong>
+                                </div>
+                                <div>
+                                <span>Médico</span>
+                                <strong>{citaSeleccionada?.id_medico ? `#${citaSeleccionada.id_medico}` : 'Sin asignar'}</strong>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div className="modal-footer cita-modal-footer">
+                            <button className="btn-cita-cancelar" onClick={() => setShowDeleteModal(false)}>
+                                Cancelar
+                            </button>
+                            <button className="btn-cita-eliminar" onClick={confirmarEliminar}>
+                                Sí, eliminar
+                            </button>
+                            </div>
+
+                        </div>
                         </div>
                     </div>
                 )}

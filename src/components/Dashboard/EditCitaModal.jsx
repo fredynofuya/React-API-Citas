@@ -63,16 +63,16 @@ const EditCitaModal = ({ cita, onClose, onGuardado }) => {
   };
 
   return (
-    <div className="modal fade show d-block" tabIndex="-1">
-      <div className="modal-dialog">
-        <div className="modal-content edit-cita-modal">
+    <div className="modal fade show d-block cita-modal-backdrop" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content cita-modal-content">
 
-          <div className="modal-header">
+          <div className="modal-header cita-modal-header">
             <h5 className="modal-title">Editar cita</h5>
             <button className="btn-close" onClick={onClose}></button>
           </div>
 
-          <div className="modal-body">
+          <div className="modal-body cita-modal-body">
 
             <div className="edit-cita-info-row">
               <div>
@@ -142,12 +142,20 @@ const EditCitaModal = ({ cita, onClose, onGuardado }) => {
 
           </div>
 
-          <div className="modal-footer">
-            <button className="btn btn-secondary" onClick={onClose} disabled={guardando}>
+          {/* <div className="modal-footer cita-modal-footer"> 
+            <button className="btn btn-cita-cancelar" onClick={onClose} disabled={guardando}>
               Cancelar
             </button>
-            <button className="btn btn-update" onClick={handleGuardar} disabled={guardando}>
+            <button className="btn btn-cita-guardar" onClick={handleGuardar} disabled={guardando}>
               {guardando ? 'Guardando...' : 'Guardar'}
+            </button>
+          </div> */}
+          <div className="modal-footer paciente-modal-footer">
+            <button type="button" className="btn-paciente-cancelar" onClick={onClose} disabled={guardando}>
+              Cancelar
+            </button>
+            <button type="button" className="btn-paciente-guardar" disabled={guardando} onClick={handleGuardar}>
+              {guardando ? 'Guardando...' : 'Confirmar cita'}
             </button>
           </div>
 
