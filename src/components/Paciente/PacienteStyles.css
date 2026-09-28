@@ -1,0 +1,176 @@
+d-flex {
+    width: 30rem;
+    height: 3rem;
+    margin-left: 25rem;
+    margin-top: 1rem;
+  }
+  
+  .title-inven {
+    margin-top: -3rem;
+    margin-left: 4rem;
+    color: azure;
+  }
+  
+  .grid-inventario {
+    display: grid;
+    margin-top: 3rem;
+    margin-left: 4rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 17px;
+  }
+  
+  .grid-item {
+    background-color: white;
+    padding: 10px;
+  }
+  
+  .imag{
+    width: 19rem;
+    height: 16rem;
+    margin-left: 0rem;
+  }
+  
+.Add {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+} 
+
+.Services {
+    font-size: 20px;
+    margin: 40px;
+}
+
+.table {
+    border-bottom: 1px solid #ddd;
+    margin: auto;
+    width: 90%;
+    align-self: center;
+    margin-bottom: 8%;
+}
+  
+.table th {
+    background-color: #C7D8D9;
+    color: #2f3e44;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.table td {
+    padding: 20px;
+    text-align: center;
+}
+
+.TitleList h1 {
+    color: #568281;
+    text-align: left;
+    font-size: 35px;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(86, 130, 129, 0.1);
+}
+
+.btn-delete {
+    background-color: #d9534f;
+}
+.btn-edit {
+    background-color: #f0ad4e;
+}
+.btn-update {
+    background-color: #568281;
+}
+.btn-update:hover {
+    background-color: #3d5f5c;
+    transform: translateY(-2px);
+}
+
+.btn-delete:hover {
+    background-color: #C91B00;
+    transform: translateY(-2px);
+}
+.btn-edit:hover {
+    background-color: #FFA800;
+    transform: translateY(-2px);
+}
+
+.btn-edit, .btn-update, .btn-delete {
+    display: inline-block;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+}
+
+.table-responsive-custom {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.TitleList {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+.edit-cita-modal .edit-cita-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  background-color: #f0f5f4;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.edit-cita-info-row strong {
+  display: block;
+  font-size: 12px;
+  color: #568281;
+}
+
+.edit-cita-step {
+  margin-bottom: 20px;
+}
+
+.edit-cita-step label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #3d5f5c;
+}
+
+.edit-cita-horarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.horario-btn {
+  padding: 10px;
+  border: 1px solid #91B8C1;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.horario-btn.ocupado {
+  text-decoration: line-through;
+  color: #aaa;
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.horario-btn.seleccionado {
+  background-color: #568281;
+  color: white;
+}
+
+.edit-cita-error {
+  color: #d9534f;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+

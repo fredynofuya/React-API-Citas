@@ -1,7 +1,7 @@
 import axios from "axios";
 const REST_API_BASE_URL = "http://localhost:8080/cita";
 const MEDICO_API_BASE_URL = "http://localhost:8080/medico";
-const PACIENTE_API_BASE_URL = "http://localhost:8080/paciente";
+
 
 
 export const listaCitas = () => axios.get(REST_API_BASE_URL);
@@ -19,4 +19,4 @@ export const obtenerDisponibilidad = (idMedico, fecha) =>
 export const listaCitasPorMedicoYEstado = (idMedico, estado) =>
   axios.get(`${REST_API_BASE_URL}/medico/${idMedico}/estado/${estado}`);
 
-export const listaPacientes = () => axios.get(PACIENTE_API_BASE_URL); 
+
