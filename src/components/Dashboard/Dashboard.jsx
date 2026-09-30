@@ -25,6 +25,8 @@ const Dashboard = () => {
     const [citaSeleccionada, setCitaSeleccionada] = useState(null);   
     const [showNuevaCita, setShowNuevaCita] = useState(false);
     
+
+   
     useEffect(() => {
         document.title = 'Dashboard';
         listaCitas()
