@@ -314,6 +314,17 @@
   box-shadow: 0 0 6px rgba(86,130,129,0.25);
 }
 
+.consultorio-info {
+  background: #eef5f5;
+  border-left: 4px solid #568281;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  color: #3d5f5c;
+  font-weight: 600;
+  margin: 10px 0 4px;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 576px) {
   .edit-cita-info-row { grid-template-columns: 1fr; }

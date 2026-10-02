@@ -113,3 +113,40 @@ d-flex {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
 }
+
+.agenda-filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.filtro-btn {
+  background: #fff;
+  border: 1px solid #91B8C1;
+  color: #568281;
+  padding: 9px 18px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.filtro-btn:hover { background: #eef5f5; }
+.filtro-btn.activo {
+  background: linear-gradient(135deg, #1a7f8c 0%, #3d5f5c 100%);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-atendida {
+  background: linear-gradient(135deg, #1a7f8c 0%, #3d5f5c 100%);
+  color: white; border: none; padding: 8px 14px; border-radius: 8px;
+  font-weight: 700; font-size: 13px; cursor: pointer;
+}
+.btn-revertir {
+  background: #fff;
+  border: 1px solid #91B8C1;
+  color: #568281;
+  padding: 8px 14px; border-radius: 8px;
+  font-weight: 700; font-size: 13px; cursor: pointer;
+}
+.btn-atendida:hover, .btn-revertir:hover { transform: translateY(-2px); }

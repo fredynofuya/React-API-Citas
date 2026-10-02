@@ -1,349 +1,446 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './DashboardStyles.css';
-import { listaCitas } from '../../services/CitasService';
-//import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { deleteCita } from '../../services/CitasService';
-import EditCitaModal from './EditCitaModal'; 
-
-import NuevaCitaModal from './NuevaCitaModal';
-
-// import { Link } from 'react-router-dom';
-import {IconButton} from '@mui/material';
-
+import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import SearchIcon from '@mui/icons-material/Search';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { listaCitas, deleteCita } from '../../services/CitasService';
+import EditCitaModal from './EditCitaModal';
+import NuevaCitaModal from './NuevaCitaModal';
+import CancelarCitaModal from './CancelarCitaModal';
 
+/* ---------- Configuración ---------- */
+const COLUMNS = [
+    { key: 'id', label: 'Id' },
+    { key: 'documento', label: 'Documento' },
+    { key: 'nombre', label: 'Paciente' },
+    { key: 'mensaje', label: 'Mensaje' },
+    { key: 'fecha', label: 'Fecha' },
+    { key: 'hora', label: 'Hora' },
+    { key: 'consultorio', label: 'Ubicación' },
+    { key: 'medico', label: 'Médico' },
+    { key: 'observaciones', label: 'Observaciones' },
+    { key: 'estado', label: 'Estado' },
+];
+const PAGE_SIZES = [5, 10, 25, 50];
+const SIN_ESTADO = 'Sin estado';
 
+/* ---------- Helpers ---------- */
+const normalizar = (v) =>
+    String(v ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
+const nombreMedico = (c) =>
+    c.nombreMedico || (c.id_medico ? `Médico #${c.id_medico}` : ' ');
+
+const formatFecha = (f) => {
+    if (!f) return ' ';
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(f);
+    return m ? `${m[3]}/${m[2]}/${m[1]}` : f;
+};
+const formatHora = (h) => (h ? String(h).substring(0, 5) : ' ');
+
+const valorOrden = (c, key) => {
+    switch (key) {
+        case 'id': return Number(c.id) || 0;
+        case 'fecha': return `${c.fecha ?? ''} ${c.hora ?? ''}`;
+        case 'consultorio': return normalizar(c.nombreConsultorio);
+        case 'medico': return normalizar(nombreMedico(c));
+        default: return normalizar(c[key]);
+    }
+};
+const comparar = (a, b) =>
+    typeof a === 'number' ? a - b : a.localeCompare(b, 'es', { numeric: true });
+
+const claseEstado = (estado) => {
+    const e = normalizar(estado);
+    if (e.includes('cancel') || e.includes('rechaz')) return 'is-cancelled';
+    if (e.includes('complet') || e.includes('atendid') || e.includes('realiz')) return 'is-done';
+    if (e.includes('confirm') || e.includes('agend')) return 'is-confirmed';
+    if (e.includes('pend')) return 'is-pending';
+    return 'is-neutral';
+};
+
+const paginasVisibles = (actual, total) => {
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+    const nums = [...new Set([1, total, actual - 1, actual, actual + 1])]
+        .filter((n) => n >= 1 && n <= total)
+        .sort((a, b) => a - b);
+    const out = [];
+    nums.forEach((n, i) => {
+        if (i > 0 && n - nums[i - 1] > 1) out.push(`gap-${n}`);
+        out.push(n);
+    });
+    return out;
+};
+
+/* ---------- Componente ---------- */
 const Dashboard = () => {
-    
     const [citas, setCitas] = useState([]);
-    // const navigator = useNavigate();
+    const [cargando, setCargando] = useState(true);
+    const [error, setError] = useState(null);
+
+    const [busqueda, setBusqueda] = useState('');
+    const [filtroEstado, setFiltroEstado] = useState('todos');
+    const [orden, setOrden] = useState({ key: null, dir: 'asc' });
+    const [pagina, setPagina] = useState(1);
+    const [porPagina, setPorPagina] = useState(10);
+
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [citaSeleccionada, setCitaSeleccionada] = useState(null);   
     const [showNuevaCita, setShowNuevaCita] = useState(false);
-    
+    const [citaSeleccionada, setCitaSeleccionada] = useState(null);
+    const [eliminando, setEliminando] = useState(false);
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const [citaCancelar, setCitaCancelar] = useState(null);
 
-   
+    const cargarCitas = useCallback((silencioso = false) => {
+        if (!silencioso) setCargando(true);
+        setError(null);
+        return listaCitas()
+            .then((response) => setCitas(response.data))
+            .catch((err) => {
+                console.error('Error fetching data:', err);
+                setError('No se pudieron cargar las citas. Revisa tu conexión e inténtalo de nuevo.');
+            })
+            .finally(() => setCargando(false));
+    }, []);
+
     useEffect(() => {
         document.title = 'Dashboard';
-        listaCitas()
-            .then(response => {
-                setCitas(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }, []);
-    
-    function abrirModalEliminar(cita) {
-    setCitaSeleccionada(cita);
-    setShowDeleteModal(true);
-    }
+        cargarCitas();
+    }, [cargarCitas]);
 
-    function abrirModalEditar(cita) {
-    setCitaSeleccionada(cita);
-    setShowEditModal(true);
-    }
+    /* --- Datos derivados --- */
+    const conteoEstados = useMemo(
+        () =>
+            citas.reduce((acc, c) => {
+                const e = c.estado || SIN_ESTADO;
+                acc[e] = (acc[e] || 0) + 1;
+                return acc;
+            }, {}),
+        [citas]
+    );
 
-    function recargarCitas() {
-        listaCitas()
-            .then(response => setCitas(response.data))
-            .catch(error => console.error('Error fetching data:', error));
-}
+    const filtradas = useMemo(() => {
+        const q = normalizar(busqueda.trim());
+        let lista = citas.filter((c) => {
+            if (filtroEstado !== 'todos' && (c.estado || SIN_ESTADO) !== filtroEstado) return false;
+            if (!q) return true;
+            const texto = [
+                c.id, c.documento, c.nombre, c.mensaje, c.fecha, c.hora,
+                c.nombreConsultorio, c.ubicacionConsultorio, nombreMedico(c),
+                c.observaciones, c.estado,
+            ].join(' ');
+            return normalizar(texto).includes(q);
+        });
+        if (orden.key) {
+            const f = orden.dir === 'asc' ? 1 : -1;
+            lista = [...lista].sort(
+                (a, b) => f * comparar(valorOrden(a, orden.key), valorOrden(b, orden.key))
+            );
+        }
+        return lista;
+    }, [citas, busqueda, filtroEstado, orden]);
 
-    function confirmarEliminar() {
+    const totalPaginas = Math.max(1, Math.ceil(filtradas.length / porPagina));
+    const paginaActual = Math.min(pagina, totalPaginas);
+    const inicio = (paginaActual - 1) * porPagina;
+    const visibles = filtradas.slice(inicio, inicio + porPagina);
+    const hayFiltros = busqueda.trim() !== '' || filtroEstado !== 'todos';
+
+    /* --- Acciones --- */
+    const cambiarOrden = (key) =>
+        setOrden((prev) => {
+            if (prev.key !== key) return { key, dir: 'asc' };
+            if (prev.dir === 'asc') return { key, dir: 'desc' };
+            return { key: null, dir: 'asc' };
+        });
+
+    const limpiarFiltros = () => {
+        setBusqueda('');
+        setFiltroEstado('todos');
+        setPagina(1);
+    };
+
+    const abrirModalEliminar = (cita) => {
+        setCitaSeleccionada(cita);
+        setShowDeleteModal(true);
+    };
+    const abrirModalEditar = (cita) => {
+        setCitaSeleccionada(cita);
+        setShowEditModal(true);
+    };
+    const abrirModalCancelar = (cita) => {
+        setCitaCancelar(cita);
+        setShowCancelModal(true);
+    };
+
+    const confirmarEliminar = () => {
+        setEliminando(true);
         deleteCita(citaSeleccionada.id)
             .then(() => {
-                setCitas(citas.filter(c => c.id !== citaSeleccionada.id));
+                setCitas((prev) => prev.filter((c) => c.id !== citaSeleccionada.id));
                 setShowDeleteModal(false);
             })
-            .catch(error => {
-                console.error('Error deleting data:', error);
-            });
-    }
+            .catch((err) => console.error('Error deleting data:', err))
+            .finally(() => setEliminando(false));
+    };
 
-  
+    const ariaSort = (key) =>
+        orden.key !== key ? 'none' : orden.dir === 'asc' ? 'ascending' : 'descending';
+
+    /* --- Render --- */
     return (
         <div className="home">
-            <div className="TitleList table-responsive-custom">
-                <div className="Add">
+            <div className="cd">
+                <header className="cd-header">
+                    <div>
+                        <h1 className="cd-title">Citas</h1>
+                        <p className="cd-subtitle">
+                            {cargando ? 'Cargando…' : `${citas.length} ${citas.length === 1 ? 'cita registrada' : 'citas registradas'}`}
+                        </p>
+                    </div>
                     <button className="btn-paciente-guardar" onClick={() => setShowNuevaCita(true)}>
                         + Nueva cita
                     </button>
-                </div>
-                <h1 className='text-left'>Citas</h1>
-                <table className="table table-striped table-bordered">
-                    <thead className="Thead">
-                        <tr>
-                            <th>Id</th>
-                            <th>Documento</th>
-                            <th>Nombre</th>
-                            <th>Mensaje</th>
-                            {/* <th>PDFs</th> */}
+                </header>
 
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Direccion</th>
-                            {/* <th>Observación</th> */}
-                            <th>Id_Médico</th>
-                            {/* <th>Id_Especialidad</th> */}
-                            
-                            <th>Estado</th>
-                            <th>Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {citas.map((cita, index) => (
-                            <tr key={index}>
-                                <td>{cita.id}</td>
-                                <td>{cita.documento}</td>
-                                <td>{cita.nombre}</td>
-                                <td>{cita.mensaje}</td>
-                                {/* <td>{cita.id_documento}</td> */}
-                                {/* <td>{(new Date(audit.fecha)).toLocaleDateString('es-CO')}</td> */}
-                                <td>{cita.fecha}</td>
-                                <td>{cita.hora}</td>
-                                <td>{cita.id_consultorio}</td>
-                                {/* <td>{cita.observaciones}</td> */}
-                                <td>{cita.id_medico}</td>
-                                
-                                <td>{cita.estado}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}> 
-                                    <IconButton className='btn-edit' color='success' onClick={() => abrirModalEditar(cita)}>
-                                        <EditIcon />
-                                    </IconButton>
+                <section className="cd-card">
+                    <div className="cd-toolbar">
+                        <div className="cd-search">
+                            <SearchIcon />
+                            <input
+                                type="search"
+                                value={busqueda}
+                                onChange={(e) => { setBusqueda(e.target.value); setPagina(1); }}
+                                placeholder="Buscar por paciente, documento, médico…"
+                                aria-label="Buscar citas"
+                            />
+                        </div>
+                        <div className="cd-chips" role="group" aria-label="Filtrar por estado">
+                            <button
+                                className={`cd-chip ${filtroEstado === 'todos' ? 'active' : ''}`}
+                                onClick={() => { setFiltroEstado('todos'); setPagina(1); }}
+                            >
+                                Todas <span>{citas.length}</span>
+                            </button>
+                            {Object.entries(conteoEstados).map(([estado, n]) => (
+                                <button
+                                    key={estado}
+                                    className={`cd-chip ${filtroEstado === estado ? 'active' : ''}`}
+                                    onClick={() => { setFiltroEstado(estado); setPagina(1); }}
+                                >
+                                    {estado} <span>{n}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
-                                    <IconButton className='btn-delete btn-sm ms-2' color="warning" onClick={() => abrirModalEliminar(cita)}>
-                                        <DeleteIcon />
-                                    </IconButton>
+                    <div className="cd-scroll">
+                        <table className="cd-table">
+                            <thead>
+                                <tr>
+                                    {COLUMNS.map((col) => (
+                                        <th key={col.key} aria-sort={ariaSort(col.key)}>
+                                            <button className="cd-sort" onClick={() => cambiarOrden(col.key)}>
+                                                {col.label}
+                                                <span className={`cd-arrow ${orden.key === col.key ? orden.dir : ''}`} aria-hidden="true" />
+                                            </button>
+                                        </th>
+                                    ))}
+                                    <th className="cd-col-actions">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cargando && (
+                                    <tr><td colSpan={COLUMNS.length + 1} className="cd-state">Cargando citas…</td></tr>
+                                )}
 
-                                </td>
-                                {/* <td>
-                                    <Link to="/criteriosProcess" state={{ audit: audit}}>{audit.estado}</Link>
-                                </td> */}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                {!cargando && error && (
+                                    <tr>
+                                        <td colSpan={COLUMNS.length + 1} className="cd-state">
+                                            <p>{error}</p>
+                                            <button className="cd-link" onClick={() => cargarCitas()}>Reintentar</button>
+                                        </td>
+                                    </tr>
+                                )}
+
+                                {!cargando && !error && visibles.length === 0 && (
+                                    <tr>
+                                        <td colSpan={COLUMNS.length + 1} className="cd-state">
+                                            {hayFiltros ? (
+                                                <>
+                                                    <p>Ninguna cita coincide con tu búsqueda.</p>
+                                                    <button className="cd-link" onClick={limpiarFiltros}>Limpiar filtros</button>
+                                                </>
+                                            ) : (
+                                                <p>Aún no hay citas. Crea la primera con «Nueva cita».</p>
+                                            )}
+                                        </td>
+                                    </tr>
+                                )}
+
+                                {!cargando && !error && visibles.map((cita) => (
+                                    <tr key={cita.id}>
+                                        <td className="cd-num">{cita.id}</td>
+                                        <td>{cita.documento}</td>
+                                        <td className="cd-strong">{cita.nombre}</td>
+                                        <td><div className="cd-msg" title={cita.mensaje}>{cita.mensaje || ' '}</div></td>
+                                        <td className="cd-nowrap">{formatFecha(cita.fecha)}</td>
+                                        <td className="cd-nowrap">{formatHora(cita.hora)}</td>
+                                        <td>
+                                            {cita.nombreConsultorio || ''}
+                                            {cita.ubicacionConsultorio && (
+                                                <div className="cd-sub">{cita.ubicacionConsultorio}</div>
+                                            )}
+                                        </td>
+                                        <td>{nombreMedico(cita)}</td>
+                                        <td><div className="cd-msg" title={cita.observaciones}>{cita.observaciones || ' '}</div></td>
+                                        <td>
+                                            <span className={`cd-badge ${claseEstado(cita.estado)}`}>
+                                                {cita.estado || SIN_ESTADO}
+                                            </span>
+                                        </td>
+                                        <td className="cd-col-actions">
+                                            <div className="cd-actions">
+                                                <Tooltip title="Editar cita">
+                                                    <IconButton size="small" color="success" aria-label="Editar cita" onClick={() => abrirModalEditar(cita)}>
+                                                        <EditIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                                
+                                                <Tooltip title="Eliminar cita">
+                                                    <IconButton size="small" color="error" aria-label="Eliminar cita" onClick={() => abrirModalEliminar(cita)}>
+                                                        <DeleteIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                                {(cita.estado === 'SOLICITADA' || cita.estado === 'CONFIRMADA') && (
+                                                    <Tooltip title="Cancelar cita">
+                                                        <IconButton size="small" color="warning" aria-label="Cancelar cita" onClick={() => abrirModalCancelar(cita)}>
+                                                            <CancelIcon fontSize="small" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {!cargando && !error && filtradas.length > 0 && (
+                        <footer className="cd-footer">
+                            <div className="cd-footer-left">
+                                <span>
+                                    Mostrando {inicio + 1}–{Math.min(inicio + porPagina, filtradas.length)} de {filtradas.length}
+                                </span>
+                                <label>
+                                    Filas por página
+                                    <select
+                                        value={porPagina}
+                                        onChange={(e) => { setPorPagina(Number(e.target.value)); setPagina(1); }}
+                                    >
+                                        {PAGE_SIZES.map((n) => <option key={n} value={n}>{n}</option>)}
+                                    </select>
+                                </label>
+                            </div>
+                            <nav className="cd-pager" aria-label="Paginación">
+                                <button disabled={paginaActual === 1} onClick={() => setPagina(paginaActual - 1)} aria-label="Página anterior">‹</button>
+                                {paginasVisibles(paginaActual, totalPaginas).map((p) =>
+                                    typeof p === 'string' ? (
+                                        <span key={p} className="cd-gap">…</span>
+                                    ) : (
+                                        <button
+                                            key={p}
+                                            className={p === paginaActual ? 'active' : ''}
+                                            aria-current={p === paginaActual ? 'page' : undefined}
+                                            onClick={() => setPagina(p)}
+                                        >
+                                            {p}
+                                        </button>
+                                    )
+                                )}
+                                <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(paginaActual + 1)} aria-label="Página siguiente">›</button>
+                            </nav>
+                        </footer>
+                    )}
+                </section>
+
                 {showDeleteModal && (
                     <div className="modal fade show d-block cita-modal-backdrop" tabIndex="-1">
                         <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content cita-modal-content">
-
-                            <div className="modal-header cita-modal-header danger">
-                            <h5 className="modal-title">Eliminar cita</h5>
-                            <button className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
-                            </div>
-
-                            <div className="modal-body cita-modal-body">
-                            <div className="delete-cita-icon">⚠️</div>
-                            <p className="delete-cita-texto">
-                                Esta acción es permanente y no se puede deshacer.
-                                ¿Seguro que deseas eliminar esta cita?
-                            </p>
-                            <div className="delete-cita-resumen">
-                                <div><span>Paciente</span><strong>{citaSeleccionada?.nombre}</strong></div>
-                                <div><span>Documento</span><strong>{citaSeleccionada?.documento}</strong></div>
-                                <div>
-                                <span>Fecha y hora</span>
-                                <strong>
-                                    {citaSeleccionada?.fecha
-                                    ? `${citaSeleccionada.fecha} · ${citaSeleccionada.hora?.substring(0, 5) ?? ''}`
-                                    : 'Sin asignar'}
-                                </strong>
+                            <div className="modal-content cita-modal-content">
+                                <div className="modal-header cita-modal-header danger">
+                                    <h5 className="modal-title">Eliminar cita</h5>
+                                    <button className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
                                 </div>
-                                <div>
-                                <span>Médico</span>
-                                <strong>{citaSeleccionada?.id_medico ? `#${citaSeleccionada.id_medico}` : 'Sin asignar'}</strong>
+
+                                <div className="modal-body cita-modal-body">
+                                    <div className="delete-cita-icon">⚠️</div>
+                                    <p className="delete-cita-texto">
+                                        Esta acción es permanente y no se puede deshacer.
+                                        ¿Seguro que deseas eliminar esta cita?
+                                    </p>
+                                    <div className="delete-cita-resumen">
+                                        <div><span>Paciente</span><strong>{citaSeleccionada?.nombre}</strong></div>
+                                        <div><span>Documento</span><strong>{citaSeleccionada?.documento}</strong></div>
+                                        <div>
+                                            <span>Fecha y hora</span>
+                                            <strong>
+                                                {citaSeleccionada?.fecha
+                                                    ? `${formatFecha(citaSeleccionada.fecha)} · ${formatHora(citaSeleccionada.hora)}`
+                                                    : 'Sin asignar'}
+                                            </strong>
+                                        </div>
+                                        <div>
+                                            <span>Médico</span>
+                                            <strong>{citaSeleccionada ? nombreMedico(citaSeleccionada) : ''}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="modal-footer cita-modal-footer">
+                                    <button className="btn-cita-cancelar" onClick={() => setShowDeleteModal(false)} disabled={eliminando}>
+                                        Cancelar
+                                    </button>
+                                    <button className="btn-cita-eliminar" onClick={confirmarEliminar} disabled={eliminando}>
+                                        {eliminando ? 'Eliminando…' : 'Sí, eliminar'}
+                                    </button>
                                 </div>
                             </div>
-                            </div>
-
-                            <div className="modal-footer cita-modal-footer">
-                            <button className="btn-cita-cancelar" onClick={() => setShowDeleteModal(false)}>
-                                Cancelar
-                            </button>
-                            <button className="btn-cita-eliminar" onClick={confirmarEliminar}>
-                                Sí, eliminar
-                            </button>
-                            </div>
-
-                        </div>
                         </div>
                     </div>
                 )}
-                {/* Modal de edición */}
+
                 {showEditModal && citaSeleccionada && (
-                <EditCitaModal
-                    cita={citaSeleccionada}
-                    onClose={() => setShowEditModal(false)}
-                    onGuardado={recargarCitas}
-                />
+                    <EditCitaModal
+                        cita={citaSeleccionada}
+                        onClose={() => setShowEditModal(false)}
+                        onGuardado={() => cargarCitas(true)}
+                    />
                 )}
-                {/* Modal de nueva cita */}
+
                 {showNuevaCita && (
-                <NuevaCitaModal
-                    show={showNuevaCita}
-                    onClose={() => setShowNuevaCita(false)}
-                    onCreated={recargarCitas}
-                />
+                    <NuevaCitaModal
+                        show={showNuevaCita}
+                        onClose={() => setShowNuevaCita(false)}
+                        onCreated={() => cargarCitas(true)}
+                    />
+                )}
+
+                {showCancelModal && citaCancelar && (
+                    <CancelarCitaModal
+                        cita={citaCancelar}
+                        onClose={() => setShowCancelModal(false)}
+                        onCancelada={() => cargarCitas(true)}
+                    />
                 )}
             </div>
         </div>
     );
 };
 
-export default Dashboard;
-
-// import React, { useEffect, useState } from 'react';
-// import './DashboardStyles.css';
-// import { listaCitas, deleteCita } from '../../services/CitasService';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// const Dashboard = () => {
-
-//     const [citas, setCitas] = useState([]);
-//     const [busqueda, setBusqueda] = useState('');
-//     const [estadoFiltro, setEstadoFiltro] = useState('');
-//     const [citaSeleccionada, setCitaSeleccionada] = useState(null);
-//     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-//     useEffect(() => {
-//         listaCitas()
-//             .then(res => setCitas(res.data))
-//             .catch(err => console.error(err));
-//     }, []);
-
-//     // 🔍 FILTRADO
-//     const citasFiltradas = citas.filter(cita => {
-//         return (
-//             (cita.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-//              cita.documento.includes(busqueda)) &&
-//             (estadoFiltro === '' || cita.estado === estadoFiltro)
-//         );
-//     });
-
-//     function abrirModalEliminar(cita) {
-//         setCitaSeleccionada(cita);
-//         setShowDeleteModal(true);
-//     }
-
-//     function confirmarEliminar() {
-//         deleteCita(citaSeleccionada.id)
-//             .then(() => {
-//                 setCitas(citas.filter(c => c.id !== citaSeleccionada.id));
-//                 setShowDeleteModal(false);
-//             });
-//     }
-
-//     return (
-//         <div className="dashboard-container">
-
-//             <h2 className="title">Panel de Citas</h2>
-
-//             {/* 🔍 FILTROS */}
-//             <div className="filters">
-
-//                 <input
-//                     type="text"
-//                     placeholder="Buscar por nombre o documento..."
-//                     className="form-control"
-//                     value={busqueda}
-//                     onChange={(e) => setBusqueda(e.target.value)}
-//                 />
-
-//                 <select
-//                     className="form-select"
-//                     value={estadoFiltro}
-//                     onChange={(e) => setEstadoFiltro(e.target.value)}
-//                 >
-//                     <option value="">Todos los estados</option>
-//                     <option value="Pendiente">Pendiente</option>
-//                     <option value="Confirmada">Confirmada</option>
-//                     <option value="Cancelada">Cancelada</option>
-//                 </select>
-
-//             </div>
-
-//             {/* 📊 TABLA */}
-//             <div className="table-responsive">
-//                 <table className="table table-hover table-bordered">
-
-//                     <thead>
-//                         <tr>
-//                             <th>Documento</th>
-//                             <th>Nombre</th>
-//                             <th>Fecha</th>
-//                             <th>Hora</th>
-//                             <th>Estado</th>
-//                             <th>Acciones</th>
-//                         </tr>
-//                     </thead>
-
-//                     <tbody>
-//                         {citasFiltradas.map((cita, index) => (
-//                             <tr key={index}>
-//                                 <td>{cita.documento}</td>
-//                                 <td>{cita.nombre}</td>
-//                                 <td>{cita.fecha}</td>
-//                                 <td>{cita.hora}</td>
-//                                 <td>
-//                                     <span className={`badge ${cita.estado}`}>
-//                                         {cita.estado}
-//                                     </span>
-//                                 </td>
-//                                 <td>
-//                                     <button className="btn btn-warning btn-sm">Editar</button>
-//                                     <button className="btn btn-danger btn-sm ms-2"
-//                                         onClick={() => abrirModalEliminar(cita)}>
-//                                         Eliminar
-//                                     </button>
-//                                 </td>
-//                             </tr>
-//                         ))}
-//                     </tbody>
-
-//                 </table>
-//             </div>
-
-//             {/* 🧨 MODAL */}
-//             {showDeleteModal && (
-//                 <div className="modal fade show d-block">
-//                     <div className="modal-dialog">
-//                         <div className="modal-content">
-
-//                             <div className="modal-header">
-//                                 <h5>Confirmar eliminación</h5>
-//                                 <button className="btn-close"
-//                                     onClick={() => setShowDeleteModal(false)}></button>
-//                             </div>
-
-//                             <div className="modal-body">
-//                                 ¿Eliminar cita de <strong>{citaSeleccionada?.nombre}</strong>?
-//                             </div>
-
-//                             <div className="modal-footer">
-//                                 <button className="btn btn-secondary"
-//                                     onClick={() => setShowDeleteModal(false)}>
-//                                     Cancelar
-//                                 </button>
-
-//                                 <button className="btn btn-danger"
-//                                     onClick={confirmarEliminar}>
-//                                     Confirmar
-//                                 </button>
-//                             </div>
-
-//                         </div>
-//                     </div>
-//                 </div>
-//             )}
-
-//         </div>
-//     );
-// };
-
-// export default Dashboard;
+export default Dashboard; 

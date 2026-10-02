@@ -138,6 +138,7 @@ const EditCitaModal = ({ cita, onClose, onGuardado }) => {
                   })}
                 </div>
               )}
+              
             </div>
 
           </div>
