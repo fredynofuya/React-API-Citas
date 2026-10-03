@@ -13,7 +13,7 @@ import './styles/AppStyles.css';
 import { Navigate } from 'react-router-dom';
 import AdminLayout from './layouts/AdminLayout.jsx';
 import Pacientes from './components/Paciente/Paciente.jsx';
-import Medicos from './pages/Medicos.jsx';
+import Medicos from './components/Medico/Medico.jsx'
 
 function App() {
   return (

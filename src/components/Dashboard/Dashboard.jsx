@@ -10,6 +10,7 @@ import { listaCitas, deleteCita } from '../../services/CitasService';
 import EditCitaModal from './EditCitaModal';
 import NuevaCitaModal from './NuevaCitaModal';
 import CancelarCitaModal from './CancelarCitaModal';
+import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
 
 /* ---------- Configuración ---------- */
 const COLUMNS = [
@@ -26,10 +27,6 @@ const COLUMNS = [
 ];
 const PAGE_SIZES = [5, 10, 25, 50];
 const SIN_ESTADO = 'Sin estado';
-
-/* ---------- Helpers ---------- */
-const normalizar = (v) =>
-    String(v ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 const nombreMedico = (c) =>
     c.nombreMedico || (c.id_medico ? `Médico #${c.id_medico}` : ' ');
@@ -60,19 +57,6 @@ const claseEstado = (estado) => {
     if (e.includes('confirm') || e.includes('agend')) return 'is-confirmed';
     if (e.includes('pend')) return 'is-pending';
     return 'is-neutral';
-};
-
-const paginasVisibles = (actual, total) => {
-    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-    const nums = [...new Set([1, total, actual - 1, actual, actual + 1])]
-        .filter((n) => n >= 1 && n <= total)
-        .sort((a, b) => a - b);
-    const out = [];
-    nums.forEach((n, i) => {
-        if (i > 0 && n - nums[i - 1] > 1) out.push(`gap-${n}`);
-        out.push(n);
-    });
-    return out;
 };
 
 /* ---------- Componente ---------- */
