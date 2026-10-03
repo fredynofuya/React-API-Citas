@@ -9,7 +9,7 @@ export const getPacienteByDocumento = (documento) =>
 // Función para crear un nuevo paciente
 export const crearPaciente = (paciente) =>
   axios.post(REST_API_BASE_URL, paciente);
-// export const editarPaciente = (id, paciente) =>
-//   axios.put(`${REST_API_BASE_URL}/${id}`, paciente);
-// export const eliminarPaciente = (id) =>
-//   axios.delete(`${REST_API_BASE_URL}/${id}`);
+export const editarPaciente = (id, paciente) =>
+  axios.put(`${REST_API_BASE_URL}/${id}`, paciente);
+export const eliminarPaciente = (id) =>
+  axios.delete(`${REST_API_BASE_URL}/${id}`);

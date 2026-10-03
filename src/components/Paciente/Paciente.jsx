@@ -1,12 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/AdminTableStyles.css';
 import './PacienteStyles.css';
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
-import { listaPacientes } from '../../services/PacientesService';
+import { listaPacientes, eliminarPaciente } from '../../services/PacientesService';
 import NuevoPacienteModal from './NuevoPacienteModal';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
+import EditPacienteModal from './EditPacienteModal';
 
 const PAGE_SIZES = [5, 10, 25, 50];
 
@@ -27,6 +30,10 @@ const Pacientes = () => {
     const [pagina, setPagina] = useState(1);
     const [porPagina, setPorPagina] = useState(10);
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [pacienteSeleccionado, setPacienteSeleccionado] = useState(null);
+    const [eliminando, setEliminando] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const cargar = () => {
         setCargando(true);
@@ -53,6 +60,27 @@ const Pacientes = () => {
             return normalizar(texto).includes(q);
         });
     }, [pacientes, busqueda]);
+
+    const abrirModalEditar = (paciente) => {
+        setPacienteSeleccionado(paciente);
+        setShowEditModal(true);
+    };
+
+     const abrirModalEliminar = (paciente) => {
+        setPacienteSeleccionado(paciente);
+        setShowDeleteModal(true);
+    };
+
+     const confirmarEliminar = () => {
+            setEliminando(true);
+            eliminarPaciente(pacienteSeleccionado.id)
+                .then(() => {
+                    setPacientes((prev) => prev.filter((p) => p.id !== pacienteSeleccionado.id));
+                    setShowDeleteModal(false);
+                })
+                .catch((err) => console.error('Error deleting data:', err))
+                .finally(() => setEliminando(false));
+        };
 
     const totalPaginas = Math.max(1, Math.ceil(filtrados.length / porPagina));
     const paginaActual = Math.min(pagina, totalPaginas);
@@ -121,23 +149,23 @@ const Pacientes = () => {
                                 </tr>
                             )}
 
-                            {!cargando && !error && visibles.map((p) => (
-                                <tr key={p.id}>
-                                    <td>{p.documento}</td>
-                                    <td className="cd-strong">{p.nombre}</td>
-                                    <td>{p.email || ' '}</td>
-                                    <td>{p.telefono || ' '}</td>
-                                    <td><span className={epsClase(p.eps)}>{p.eps || '—'}</span></td>
+                            {!cargando && !error && visibles.map((paciente) => (
+                                <tr key={paciente.id}>
+                                    <td>{paciente.documento}</td>
+                                    <td className="cd-strong">{paciente.nombre}</td>
+                                    <td>{paciente.email || ' '}</td>
+                                    <td>{paciente.telefono || ' '}</td>
+                                    <td><span className={epsClase(paciente.eps)}>{paciente.eps || '—'}</span></td>
                                     <td className="cd-col-actions">
                                             <div className="cd-actions">
-                                                <Tooltip title="Editar cita">
-                                                    <IconButton size="small" color="success" aria-label="Editar cita" onClick={() =>'' }>
+                                                <Tooltip title="Editar paciente">
+                                                    <IconButton size="small" color="success" aria-label="Editar cita" onClick={() => abrirModalEditar(paciente)}> 
                                                         <EditIcon fontSize="small" />
                                                     </IconButton>
                                                 </Tooltip>
                                                 
-                                                <Tooltip title="Eliminar cita">
-                                                    <IconButton size="small" color="error" aria-label="Eliminar cita" onClick={() => ''}>
+                                                <Tooltip title="Eliminar paciente">
+                                                    <IconButton size="small" color="error" aria-label="Eliminar paciente" onClick={() => abrirModalEliminar(paciente)}>
                                                         <DeleteIcon fontSize="small" />
                                                     </IconButton>
                                                 </Tooltip>
@@ -182,6 +210,48 @@ const Pacientes = () => {
                     </footer>
                 )}
             </section>
+            {showDeleteModal && (
+                    <div className="modal fade show d-block cita-modal-backdrop" tabIndex="-1">
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content cita-modal-content">
+                                <div className="modal-header cita-modal-header danger">
+                                    <h5 className="modal-title">Eliminar paciente</h5>
+                                    <button className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
+                                </div>
+
+                                <div className="modal-body cita-modal-body">
+                                    <div className="delete-cita-icon">⚠️</div>
+                                    <p className="delete-cita-texto">
+                                        Esta acción es permanente y no se puede deshacer.
+                                        ¿Seguro que deseas eliminar este paciente?
+                                    </p>
+                                    <div className="delete-cita-resumen">
+                                        <div><span>Paciente</span><strong>{pacienteSeleccionado?.nombre}</strong></div>
+                                        <div><span>Documento</span><strong>{pacienteSeleccionado?.documento}</strong></div>
+                            
+                                    </div>
+                                </div>
+
+                                <div className="modal-footer cita-modal-footer">
+                                    <button className="btn-cita-cancelar" onClick={() => setShowDeleteModal(false)} disabled={eliminando}>
+                                        Cancelar
+                                    </button>
+                                    <button className="btn-cita-eliminar" onClick={confirmarEliminar} disabled={eliminando}>
+                                        {eliminando ? 'Eliminando…' : 'Sí, eliminar'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                
+                {showEditModal && pacienteSeleccionado && (
+                   <EditPacienteModal
+                    paciente={pacienteSeleccionado}
+                    onClose={() => setShowEditModal(false)}
+                    onGuardado={cargar}
+                    />
+                )}
 
             <NuevoPacienteModal
                 show={showModal}

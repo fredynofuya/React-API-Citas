@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import '../../styles/AdminTableStyles.css';
 import './MedicoStyles.css';
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';

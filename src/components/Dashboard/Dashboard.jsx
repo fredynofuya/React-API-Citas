@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import '../../styles/AdminTableStyles.css';
 import './DashboardStyles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { IconButton, Tooltip } from '@mui/material';

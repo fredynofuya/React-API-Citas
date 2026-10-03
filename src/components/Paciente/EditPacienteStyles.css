@@ -1,0 +1,5 @@
+/* Editar paciente reutiliza las clases paciente-modal-* / paciente-row /
+   input-group-paciente definidas en NuevoPacienteStyles.css. Este archivo
+   queda como punto de extensión para algo exclusivo de este modal
+   (hoy no hay nada que no comparta con el de creación). */
+

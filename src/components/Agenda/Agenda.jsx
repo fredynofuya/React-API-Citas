@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import '../../styles/AdminTableStyles.css';
 import '../Dashboard/EditCitaStyles.css';
 import './AgendaStyles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
