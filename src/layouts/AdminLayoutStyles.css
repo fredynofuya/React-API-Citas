@@ -1,32 +1,129 @@
-.admin-app{display:flex;min-height:calc(100vh - 0px);}
+.admin-app { display: flex; min-height: 100vh; position: relative; }
 
-.admin-sidebar{
-  width:230px;flex-shrink:0;
-  background:linear-gradient(180deg,#568281 0%,#3d5f5c 100%);
-  color:#fff;display:flex;flex-direction:column;padding:24px 0;
+/* ---------- Sidebar ---------- */
+.admin-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #568281 0%, #3d5f5c 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.2s ease, transform 0.25s ease;
+  z-index: 40;
 }
 
-.admin-sidebar .brand{
-  padding:0 22px 26px;font-weight:700;font-size:20px;
-  border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:16px;
+.admin-sidebar-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.15);
 }
-.admin-sidebar .brand span{color:#91B8C1;}
+.admin-sidebar-header .brand { font-weight: 700; font-size: 20px; white-space: nowrap; overflow: hidden; }
+.admin-sidebar-header .brand span { color: #91B8C1; }
 
-.admin-nav-item{
-  display:flex;align-items:center;gap:12px;padding:13px 22px;
-  color:rgba(255,255,255,.85);font-size:15px;font-weight:600;
-  text-decoration:none;border-left:3px solid transparent;
+.admin-collapse-btn {
+  background: rgba(255,255,255,.08); border: none; color: #fff;
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
 }
-.admin-nav-item:hover{background:rgba(255,255,255,.08);color:#fff;}
-.admin-nav-item.active{background:rgba(255,255,255,.14);border-left-color:#91B8C1;color:#fff;}
+.admin-collapse-btn:hover { background: rgba(255,255,255,.18); }
 
-.admin-content{flex:1;padding:36px 40px;background:#f5f7f6;}
+.admin-close-btn { display: none; background: transparent; border: none; color: #fff; cursor: pointer; }
 
-@media (max-width:768px){
-  .admin-app{flex-direction:column;}
-  .admin-sidebar{width:100%;flex-direction:row;overflow-x:auto;padding:12px;}
-  .admin-sidebar .brand{display:none;}
-  .admin-nav-item{border-left:none;border-bottom:3px solid transparent;white-space:nowrap;}
-  .admin-nav-item.active{border-bottom-color:#91B8C1;}
-  .admin-content{padding:20px;}
+.admin-nav { flex: 1; display: flex; flex-direction: column; padding: 12px 0; overflow-y: auto; }
+
+.admin-nav-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 22px;
+  color: rgba(255,255,255,.85);
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  white-space: nowrap;
+}
+.admin-nav-item:hover { background: rgba(255,255,255,.08); color: #fff; }
+.admin-nav-item.active { background: rgba(255,255,255,.14); border-left-color: #91B8C1; color: #fff; }
+.admin-nav-item svg { flex-shrink: 0; }
+
+.admin-sidebar-footer {
+  border-top: 1px solid rgba(255,255,255,.15);
+  padding: 14px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.admin-user { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.admin-user-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; flex-shrink: 0;
+}
+.admin-user-info { display: flex; flex-direction: column; min-width: 0; }
+.admin-user-name { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.admin-user-role { font-size: 11.5px; color: #cfe3e0; }
+.admin-logout {
+  background: rgba(255,255,255,.08); border: none; color: #fff;
+  width: 32px; height: 32px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.admin-logout:disabled { opacity: 0.45; cursor: not-allowed; }
+.admin-logout:not(:disabled):hover { background: rgba(255,255,255,.18); }
+
+/* ---------- Colapsado (solo escritorio) ---------- */
+.admin-sidebar.collapsed { width: 72px; }
+.admin-sidebar.collapsed .admin-nav-label,
+.admin-sidebar.collapsed .admin-user-info,
+.admin-sidebar.collapsed .brand { display: none; }
+.admin-sidebar.collapsed .admin-sidebar-header { justify-content: center; padding: 18px 10px; }
+.admin-sidebar.collapsed .admin-nav-item { justify-content: center; padding: 12px; }
+.admin-sidebar.collapsed .admin-sidebar-footer { flex-direction: column; }
+
+/* ---------- Main / Topbar ---------- */
+.admin-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.admin-topbar {
+  display: none;
+  align-items: center; gap: 14px;
+  padding: 14px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e3eeed;
+}
+.admin-menu-btn { background: none; border: none; color: #568281; cursor: pointer; display: flex; }
+.admin-topbar-brand { font-weight: 700; color: #568281; font-size: 17px; }
+
+.admin-content { flex: 1; padding: 36px 40px; background: #f5f7f6; }
+
+.admin-backdrop { display: none; }
+
+/* ---------- Responsive (drawer) ---------- */
+@media (max-width: 768px) {
+  .admin-collapse-btn { display: none; }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 250px;
+    transform: translateX(-100%);
+  }
+  .admin-sidebar.mobile-open { transform: translateX(0); }
+
+  /* El colapso de escritorio no debe afectar el drawer móvil */
+  .admin-sidebar.collapsed { width: 250px; }
+  .admin-sidebar.collapsed .admin-nav-label,
+  .admin-sidebar.collapsed .brand,
+  .admin-sidebar.collapsed .admin-user-info { display: initial; }
+  .admin-sidebar.collapsed .admin-sidebar-header { justify-content: space-between; padding: 18px 20px; }
+  .admin-sidebar.collapsed .admin-nav-item { justify-content: flex-start; padding: 12px 22px; }
+  .admin-sidebar.collapsed .admin-sidebar-footer { flex-direction: row; }
+
+  .admin-close-btn { display: flex; }
+  .admin-topbar { display: flex; }
+
+  .admin-backdrop {
+    display: block;
+    position: fixed; inset: 0;
+    background: rgba(15,25,25,.5);
+    z-index: 35;
+  }
+
+  .admin-content { padding: 20px; }
 }
