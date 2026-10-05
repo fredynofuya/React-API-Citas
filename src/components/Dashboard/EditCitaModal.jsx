@@ -142,15 +142,6 @@ const EditCitaModal = ({ cita, onClose, onGuardado }) => {
             </div>
 
           </div>
-
-          {/* <div className="modal-footer cita-modal-footer"> 
-            <button className="btn btn-cita-cancelar" onClick={onClose} disabled={guardando}>
-              Cancelar
-            </button>
-            <button className="btn btn-cita-guardar" onClick={handleGuardar} disabled={guardando}>
-              {guardando ? 'Guardando...' : 'Guardar'}
-            </button>
-          </div> */}
           <div className="modal-footer paciente-modal-footer">
             <button type="button" className="btn-paciente-cancelar" onClick={onClose} disabled={guardando}>
               Cancelar
