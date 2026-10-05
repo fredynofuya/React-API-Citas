@@ -11,7 +11,7 @@ const SolicitudCita = () => {
   const [form, setForm] = useState({
     nombre: "",
     correo: "",
-    tipoDocumento: "CC",
+    tipoDocumento: "",
     documento: "",
     telefono: "",
     eps: "",
@@ -43,7 +43,7 @@ const SolicitudCita = () => {
     crearCita(cita)
       .then(() => {
         setMensajeEstado({ tipo: 'exito', texto: 'Tu solicitud fue enviada correctamente. Nos pondremos en contacto pronto.' });
-        setForm({ nombre: "", correo: "", tipoDocumento: "CC", documento: "", telefono: "", eps: "", mensaje: "" });
+        setForm({ nombre: "", correo: "", tipoDocumento: "", documento: "", telefono: "", eps: "", mensaje: "" });
       })
       .catch((error) => {
         console.error('Error creando la cita:', error);
@@ -75,7 +75,8 @@ const SolicitudCita = () => {
 
         <div className="row">
           <div className="input-group">
-            <select name="tipoDocumento" value={form.tipoDocumento} onChange={handleChange}>
+            <select name="tipoDocumento" value={form.tipoDocumento} onChange={handleChange} required>
+              <option value="">Seleccionar Tipo de Documento *</option>
               <option value="CC">Cédula de ciudadanía</option>
               <option value="TI">Tarjeta de identidad</option>
               <option value="PASAPORTE">Pasaporte</option>
@@ -101,7 +102,7 @@ const SolicitudCita = () => {
         </div>
 
         <div className="input-group">
-          <textarea name="mensaje" placeholder="Mensaje *" value={form.mensaje} onChange={handleChange}></textarea>
+          <textarea name="mensaje" placeholder="Mensaje *" value={form.mensaje} onChange={handleChange} required></textarea>
         </div>
 
         {/* Sección de subida de documentos removida por decisión del proyecto — se agregará más adelante */}

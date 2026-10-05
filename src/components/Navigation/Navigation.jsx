@@ -37,11 +37,11 @@ const Navigation = () => {
                 Contactanos
               </Link>
             </li>
-            <li className='nav-item'>
+            {/* <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/dashboard/citas'>
                 Dashboard
               </Link>
-            </li>
+            </li> */}
             
             <li className='nav-item'>
               <Link to='/solicitudcita' className='btn-cita'>

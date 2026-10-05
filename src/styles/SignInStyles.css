@@ -148,3 +148,14 @@ input:focus {
     font-size: 20px;
   }
 }
+
+.login-error {
+  background: #fdecea;
+  color: #d9534f;
+  border-left: 4px solid #d9534f;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  text-align: left;
+}
