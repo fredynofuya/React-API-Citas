@@ -364,7 +364,7 @@ const Dashboard = () => {
                                 </div>
 
                                 <div className="modal-body cita-modal-body">
-                                    <div className="delete-cita-icon">⚠️</div>
+                                    <div className="delete-cita-icon">🚨</div>
                                     <p className="delete-cita-texto">
                                         Esta acción es permanente y no se puede deshacer.
                                         ¿Seguro que deseas eliminar esta cita?

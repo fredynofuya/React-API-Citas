@@ -1,129 +1,845 @@
-.admin-app { display: flex; min-height: 100vh; position: relative; }
+/* =========================================================
+   ADMIN APP
+   ========================================================= */
 
-/* ---------- Sidebar ---------- */
+.admin-app {
+  min-height: 100vh;
+  position: relative;
+  background: #f5f7f6;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
 .admin-sidebar {
   width: 230px;
-  flex-shrink: 0;
-  background: linear-gradient(180deg, #568281 0%, #3d5f5c 100%);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    #568281 0%,
+    #3d5f5c 100%
+  );
+
   color: #fff;
+
   display: flex;
   flex-direction: column;
-  transition: width 0.2s ease, transform 0.25s ease;
-  z-index: 40;
+
+  /*
+    Transición suave para:
+    - botón manual
+    - expansión por hover
+    - apertura móvil
+  */
+  transition:
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s ease;
+
+  z-index: 100;
+
+  /*
+    Evita que el contenido de la sidebar
+    se salga durante la animación.
+  */
+  overflow: hidden;
 }
+
+
+/* =========================================================
+   HEADER DE LA SIDEBAR
+   ========================================================= */
 
 .admin-sidebar-header {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   padding: 18px 20px;
-  border-bottom: 1px solid rgba(255,255,255,.15);
+
+  min-height: 66px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+  flex-shrink: 0;
 }
-.admin-sidebar-header .brand { font-weight: 700; font-size: 20px; white-space: nowrap; overflow: hidden; }
-.admin-sidebar-header .brand span { color: #91B8C1; }
+
+
+/* Logo */
+
+.admin-sidebar-header .brand {
+  font-weight: 700;
+  font-size: 20px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+}
+
+.admin-sidebar-header .brand span {
+  color: #91B8C1;
+}
+
+
+/* =========================================================
+   BOTÓN COLAPSAR / EXPANDIR
+   ========================================================= */
 
 .admin-collapse-btn {
-  background: rgba(255,255,255,.08); border: none; color: #fff;
-  width: 28px; height: 28px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+
+  border: none;
+
+  color: #fff;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
-.admin-collapse-btn:hover { background: rgba(255,255,255,.18); }
 
-.admin-close-btn { display: none; background: transparent; border: none; color: #fff; cursor: pointer; }
+.admin-collapse-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
 
-.admin-nav { flex: 1; display: flex; flex-direction: column; padding: 12px 0; overflow-y: auto; }
+.admin-collapse-btn:active {
+  transform: scale(0.94);
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR MOBILE
+   ========================================================= */
+
+.admin-close-btn {
+  display: none;
+
+  background: transparent;
+
+  border: none;
+
+  color: #fff;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+
+.admin-nav {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /*
+    Importante:
+    el hover que expande la sidebar se controla
+    desde este bloque.
+  */
+}
+
+
+/* Scroll interno de navegación */
+
+.admin-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.admin-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   ITEMS DE NAVEGACIÓN
+   ========================================================= */
 
 .admin-nav-item {
-  display: flex; align-items: center; gap: 14px;
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
   padding: 12px 22px;
-  color: rgba(255,255,255,.85);
-  font-size: 15px; font-weight: 600;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 15px;
+
+  font-weight: 600;
+
   text-decoration: none;
+
   border-left: 3px solid transparent;
+
   white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    padding 0.3s ease;
 }
-.admin-nav-item:hover { background: rgba(255,255,255,.08); color: #fff; }
-.admin-nav-item.active { background: rgba(255,255,255,.14); border-left-color: #91B8C1; color: #fff; }
-.admin-nav-item svg { flex-shrink: 0; }
+
+
+/* Hover */
+
+.admin-nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #fff;
+}
+
+
+/* Item activo */
+
+.admin-nav-item.active {
+  background: rgba(255, 255, 255, 0.14);
+
+  border-left-color: #91B8C1;
+
+  color: #fff;
+}
+
+
+/* Iconos */
+
+.admin-nav-item svg {
+  flex-shrink: 0;
+
+  transition:
+    transform 0.2s ease;
+}
+
+
+/* Pequeño efecto visual */
+
+.admin-nav-item:hover svg {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   FOOTER / USUARIO
+   ========================================================= */
 
 .admin-sidebar-footer {
-  border-top: 1px solid rgba(255,255,255,.15);
-  padding: 14px 18px;
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-}
-.admin-user { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.admin-user-avatar {
-  width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(255,255,255,.15);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 14px; flex-shrink: 0;
-}
-.admin-user-info { display: flex; flex-direction: column; min-width: 0; }
-.admin-user-name { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.admin-user-role { font-size: 11.5px; color: #cfe3e0; }
-.admin-logout {
-  background: rgba(255,255,255,.08); border: none; color: #fff;
-  width: 32px; height: 32px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
-}
-.admin-logout:disabled { opacity: 0.45; cursor: not-allowed; }
-.admin-logout:not(:disabled):hover { background: rgba(255,255,255,.18); }
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 
-/* ---------- Colapsado (solo escritorio) ---------- */
-.admin-sidebar.collapsed { width: 72px; }
+  padding: 14px 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+
+/* Usuario */
+
+.admin-user {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+
+/* Avatar */
+
+.admin-user-avatar {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+
+  font-size: 14px;
+
+  flex-shrink: 0;
+}
+
+
+/* Información */
+
+.admin-user-info {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+
+/* Nombre */
+
+.admin-user-name {
+  font-size: 13.5px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* Rol */
+
+.admin-user-role {
+  font-size: 11.5px;
+
+  color: #cfe3e0;
+}
+
+
+/* =========================================================
+   BOTÓN LOGOUT
+   ========================================================= */
+
+.admin-logout {
+  background: rgba(255, 255, 255, 0.08);
+
+  border: none;
+
+  color: #fff;
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 6px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-logout:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.admin-logout:not(:disabled):active {
+  transform: scale(0.94);
+}
+
+.admin-logout:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   SIDEBAR COLAPSADA
+   ========================================================= */
+
+.admin-sidebar.collapsed {
+  width: 72px;
+}
+
+
+/*
+   Ocultar textos cuando está colapsada.
+*/
+
 .admin-sidebar.collapsed .admin-nav-label,
 .admin-sidebar.collapsed .admin-user-info,
-.admin-sidebar.collapsed .brand { display: none; }
-.admin-sidebar.collapsed .admin-sidebar-header { justify-content: center; padding: 18px 10px; }
-.admin-sidebar.collapsed .admin-nav-item { justify-content: center; padding: 12px; }
-.admin-sidebar.collapsed .admin-sidebar-footer { flex-direction: column; }
+.admin-sidebar.collapsed .brand {
+  display: none;
+}
 
-/* ---------- Main / Topbar ---------- */
-.admin-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+/*
+   Header centrado.
+*/
+
+.admin-sidebar.collapsed .admin-sidebar-header {
+  justify-content: center;
+
+  padding: 18px 10px;
+}
+
+
+/*
+   Iconos centrados.
+*/
+
+.admin-sidebar.collapsed .admin-nav-item {
+  justify-content: center;
+
+  padding: 12px;
+}
+
+
+/*
+   Footer vertical.
+*/
+
+.admin-sidebar.collapsed .admin-sidebar-footer {
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   EXPANSIÓN TEMPORAL POR HOVER
+   ========================================================= */
+
+/*
+   IMPORTANTE:
+
+   Solo se activa cuando:
+
+   1. La sidebar está colapsada.
+   2. El mouse está dentro del bloque NAV.
+
+   El header y el footer NO provocan esta expansión.
+*/
+
+.admin-sidebar.collapsed.hover-expanded {
+  width: 230px;
+}
+
+
+/*
+   Mostrar nuevamente el logo.
+*/
+
+.admin-sidebar.collapsed.hover-expanded .brand {
+  display: initial;
+}
+
+
+/*
+   Mostrar textos de navegación.
+*/
+
+.admin-sidebar.collapsed.hover-expanded .admin-nav-label {
+  display: initial;
+}
+
+
+/*
+   Mostrar información del usuario.
+*/
+
+.admin-sidebar.collapsed.hover-expanded .admin-user-info {
+  display: flex;
+}
+
+
+/*
+   Header vuelve a su distribución normal.
+*/
+
+.admin-sidebar.collapsed.hover-expanded .admin-sidebar-header {
+  justify-content: space-between;
+
+  padding: 18px 20px;
+}
+
+
+/*
+   Items vuelven a alinearse a la izquierda.
+*/
+
+.admin-sidebar.collapsed.hover-expanded .admin-nav-item {
+  justify-content: flex-start;
+
+  padding: 12px 22px;
+}
+
+
+/*
+   Footer vuelve a ser horizontal.
+*/
+
+.admin-sidebar.collapsed.hover-expanded .admin-sidebar-footer {
+  flex-direction: row;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+
+.admin-main {
+  min-height: 100vh;
+
+  /*
+    Espacio reservado para la sidebar.
+  */
+  margin-left: 230px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  transition:
+    margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =========================================================
+   MAIN CUANDO SIDEBAR ESTÁ COLAPSADA
+   ========================================================= */
+
+.admin-app.sidebar-collapsed .admin-main {
+  margin-left: 72px;
+}
+
+
+/*
+   IMPORTANTE:
+
+   No agregamos una regla para:
+
+   .hover-expanded .admin-main
+
+   porque NO queremos que el contenido se mueva
+   cuando la sidebar aparece temporalmente.
+
+   La sidebar se superpone sobre el contenido.
+*/
+
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+
 .admin-topbar {
   display: none;
-  align-items: center; gap: 14px;
+
+  align-items: center;
+
+  gap: 14px;
+
   padding: 14px 20px;
+
   background: #fff;
+
   border-bottom: 1px solid #e3eeed;
 }
-.admin-menu-btn { background: none; border: none; color: #568281; cursor: pointer; display: flex; }
-.admin-topbar-brand { font-weight: 700; color: #568281; font-size: 17px; }
 
-.admin-content { flex: 1; padding: 36px 40px; background: #f5f7f6; }
 
-.admin-backdrop { display: none; }
+/* Botón menú */
 
-/* ---------- Responsive (drawer) ---------- */
+.admin-menu-btn {
+  background: none;
+
+  border: none;
+
+  color: #568281;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* Nombre */
+
+.admin-topbar-brand {
+  font-weight: 700;
+
+  color: #568281;
+
+  font-size: 17px;
+}
+
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.admin-content {
+  flex: 1;
+
+  padding: 36px 40px;
+
+  background: #f5f7f6;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   BACKDROP
+   ========================================================= */
+
+.admin-backdrop {
+  display: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE / TABLET Y MÓVIL
+   ========================================================= */
+
 @media (max-width: 768px) {
-  .admin-collapse-btn { display: none; }
+
+  /* -----------------------------------------
+     SIDEBAR MOBILE
+     ----------------------------------------- */
 
   .admin-sidebar {
     position: fixed;
-    top: 0; left: 0; bottom: 0;
+
+    top: 0;
+
+    left: 0;
+
     width: 250px;
+
+    height: 100vh;
+
     transform: translateX(-100%);
+
+    z-index: 100;
   }
-  .admin-sidebar.mobile-open { transform: translateX(0); }
 
-  /* El colapso de escritorio no debe afectar el drawer móvil */
-  .admin-sidebar.collapsed { width: 250px; }
-  .admin-sidebar.collapsed .admin-nav-label,
-  .admin-sidebar.collapsed .brand,
-  .admin-sidebar.collapsed .admin-user-info { display: initial; }
-  .admin-sidebar.collapsed .admin-sidebar-header { justify-content: space-between; padding: 18px 20px; }
-  .admin-sidebar.collapsed .admin-nav-item { justify-content: flex-start; padding: 12px 22px; }
-  .admin-sidebar.collapsed .admin-sidebar-footer { flex-direction: row; }
 
-  .admin-close-btn { display: flex; }
-  .admin-topbar { display: flex; }
+  /*
+     Mostrar drawer.
+  */
+
+  .admin-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+
+  /* -----------------------------------------
+     DESACTIVAR COLAPSO EN MOBILE
+     ----------------------------------------- */
+
+  .admin-sidebar.collapsed {
+    width: 250px;
+  }
+
+
+  /*
+     Mostrar logo.
+  */
+
+  .admin-sidebar.collapsed .brand {
+    display: initial;
+  }
+
+
+  /*
+     Mostrar labels.
+  */
+
+  .admin-sidebar.collapsed .admin-nav-label {
+    display: initial;
+  }
+
+
+  /*
+     Mostrar información del usuario.
+  */
+
+  .admin-sidebar.collapsed .admin-user-info {
+    display: flex;
+  }
+
+
+  /*
+     Header normal.
+  */
+
+  .admin-sidebar.collapsed .admin-sidebar-header {
+    justify-content: space-between;
+
+    padding: 18px 20px;
+  }
+
+
+  /*
+     Items normales.
+  */
+
+  .admin-sidebar.collapsed .admin-nav-item {
+    justify-content: flex-start;
+
+    padding: 12px 22px;
+  }
+
+
+  /*
+     Footer horizontal.
+  */
+
+  .admin-sidebar.collapsed .admin-sidebar-footer {
+    flex-direction: row;
+  }
+
+
+  /*
+     El botón de colapsar desaparece.
+  */
+
+  .admin-collapse-btn {
+    display: none;
+  }
+
+
+  /*
+     Botón cerrar aparece.
+  */
+
+  .admin-close-btn {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+  }
+
+
+  /* -----------------------------------------
+     DESACTIVAR HOVER EXPANSION EN MOBILE
+     ----------------------------------------- */
+
+  .admin-sidebar.collapsed.hover-expanded {
+    width: 250px;
+  }
+
+
+  .admin-sidebar.collapsed.hover-expanded .brand,
+  .admin-sidebar.collapsed.hover-expanded .admin-nav-label,
+  .admin-sidebar.collapsed.hover-expanded .admin-user-info {
+    display: initial;
+  }
+
+
+  .admin-sidebar.collapsed.hover-expanded .admin-sidebar-header {
+    justify-content: space-between;
+
+    padding: 18px 20px;
+  }
+
+
+  .admin-sidebar.collapsed.hover-expanded .admin-nav-item {
+    justify-content: flex-start;
+
+    padding: 12px 22px;
+  }
+
+
+  .admin-sidebar.collapsed.hover-expanded .admin-sidebar-footer {
+    flex-direction: row;
+  }
+
+
+  /* -----------------------------------------
+     MAIN MOBILE
+     ----------------------------------------- */
+
+  .admin-main,
+  .admin-app.sidebar-collapsed .admin-main {
+    margin-left: 0;
+
+    min-height: 100vh;
+  }
+
+
+  /* -----------------------------------------
+     TOPBAR MOBILE
+     ----------------------------------------- */
+
+  .admin-topbar {
+    display: flex;
+  }
+
+
+  /* -----------------------------------------
+     BACKDROP
+     ----------------------------------------- */
 
   .admin-backdrop {
     display: block;
-    position: fixed; inset: 0;
-    background: rgba(15,25,25,.5);
-    z-index: 35;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(15, 25, 25, 0.5);
+
+    z-index: 90;
   }
 
-  .admin-content { padding: 20px; }
+
+  /* -----------------------------------------
+     CONTENIDO MOBILE
+     ----------------------------------------- */
+
+  .admin-content {
+    padding: 20px;
+  }
 }

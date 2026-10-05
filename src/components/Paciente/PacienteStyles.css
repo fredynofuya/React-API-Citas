@@ -17,10 +17,9 @@
 .eps-badge.sanitas { background:  #fff3e0; color:  #b06d00; }
 .eps-badge.savia   { background:  #e0f2ee; color:  #1a7f8c; }
 
-/* Modal de eliminar paciente — mismas clases que usa la fila de acciones
-   de la tabla; vive aquí para que Pacientes.jsx no dependa del CSS del Dashboard. */
+/* Modal de eliminar, editar paciente — mismas clases que usa la fila de acciones */
 
-.cita-modal-backdrop {
+/* .cita-modal-backdrop {
   background: rgba(15, 25, 25, 0.5);
 }
 
@@ -74,4 +73,4 @@
 }
 .delete-cita-resumen > div:last-child { border-bottom: none; }
 .delete-cita-resumen span { color: #6b7a7a; }
-.delete-cita-resumen strong { color: #2f3e44; text-align: right; }
+.delete-cita-resumen strong { color: #2f3e44; text-align: right; } */

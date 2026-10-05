@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import { listaMedicos } from '../../services/CitasService';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
+import '../Dashboard/EditCitaStyles.css'
 
 const PAGE_SIZES = [5, 10, 25, 50];
 

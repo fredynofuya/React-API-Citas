@@ -35,7 +35,7 @@ const CancelarCitaModal = ({ cita, onClose, onCancelada }) => {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content cita-modal-content">
 
-          <div className="modal-header cita-modal-header danger">
+          <div className="modal-header cita-modal-header warning">
             <h5 className="modal-title">Cancelar cita</h5>
             <button className="btn-close" onClick={onClose}></button>
           </div>
@@ -43,7 +43,11 @@ const CancelarCitaModal = ({ cita, onClose, onCancelada }) => {
           <div className="modal-body cita-modal-body">
             {error && <div className="edit-cita-error">{error}</div>}
 
-            <div className="delete-cita-resumen" style={{ marginBottom: 18 }}>
+            <div className="delete-cita-icon">⚠️</div> 
+                <p className="delete-cita-texto">
+                    ¿Seguro que deseas cancelar esta cita?
+                </p>
+            <div className="cancelar-cita-resumen" style={{ marginBottom: 18 }}>
               <div><span>Paciente</span><strong>{cita.nombre}</strong></div>
               <div><span>Documento</span><strong>{cita.documento}</strong></div>
               <div>
@@ -71,8 +75,8 @@ const CancelarCitaModal = ({ cita, onClose, onCancelada }) => {
             <button className="btn-cita-cancelar" onClick={onClose} disabled={guardando}>
               Volver
             </button>
-            <button className="btn-cita-eliminar" onClick={handleCancelar} disabled={guardando}>
-              {guardando ? 'Cancelando...' : 'Confirmar cancelación'}
+            <button className="btn-cita-cancelar-c" onClick={handleCancelar} disabled={guardando}>
+              {guardando ? 'Cancelando...' : 'Sí, cancelar'}
             </button>
           </div>
 

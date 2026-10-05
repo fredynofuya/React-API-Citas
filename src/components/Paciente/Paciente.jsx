@@ -10,6 +10,7 @@ import { listaPacientes, eliminarPaciente } from '../../services/PacientesServic
 import NuevoPacienteModal from './NuevoPacienteModal';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
 import EditPacienteModal from './EditPacienteModal';
+import '../Dashboard/EditCitaStyles.css'
 
 const PAGE_SIZES = [5, 10, 25, 50];
 
@@ -220,7 +221,7 @@ const Pacientes = () => {
                                 </div>
 
                                 <div className="modal-body cita-modal-body">
-                                    <div className="delete-cita-icon">⚠️</div>
+                                    <div className="delete-cita-icon">🚨</div>
                                     <p className="delete-cita-texto">
                                         Esta acción es permanente y no se puede deshacer.
                                         ¿Seguro que deseas eliminar este paciente?
