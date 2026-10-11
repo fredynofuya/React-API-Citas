@@ -11,7 +11,7 @@ export const obtenerUsuarioActual = () =>
 export const guardarSesion = (data) => {
   localStorage.setItem('token', data.token);
   localStorage.setItem('usuario', JSON.stringify({
-    id: data.id, nombre: data.nombre, email: data.email, rol: data.rol
+    id: data.id, nombre: data.nombre, email: data.email, rol: data.rol, idMedico: data.idMedico
   }));
 };
 

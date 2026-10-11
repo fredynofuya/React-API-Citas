@@ -15,7 +15,7 @@ const SolicitudCita = () => {
     documento: "",
     telefono: "",
     eps: "",
-    mensaje: ""
+    motivo: ""
   });
 
   const [enviando, setEnviando] = useState(false);
@@ -37,13 +37,13 @@ const SolicitudCita = () => {
       documento: form.documento,
       telefono: form.telefono,
       eps: form.eps,
-      mensaje: form.mensaje
+      motivo: form.motivo
     };
 
     crearCita(cita)
       .then(() => {
         setMensajeEstado({ tipo: 'exito', texto: 'Tu solicitud fue enviada correctamente. Nos pondremos en contacto pronto.' });
-        setForm({ nombre: "", correo: "", tipoDocumento: "", documento: "", telefono: "", eps: "", mensaje: "" });
+        setForm({ nombre: "", correo: "", tipoDocumento: "", documento: "", telefono: "", eps: "", motivo: "" });
       })
       .catch((error) => {
         console.error('Error creando la cita:', error);
@@ -76,7 +76,7 @@ const SolicitudCita = () => {
         <div className="row">
           <div className="input-group">
             <select name="tipoDocumento" value={form.tipoDocumento} onChange={handleChange} required>
-              <option value="">Seleccionar Tipo de Documento *</option>
+              <option value="">Seleccionar Tipo de Documento*</option>
               <option value="CC">Cédula de ciudadanía</option>
               <option value="TI">Tarjeta de identidad</option>
               <option value="PASAPORTE">Pasaporte</option>
@@ -93,7 +93,7 @@ const SolicitudCita = () => {
           </div>
           <div className="input-group">
             <select name="eps" value={form.eps} onChange={handleChange} required>
-              <option value="">Seleccionar EPS *</option>
+              <option value="">Seleccionar EPS*</option>
               <option value="SURA">Sura</option>
               <option value="SANITAS">Sanitas</option>
               <option value="SAVIASALUD">Savia Salud</option>
@@ -102,7 +102,7 @@ const SolicitudCita = () => {
         </div>
 
         <div className="input-group">
-          <textarea name="mensaje" placeholder="Mensaje *" value={form.mensaje} onChange={handleChange} required></textarea>
+          <textarea name="motivo" placeholder="Motivo *" value={form.motivo} onChange={handleChange} required></textarea>
         </div>
 
         {/* Sección de subida de documentos removida por decisión del proyecto — se agregará más adelante */}

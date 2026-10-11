@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import SolicitudCita from './pages/SolicitudCita.jsx';
 import Home from './pages/Home.jsx';
 import Navbar from './components/Navigation/Navigation.jsx';
@@ -13,7 +13,7 @@ import './styles/AppStyles.css';
 import AdminLayout from './layouts/AdminLayout.jsx';
 import Pacientes from './components/Paciente/Paciente.jsx';
 import Medicos from './components/Medico/Medico.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ProtectedRoute, { RedirectInicio } from './components/ProtectedRoute.jsx';
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -39,11 +39,11 @@ function AppContent() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Navigate to="citas" replace />} />
-          <Route path="citas" element={<Dashboard />} />
-          <Route path="agenda" element={<Agenda />} />
-          <Route path="pacientes" element={<Pacientes />} />
-          <Route path="medicos" element={<Medicos />} />
+          <Route index element={<RedirectInicio />} />
+          <Route path="citas" element={<ProtectedRoute permiso="citas:ver"><Dashboard /></ProtectedRoute>} />
+          <Route path="agenda" element={<ProtectedRoute permiso="agenda:ver"><Agenda /></ProtectedRoute>} />
+          <Route path="pacientes" element={<ProtectedRoute permiso="pacientes:ver"><Pacientes /></ProtectedRoute>} />
+          <Route path="medicos" element={<ProtectedRoute permiso="medicos:ver"><Medicos /></ProtectedRoute>} />
         </Route>
       </Routes>
 

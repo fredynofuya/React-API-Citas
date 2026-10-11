@@ -7,11 +7,14 @@ import {
   hayTokenGuardado,
 } from '../services/AuthService';
 
+import { tienePermiso } from '../utils/permisos';
+
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
   const [cargando, setCargando] = useState(true);
+  const puede = (permiso) => tienePermiso(usuario?.rol, permiso);
 
   useEffect(() => {
     if (!hayTokenGuardado()) {
@@ -39,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ usuario, cargando, login, logout }}>
+    <AuthContext.Provider value={{ usuario, cargando, login, logout, puede }}>
       {children}
     </AuthContext.Provider>
   );

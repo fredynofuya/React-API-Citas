@@ -1,75 +1,9 @@
-// import React, { useState } from "react";
-// import '../styles/SignInStyles.css';
-// import { useEffect } from 'react';
-
-// import {Link} from 'react-router-dom';
-// import logo from '../assets/logo-login.png';
-
-// const SignIn = () => {
-//   useEffect(() => {
-//           document.title = 'SignIn';
-//         }, []);
-
-//   const [form, setForm] = useState({
-//     email: "",
-//     password: "",
-//   });
-
-//   const handleChange = (e) => {
-//     setForm({
-//       ...form,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log(form);
-//   };
-
-//   return (
-//     <div className="login-wrapper">
-//       <div className="login-container">
-//         <div className='login-icon-in'>
-//           <img src={logo} />
-//         </div>
-//         <p className="subtitle">
-//           Ingresa tus datos para iniciar sesión 
-//         </p>
-
-//         <form className="login-form" onSubmit={handleSubmit}>
-//           <div className="input-group">
-//             <input
-//               type="email"
-//               name="email"
-//               placeholder="Correo Electrónico *"
-//               onChange={handleChange}
-//             />
-//           </div>
-
-//           <div className="input-group">
-//             <input
-//               type="password"
-//               name="password"
-//               placeholder="Contraseña *"
-//               onChange={handleChange}
-//             />
-//           </div>
-
-//           <button className="btn-signin" type="submit">Ingresar</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SignIn;
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../styles/SignInStyles.css';
 import logo from '../assets/logo-login.png';
 import { useAuth } from '../context/AuthContext';
+import { rutaInicial } from '../utils/permisos';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -91,8 +25,8 @@ const SignIn = () => {
     setEnviando(true);
     setError(null);
     try {
-      await login(form.email, form.password);
-      navigate('/dashboard/citas');
+      const datos = await login(form.email, form.password);
+      navigate(rutaInicial(datos.rol));
     } catch (err) {
       console.error('Error iniciando sesión:', err);
       if (err.response?.status === 401) {

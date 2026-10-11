@@ -12,13 +12,14 @@ import EditCitaModal from './EditCitaModal';
 import NuevaCitaModal from './NuevaCitaModal';
 import CancelarCitaModal from './CancelarCitaModal';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
+import { useAuth } from '../../context/AuthContext';
 
 /* ---------- Configuración ---------- */
 const COLUMNS = [
     { key: 'id', label: 'Id' },
     { key: 'documento', label: 'Documento' },
     { key: 'nombre', label: 'Paciente' },
-    { key: 'mensaje', label: 'Mensaje' },
+    { key: 'motivo', label: 'Motivo' },
     { key: 'fecha', label: 'Fecha' },
     { key: 'hora', label: 'Hora' },
     { key: 'consultorio', label: 'Ubicación' },
@@ -79,6 +80,9 @@ const Dashboard = () => {
     const [eliminando, setEliminando] = useState(false);
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [citaCancelar, setCitaCancelar] = useState(null);
+    const { puede } = useAuth();
+    const gestiona = puede('citas:gestionar');
+    const columnas = gestiona ? 11 : 10;
 
     const cargarCitas = useCallback((silencioso = false) => {
         if (!silencioso) setCargando(true);
@@ -114,7 +118,7 @@ const Dashboard = () => {
             if (filtroEstado !== 'todos' && (c.estado || SIN_ESTADO) !== filtroEstado) return false;
             if (!q) return true;
             const texto = [
-                c.id, c.documento, c.nombre, c.mensaje, c.fecha, c.hora,
+                c.id, c.documento, c.nombre, c.motivo, c.fecha, c.hora,
                 c.nombreConsultorio, c.ubicacionConsultorio, nombreMedico(c),
                 c.observaciones, c.estado,
             ].join(' ');
@@ -187,9 +191,11 @@ const Dashboard = () => {
                             {cargando ? 'Cargando…' : `${citas.length} ${citas.length === 1 ? 'cita registrada' : 'citas registradas'}`}
                         </p>
                     </div>
-                    <button className="btn-paciente-guardar" onClick={() => setShowNuevaCita(true)}>
-                        + Nueva cita
-                    </button>
+                    {gestiona && (
+                        <button className="btn-paciente-guardar" onClick={() => setShowNuevaCita(true)}>
+                            + Nueva cita
+                        </button>
+                    )}
                 </header>
 
                 <section className="cd-card">
@@ -235,17 +241,19 @@ const Dashboard = () => {
                                             </button>
                                         </th>
                                     ))}
-                                    <th className="cd-col-actions">Acciones</th>
+                                    {gestiona && (
+                                        <th className="cd-col-actions">Acciones</th>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody>
                                 {cargando && (
-                                    <tr><td colSpan={COLUMNS.length + 1} className="cd-state">Cargando citas…</td></tr>
+                                    <tr><td colSpan={columnas} className="cd-state">Cargando citas…</td></tr>
                                 )}
 
                                 {!cargando && error && (
                                     <tr>
-                                        <td colSpan={COLUMNS.length + 1} className="cd-state">
+                                        <td colSpan={columnas} className="cd-state">
                                             <p>{error}</p>
                                             <button className="cd-link" onClick={() => cargarCitas()}>Reintentar</button>
                                         </td>
@@ -254,7 +262,7 @@ const Dashboard = () => {
 
                                 {!cargando && !error && visibles.length === 0 && (
                                     <tr>
-                                        <td colSpan={COLUMNS.length + 1} className="cd-state">
+                                        <td colSpan={columnas} className="cd-state">
                                             {hayFiltros ? (
                                                 <>
                                                     <p>Ninguna cita coincide con tu búsqueda.</p>
@@ -272,7 +280,7 @@ const Dashboard = () => {
                                         <td className="cd-num">{cita.id}</td>
                                         <td>{cita.documento}</td>
                                         <td className="cd-strong">{cita.nombre}</td>
-                                        <td><div className="cd-msg" title={cita.mensaje}>{cita.mensaje || ' '}</div></td>
+                                        <td><div className="cd-msg" title={cita.motivo}>{cita.motivo || ' '}</div></td>
                                         <td className="cd-nowrap">{formatFecha(cita.fecha)}</td>
                                         <td className="cd-nowrap">{formatHora(cita.hora)}</td>
                                         <td>
@@ -288,7 +296,7 @@ const Dashboard = () => {
                                                 {cita.estado || SIN_ESTADO}
                                             </span>
                                         </td>
-                                        <td className="cd-col-actions">
+                                        { gestiona &&(<td className="cd-col-actions">
                                             <div className="cd-actions">
                                                 <Tooltip title="Editar cita">
                                                     <IconButton size="small" color="success" aria-label="Editar cita" onClick={() => abrirModalEditar(cita)}>
@@ -309,7 +317,7 @@ const Dashboard = () => {
                                                     </Tooltip>
                                                 )}
                                             </div>
-                                        </td>
+                                        </td>)}
                                     </tr>
                                 ))}
                             </tbody>

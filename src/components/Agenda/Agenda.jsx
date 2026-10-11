@@ -7,9 +7,9 @@ import { IconButton, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircle';
 import UndoIcon from '@mui/icons-material/Undo';
-import { listaCitasConfirmada, listaCitas, editarCita } from '../../services/CitasService';
+import { listaCitasConfirmada, listaCitas, listaCitasPorMedicoYEstado, editarCita } from '../../services/CitasService';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
-
+import { useAuth } from '../../context/AuthContext';
 /* ---------- Helpers  ---------- */
 
 const nombreMedico = (c) =>
@@ -51,18 +51,33 @@ const Agenda = () => {
     const [accion, setAccion] = useState(null); // 'atendida' | 'revertir' | null
     const [procesando, setProcesando] = useState(false);
 
+    const { usuario } = useAuth();
+    const esMedico = usuario?.rol === 'MEDICO';
+    const filtros = esMedico ? FILTROS.filter((f) => f.key !== 'TODAS') : FILTROS;
+
     const cargar = () => {
-        setCargando(true);
-        setError(null);
-        const peticion = filtro === 'TODAS' ? listaCitas() : listaCitasConfirmada(filtro);
-        peticion
-            .then((response) => setCitas(response.data))
-            .catch((err) => {
-                console.error('Error fetching data:', err);
-                setError('No se pudo cargar la agenda. Revisa tu conexión e inténtalo de nuevo.');
-            })
-            .finally(() => setCargando(false));
-    };
+    if (esMedico && !usuario.idMedico) {
+        setCitas([]);
+        setCargando(false);
+        setError('Tu usuario no tiene un perfil de médico asociado. Contacta al administrador.');
+        return;
+    }
+
+    setCargando(true);
+    setError(null);
+
+    const peticion = esMedico
+        ? listaCitasPorMedicoYEstado(usuario.idMedico, filtro)
+        : (filtro === 'TODAS' ? listaCitas() : listaCitasConfirmada(filtro));
+
+    peticion
+        .then((response) => setCitas(response.data))
+        .catch((err) => {
+            console.error('Error fetching data:', err);
+            setError('No se pudo cargar la agenda. Revisa tu conexión e inténtalo de nuevo.');
+        })
+        .finally(() => setCargando(false));
+};
 
     useEffect(() => {
         document.title = 'Agenda';
@@ -107,7 +122,7 @@ const Agenda = () => {
         <div className="cd">
             <header className="cd-header">
                 <div>
-                    <h1 className="cd-title">Agenda</h1>
+                    <h2 className="cd-title">{esMedico ? 'Mi agenda' : 'Agenda'}</h2>
                     <p className="cd-subtitle">
                         {cargando ? 'Cargando…' : `${filtradas.length} ${filtradas.length === 1 ? 'cita' : 'citas'} en este filtro`}
                     </p>
@@ -127,7 +142,7 @@ const Agenda = () => {
                         />
                     </div>
                     <div className="cd-chips" role="group" aria-label="Filtrar por estado">
-                        {FILTROS.map((f) => (
+                        {filtros.map((f) => (
                             <button
                                 key={f.key}
                                 className={`cd-chip ${filtro === f.key ? 'active' : ''}`}

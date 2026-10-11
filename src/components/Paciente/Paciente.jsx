@@ -11,6 +11,7 @@ import NuevoPacienteModal from './NuevoPacienteModal';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
 import EditPacienteModal from './EditPacienteModal';
 import '../Dashboard/EditCitaStyles.css'
+import { useAuth } from '../../context/AuthContext';
 
 const PAGE_SIZES = [5, 10, 25, 50];
 
@@ -35,7 +36,10 @@ const Pacientes = () => {
     const [pacienteSeleccionado, setPacienteSeleccionado] = useState(null);
     const [eliminando, setEliminando] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
+    const { puede } = useAuth();
+    const gestiona = puede('pacientes:gestionar');
+    const columnas = gestiona ? 6 : 5;
+    
     const cargar = () => {
         setCargando(true);
         setError(null);
@@ -97,9 +101,7 @@ const Pacientes = () => {
                         {cargando ? 'Cargando…' : `${pacientes.length} ${pacientes.length === 1 ? 'paciente registrado' : 'pacientes registrados'}`}
                     </p>
                 </div>
-                <button className="btn-paciente-guardar" onClick={() => setShowModal(true)}>
-                    + Nuevo paciente
-                </button>
+                {gestiona && (<button className="btn-paciente-guardar" onClick={() => setShowModal(true)}>+ Nuevo paciente</button>)}
             </header>
 
             <section className="cd-card">
@@ -125,17 +127,17 @@ const Pacientes = () => {
                                 <th>Correo</th>
                                 <th>Teléfono</th>
                                 <th>EPS</th>
-                                <th className="cd-col-actions">Acciones</th>
+                                {gestiona && <th className="cd-col-actions">Acciones</th>}
                             </tr>
                         </thead>
                         <tbody>
                             {cargando && (
-                                <tr><td colSpan={5} className="cd-state">Cargando pacientes…</td></tr>
+                                <tr><td colSpan={columnas} className="cd-state">Cargando pacientes…</td></tr>
                             )}
 
                             {!cargando && error && (
                                 <tr>
-                                    <td colSpan={5} className="cd-state">
+                                    <td colSpan={columnas} className="cd-state">
                                         <p>{error}</p>
                                         <button className="cd-link" onClick={cargar}>Reintentar</button>
                                     </td>
@@ -144,7 +146,7 @@ const Pacientes = () => {
 
                             {!cargando && !error && visibles.length === 0 && (
                                 <tr>
-                                    <td colSpan={5} className="cd-state">
+                                    <td colSpan={columnas} className="cd-state">
                                         <p>{busqueda ? 'Ningún paciente coincide con tu búsqueda.' : 'Aún no hay pacientes. Crea el primero con «Nuevo paciente».'}</p>
                                     </td>
                                 </tr>
@@ -157,7 +159,8 @@ const Pacientes = () => {
                                     <td>{paciente.email || ' '}</td>
                                     <td>{paciente.telefono || ' '}</td>
                                     <td><span className={epsClase(paciente.eps)}>{paciente.eps || '—'}</span></td>
-                                    <td className="cd-col-actions">
+                                    {gestiona && (
+                                        <td className="cd-col-actions">
                                             <div className="cd-actions">
                                                 <Tooltip title="Editar paciente">
                                                     <IconButton size="small" color="success" aria-label="Editar cita" onClick={() => abrirModalEditar(paciente)}> 
@@ -172,7 +175,7 @@ const Pacientes = () => {
                                                 </Tooltip>
                                                 
                                             </div>
-                                    </td>
+                                    </td>)}
                                 </tr>
                             ))}
                         </tbody>

@@ -98,7 +98,7 @@ const NuevaCitaModal = ({ show, onClose, onCreated }) => {
       id_medico: Number(idMedico),
       fecha,
       hora: `${hora}:00`,
-      mensaje: motivo,
+      motivo: motivo,
       estado: 'CONFIRMADA'
     })
       .then(() => {
@@ -219,7 +219,7 @@ const NuevaCitaModal = ({ show, onClose, onCreated }) => {
               <div className="cita-seccion">
                 <h6>3. Motivo de la consulta (opcional)</h6>
                 <div className="input-group-paciente">
-                  <textarea rows="2" value={motivo} onChange={(e) => setMotivo(e.target.value)} />
+                  <textarea rows="2" value={motivo} onChange={(e) => setMotivo(e.target.value)}/>
                 </div>
               </div>
             </fieldset>
