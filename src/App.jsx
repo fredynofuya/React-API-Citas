@@ -14,6 +14,7 @@ import AdminLayout from './layouts/AdminLayout.jsx';
 import Pacientes from './components/Paciente/Paciente.jsx';
 import Medicos from './components/Medico/Medico.jsx';
 import ProtectedRoute, { RedirectInicio } from './components/ProtectedRoute.jsx';
+import Usuarios from './components/Usuario/Usuario.jsx';
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -44,6 +45,7 @@ function AppContent() {
           <Route path="agenda" element={<ProtectedRoute permiso="agenda:ver"><Agenda /></ProtectedRoute>} />
           <Route path="pacientes" element={<ProtectedRoute permiso="pacientes:ver"><Pacientes /></ProtectedRoute>} />
           <Route path="medicos" element={<ProtectedRoute permiso="medicos:ver"><Medicos /></ProtectedRoute>} />
+          <Route path="usuarios" element={<ProtectedRoute permiso="usuarios:ver"><Usuarios /></ProtectedRoute>} />
         </Route>
       </Routes>
 

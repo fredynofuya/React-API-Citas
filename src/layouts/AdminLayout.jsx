@@ -10,7 +10,8 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import PeopleIcon from '@mui/icons-material/People';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { ETIQUETAS_ROL } from '../utils/permisos';
 import { useAuth } from '../context/AuthContext';
 
 import './AdminLayoutStyles.css';
@@ -20,6 +21,7 @@ const NAV_ITEMS = [
   { to: '/dashboard/agenda', label: 'Agenda confirmada', icon: EventAvailableIcon, permiso: 'agenda:ver' },
   { to: '/dashboard/pacientes', label: 'Pacientes', icon: PeopleIcon, permiso: 'pacientes:ver' },
   { to: '/dashboard/medicos', label: 'Médicos', icon: LocalHospitalIcon, permiso: 'medicos:ver' },
+  { to: '/dashboard/usuarios', label: 'Usuarios', icon: ManageAccountsIcon, permiso: 'usuarios:ver' },
 ];
 
 const AdminLayout = () => {
@@ -191,11 +193,7 @@ const AdminLayout = () => {
                 {usuario?.nombre || 'Usuario'}
               </span>
 
-              <span className="admin-user-role">
-                {usuario?.rol === 'ADMIN'
-                  ? 'Administrador'
-                  : 'Médico'}
-              </span>
+              <span className="admin-user-role">{ETIQUETAS_ROL[usuario?.rol] || 'Usuario'}</span>
 
             </div>
 

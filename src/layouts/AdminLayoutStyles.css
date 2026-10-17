@@ -40,8 +40,8 @@
     - apertura móvil
   */
   transition:
-    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.25s ease;
+    width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s ease;
 
   z-index: 100;
 
@@ -537,7 +537,7 @@
   min-width: 0;
 
   transition:
-    margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
