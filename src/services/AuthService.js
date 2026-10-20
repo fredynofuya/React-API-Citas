@@ -20,4 +20,16 @@ export const cerrarSesion = () => {
   localStorage.removeItem('usuario');
 };
 
+export const cambiarPassword = (passwordActual, passwordNueva) =>
+  axios.put(`${REST_API_BASE_URL}/password`, { passwordActual, passwordNueva });
+
+export const solicitarRecuperacion = (email) =>
+  axios.post(`${REST_API_BASE_URL}/recuperar/solicitar`, { email });
+
+export const validarTokenRecuperacion = (token) =>
+  axios.post(`${REST_API_BASE_URL}/recuperar/validar`, { token });
+
+export const restablecerPassword = (token, passwordNueva) =>
+  axios.post(`${REST_API_BASE_URL}/recuperar/restablecer`, { token, passwordNueva });
+
 export const hayTokenGuardado = () => !!localStorage.getItem('token');

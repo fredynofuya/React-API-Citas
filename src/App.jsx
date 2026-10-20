@@ -15,6 +15,7 @@ import Pacientes from './components/Paciente/Paciente.jsx';
 import Medicos from './components/Medico/Medico.jsx';
 import ProtectedRoute, { RedirectInicio } from './components/ProtectedRoute.jsx';
 import Usuarios from './components/Usuario/Usuario.jsx';
+import RestablecerPassword from './pages/RestablecerPassword.jsx';
 
 function AppContent() {
   const { pathname } = useLocation();
@@ -31,6 +32,7 @@ function AppContent() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/solicitudcita" element={<SolicitudCita />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/restablecer-contrasena" element={<RestablecerPassword />} />
 
         <Route
           path="/dashboard"

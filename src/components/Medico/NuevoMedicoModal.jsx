@@ -47,7 +47,7 @@ const NuevoMedicoModal = ({ show, onClose, onCreated }) => {
     if (!form.nombre.trim()) err.nombre = "El nombre es obligatorio";
     if (!form.email.trim()) err.email = "El correo es obligatorio";
     else if (!/\S+@\S+\.\S+/.test(form.email)) err.email = "Correo inválido";
-    if (!form.password || form.password.length < 6) err.password = "Mínimo 6 caracteres";
+    if (!form.password || form.password.length < 8) err.password = "Mínimo 8 caracteres";
     if (!form.id_especialidad) err.id_especialidad = "Selecciona una especialidad";
     if (!form.id_consultorio) err.id_consultorio = "Selecciona un consultorio";
     if (!form.registro_profesional.trim()) err.registro_profesional = "El registro profesional es obligatorio";

@@ -28,16 +28,16 @@ const Footer = () => {
           <p>Email: info@medsoftia.com</p>
           <p>Teléfono: +57 1 234 5678</p>
           <div className='icons'>
-            <a href="#" target="_blank">
+            <a href="" target="">
                 <FontAwesomeIcon icon={faFacebook} />
             </a>
-            <a href="#" target="_blank">
+            <a href="" target="">
                 <FontAwesomeIcon icon={faInstagram} />
             </a>
-            <a href="#" target="_blank">
+            <a href="" target="">
                 <FontAwesomeIcon icon={faLinkedin} />
             </a>
-            <a href="#" target="_blank">
+            <a href="" target="">
                 <FontAwesomeIcon icon={faTwitter} />
             </a>
           </div>

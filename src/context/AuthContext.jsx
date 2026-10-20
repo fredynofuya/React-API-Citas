@@ -41,8 +41,13 @@ export const AuthProvider = ({ children }) => {
     setUsuario(null);
   };
 
+  const actualizarSesion = (data) => {
+  guardarSesion(data);
+  setUsuario(data);
+};
+
   return (
-    <AuthContext.Provider value={{ usuario, cargando, login, logout, puede }}>
+    <AuthContext.Provider value={{ usuario, cargando, login, logout, puede, actualizarSesion }}>
       {children}
     </AuthContext.Provider>
   );

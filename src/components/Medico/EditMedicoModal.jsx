@@ -33,6 +33,7 @@ const EditMedicoModal = ({ medico, onClose, onGuardado }) => {
     else if (!/\S+@\S+\.\S+/.test(form.email)) err.email = "Correo inválido";
     if (!form.id_especialidad) err.id_especialidad = "Selecciona una especialidad";
     if (!form.id_consultorio) err.id_consultorio = "Selecciona un consultorio";
+    if (!form.registro_profesional.trim()) err.registro_profesional = "El registro profesional es obligatorio";
     setErrores(err);
     return Object.keys(err).length === 0;
   };
@@ -107,8 +108,9 @@ const EditMedicoModal = ({ medico, onClose, onGuardado }) => {
             </div>
 
             <div className="input-group-paciente">
-              <label>Registro profesional</label>
+              <label>Registro profesional *</label>
               <input type="text" name="registro_profesional" value={form.registro_profesional} onChange={handleChange} />
+              {errores.registro_profesional && <span className="error-text">{errores.registro_profesional}</span>}
             </div>
           </div>
 

@@ -125,7 +125,7 @@ const Usuarios = () => {
                                     </td>
                                     <td>{u.email}</td>
                                     <td>
-                                        <span className={`cd-badge ${u.rol === 'SUPER_ADMIN' ? 'is-done' : 'is-confirmed'}`}>
+                                        <span className={`cd-badge ${u.rol === 'SUPER_ADMIN' ? 'is-done' : 'is-pending'}`}>
                                             {ETIQUETAS_ROL[u.rol] || u.rol}
                                         </span>
                                     </td>

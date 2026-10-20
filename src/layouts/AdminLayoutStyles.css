@@ -52,6 +52,9 @@
   overflow: hidden;
 }
 
+.admin-footer-actions { display: flex; gap: 6px; }
+.admin-sidebar.collapsed .admin-footer-actions { flex-direction: column; }
+
 
 /* =========================================================
    HEADER DE LA SIDEBAR
@@ -662,6 +665,8 @@
 
     z-index: 100;
   }
+
+  .admin-sidebar.collapsed .admin-footer-actions { flex-direction: row; }
 
 
   /*

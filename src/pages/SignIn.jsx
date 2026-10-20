@@ -4,6 +4,7 @@ import '../styles/SignInStyles.css';
 import logo from '../assets/logo-login.png';
 import { useAuth } from '../context/AuthContext';
 import { rutaInicial } from '../utils/permisos';
+import RecuperarPasswordModal from '../components/Auth/RecuperarPasswordModal';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [enviando, setEnviando] = useState(false);
+  const [mostrarRecuperar, setMostrarRecuperar] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -66,7 +68,13 @@ const SignIn = () => {
             {enviando ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
+        <div className="extra">
+          <button type="button" className="link-olvido" onClick={() => setMostrarRecuperar(true)}>
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
       </div>
+      {mostrarRecuperar && <RecuperarPasswordModal onClose={() => setMostrarRecuperar(false)} />}
     </div>
   );
 };
