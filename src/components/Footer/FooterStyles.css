@@ -1,103 +1,295 @@
+/* ============================================
+   FOOTER PRINCIPAL
+   ============================================ */
 .footer {
-    background-color: #568281;
+    background: linear-gradient(180deg, #568281 0%, #3d5f5c 100%);
     color: white;
     padding: 0;
     margin: 0;
     width: 100%;
     box-sizing: border-box;
+    margin-top: auto;
 }
 
+/* ============================================
+   CONTENIDO DEL FOOTER
+   ============================================ */
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    padding: 40px 60px;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 50px;
+    padding: 60px 60px 40px;
     max-width: 1400px;
     margin: 0 auto;
-    width: calc(100% - 120px);
     box-sizing: border-box;
+}
+
+/* ============================================
+   SECCIONES DEL FOOTER
+   ============================================ */
+.footer-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-section:first-child {
+    gap: 12px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    margin-bottom: 12px;
+}
+
+.footer-brand-text {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+}
+
+.footer-brand-primary {
+    color: white;
+}
+
+.footer-brand-accent {
+    color: #91B8C1;
 }
 
 .footer-section h3 {
     color: #91B8C1;
-    margin-bottom: 15px;
+    margin: 0 0 15px 0;
     font-size: 24px;
+    font-weight: 600;
 }
 
 .footer-section h4 {
     color: white;
-    margin-bottom: 12px;
+    margin: 0 0 18px 0;
     font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .footer-section p {
-    color: #e0e0e0;
-    margin: 8px 0;
-    line-height: 1.6;
+    color: #e8f1f2;
+    margin: 6px 0;
+    line-height: 1.7;
+    font-size: 15px;
 }
 
+.footer-description {
+    color: #b8d9e0;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 350px;
+}
+
+/* ============================================
+   LISTAS DEL FOOTER
+   ============================================ */
 .footer-section ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .footer-section ul li {
-    margin: 8px 0;
+    margin: 10px 0;
 }
 
 .footer-section ul li a {
-    color: #e0e0e0;
+    color: #e8f1f2;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    padding-left: 18px;
+    font-size: 15px;
+}
+
+.footer-section ul li a::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #91B8C1;
+    font-weight: bold;
+    font-size: 18px;
+    transition: transform 0.3s ease;
 }
 
 .footer-section ul li a:hover {
     color: #91B8C1;
+    transform: translateX(3px);
 }
 
-.footer-bottom {
-    background-color: #3d5f5c;
-    padding: 20px;
-    text-align: center;
-    border-top: 2px solid #91B8C1;
-    color: #e0e0e0;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
+.footer-section ul li a:hover::before {
+    transform: translateX(3px);
 }
 
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        padding: 30px 20px;
-    }
-    
-    .footer-section h3,
-    .footer-section h4 {
-        font-size: 16px;
-    }
-    
-    .footer-bottom {
-        padding: 15px;
-        font-size: 14px;
-    }
+/* ============================================
+   INFORMACIÓN DE CONTACTO
+   ============================================ */
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.footer-contact-icon {
+    font-size: 18px;
+    color: #91B8C1;
+}
+
+/* ============================================
+   ICONOS SOCIALES
+   ============================================ */
+.social-section {
+    margin-top: 20px;
+}
+
+.social-title {
+    font-size: 15px;
+    color: white;
+    margin-bottom: 12px;
+    font-weight: 500;
 }
 
 .icons {
     display: flex;
-    justify-content: left;
-    gap: 30px;
+    justify-content: flex-start;
+    gap: 15px;
     margin-top: 10px;
 }
 
 .icons a {
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
 }
 
 .icons a:hover {
-            color: #1a7f8c;
-        }
+    color: #91B8C1;
+    background: rgba(145, 184, 193, 0.15);
+    border-color: #91B8C1;
+    transform: translateY(-3px);
+}
+
+/* ============================================
+   PIE DEL FOOTER
+   ============================================ */
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 25px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(145, 184, 193, 0.3);
+    color: #e8f1f2;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding: 50px 40px 35px;
+    }
+    
+    .footer-section:first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        padding: 40px 30px;
+        gap: 35px;
+    }
+    
+    .footer-section:first-child {
+        grid-column: auto;
+        text-align: center;
+    }
+    
+    .footer-brand {
+        justify-content: center;
+    }
+    
+    .footer-description {
+        max-width: 100%;
+    }
+    
+    .footer-section h3,
+    .footer-section h4 {
+        font-size: 18px;
+    }
+    
+    .footer-section ul li a {
+        font-size: 14px;
+    }
+    
+    .icons {
+        justify-content: center;
+    }
+    
+    .footer-bottom {
+        padding: 20px 15px;
+    }
+    
+    .footer-bottom p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        padding: 30px 20px;
+        gap: 30px;
+    }
+    
+    .footer-brand-text {
+        font-size: 24px;
+    }
+    
+    .footer-section h3 {
+        font-size: 20px;
+    }
+    
+    .footer-section h4 {
+        font-size: 16px;
+    }
+    
+    .footer-section p {
+        font-size: 14px;
+    }
+    
+    .icons a {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+}
 

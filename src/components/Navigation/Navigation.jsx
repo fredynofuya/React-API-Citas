@@ -6,19 +6,18 @@ import './NavigationStyles.css';
 const Navigation = () => {
    return (
     <nav className='barraNavegacion'>
-        <div className= 'Navigation'>
-          <ul className="title">
-            <ul className="u">
-              <li className="li">
-                <h1 className="navega-care">Med</h1>
-                <h1 className="navega-Med">Soft</h1>
-                <h1 className="navega-care">IA</h1>
-              </li>
-              <li className="li">
-                <h2 className="navega-Antioq"> </h2>
-              </li>
-            </ul>
-          </ul>
+        <div className='Navigation'>
+          <div className="brand-section">
+            <Link to='/home' className="brand-link">
+              <div className="brand-logo">
+                <span className="brand-text brand-primary">Med</span>
+                <span className="brand-text brand-accent">Soft</span>
+                <span className="brand-text brand-primary">IA</span>
+              </div>
+              <div className="brand-tagline">Tu salud, nuestra prioridad</div>
+            </Link>
+          </div>
+
           <ul className='navbar'>
             <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/home'>
@@ -34,18 +33,20 @@ const Navigation = () => {
             
             <li className='nav-item'>
               <Link className='nav-link' aria-current='page' to='/contacto'>
-                Contactanos
+                Contáctanos
               </Link>
             </li>
-            <li className='nav-item'>
+            <li className='nav-item nav-item-cta'>
               <Link to='/solicitudcita' className='btn-cita'>
-                Solicitar una cita
+                <span className="btn-icon">📅</span>
+                <span>Solicitar Cita</span>
               </Link>
             </li>
           </ul>
+
           <div className='login-icon'>
-            <Link className='nav-link login-link' to='/signin'>
-              <img src={logo} />
+            <Link className='nav-link login-link' to='/signin' title="Iniciar sesión">
+              <img src={logo} alt="Login" />
             </Link>
           </div>
         </div>
