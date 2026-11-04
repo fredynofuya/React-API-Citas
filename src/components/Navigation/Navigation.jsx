@@ -38,7 +38,6 @@ const Navigation = () => {
             </li>
             <li className='nav-item nav-item-cta'>
               <Link to='/solicitudcita' className='btn-cita'>
-                <span className="btn-icon">📅</span>
                 <span>Solicitar Cita</span>
               </Link>
             </li>
