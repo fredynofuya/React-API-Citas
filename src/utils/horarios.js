@@ -18,3 +18,18 @@ export const hoyLocal = () => {
   const dd = String(d.getDate()).padStart(2, '0');
   return `${d.getFullYear()}-${mm}-${dd}`;
 };
+
+/**
+ * Devuelve true si la hora "HH:MM" ya pasó (o está en curso) para la fecha dada.
+ * Solo bloquea horas pasadas cuando la fecha seleccionada es hoy.
+ * @param {string} hora  - "08:00"
+ * @param {string} fecha - "2026-11-05"
+ */
+export const horaYaPaso = (hora, fecha) => {
+  if (!fecha || fecha !== hoyLocal()) return false;
+  const [hH, hM] = hora.split(':').map(Number);
+  const ahora = new Date();
+  const ahoraMin = ahora.getHours() * 60 + ahora.getMinutes();
+  const horaMin  = hH * 60 + hM;
+  return horaMin <= ahoraMin;
+};

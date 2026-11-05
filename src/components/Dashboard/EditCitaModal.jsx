@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { listaMedicos, obtenerDisponibilidad, editarCita } from '../../services/CitasService';
 import './EditCitaStyles.css';
-import { HORARIOS, formatearHora12} from '../../utils/horarios';
+import { HORARIOS, formatearHora12, hoyLocal, horaYaPaso } from '../../utils/horarios';
 
 
 const EditCitaModal = ({ cita, onClose, onGuardado }) => {
@@ -114,6 +114,7 @@ const EditCitaModal = ({ cita, onClose, onGuardado }) => {
                 type="date"
                 className="form-control"
                 value={fecha}
+                min={hoyLocal()}
                 onChange={(e) => { setFecha(e.target.value); setHora(""); }}
               />
 
@@ -121,16 +122,16 @@ const EditCitaModal = ({ cita, onClose, onGuardado }) => {
                 <div className="edit-cita-horarios">
                   {HORARIOS.map((h) => {
                     const ocupado = horasOcupadas.includes(h);
+                    const pasado  = horaYaPaso(h, fecha);
                     const seleccionado = hora === h;
                     return (
                       <button
                         type="button"
                         key={h}
-                        disabled={ocupado}
-                        className={
-                          `horario-btn ${ocupado ? 'ocupado' : ''} ${seleccionado ? 'seleccionado' : ''}`
-                        }
+                        disabled={ocupado || pasado}
+                        className={`horario-btn ${ocupado || pasado ? 'ocupado' : ''} ${seleccionado ? 'seleccionado' : ''}`}
                         onClick={() => setHora(h)}
+                        title={pasado ? 'Esta hora ya pasó' : ocupado ? 'Horario ocupado' : ''}
                       >
                         {formatearHora12(h)}
                       </button>

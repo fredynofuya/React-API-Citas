@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPacienteByDocumento } from '../../services/PacientesService';
 import { listaMedicos, obtenerDisponibilidad, crearCita } from '../../services/CitasService';
-import { HORARIOS, formatearHora12, hoyLocal } from '../../utils/horarios';
+import { HORARIOS, formatearHora12, hoyLocal, horaYaPaso } from '../../utils/horarios';
 import './DashboardStyles.css';
 import '../Paciente/NuevoPacienteStyles.css';
 import './EditCitaStyles.css';
@@ -192,7 +192,13 @@ const NuevaCitaModal = ({ show, onClose, onCreated }) => {
                   <div className="input-group-paciente">
                     <label>Fecha *</label>
                     <input type="date" min={hoyLocal()} value={fecha}
-                      onChange={(e) => { setFecha(e.target.value); setHora(''); }} />
+                      onChange={(e) => {
+                        const nuevaFecha = e.target.value;
+                        setFecha(nuevaFecha);
+                        // Si la hora ya seleccionada pasó para el nuevo día, la limpiamos
+                        if (hora && horaYaPaso(hora, nuevaFecha)) setHora('');
+                        else setHora('');
+                      }} />
                   </div>
                 </div>
 
@@ -200,13 +206,15 @@ const NuevaCitaModal = ({ show, onClose, onCreated }) => {
                   <div className="edit-cita-horarios">
                     {HORARIOS.map((h) => {
                       const ocupado = horasOcupadas.includes(h);
+                      const pasado  = horaYaPaso(h, fecha);
                       return (
                         <button
                           type="button"
                           key={h}
-                          disabled={ocupado}
-                          className={`horario-btn ${ocupado ? 'ocupado' : ''} ${hora === h ? 'seleccionado' : ''}`}
+                          disabled={ocupado || pasado}
+                          className={`horario-btn ${ocupado ? 'ocupado' : ''} ${pasado ? 'ocupado' : ''} ${hora === h ? 'seleccionado' : ''}`}
                           onClick={() => setHora(h)}
+                          title={pasado ? 'Esta hora ya pasó' : ocupado ? 'Horario ocupado' : ''}
                         >
                           {formatearHora12(h)}
                         </button>
