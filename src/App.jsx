@@ -20,10 +20,11 @@ import RestablecerPassword from './pages/RestablecerPassword.jsx';
 function AppContent() {
   const { pathname } = useLocation();
   const enDashboard = pathname.startsWith('/dashboard');
+  const sinChrome   = enDashboard || pathname === '/signin' || pathname === '/restablecer-contrasena';
 
   return (
     <div className="app-wrapper">
-      {!enDashboard && <Navbar />}
+      {!sinChrome && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -51,7 +52,7 @@ function AppContent() {
         </Route>
       </Routes>
 
-      {!enDashboard && <Footer />}
+      {!sinChrome && <Footer />}
     </div>
   );
 }
