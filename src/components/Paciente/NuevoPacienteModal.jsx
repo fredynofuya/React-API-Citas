@@ -4,7 +4,8 @@ import './NuevoPacienteStyles.css';
 
 const FORM_INICIAL = {
   nombre: "", email: "", tipo_documento: "",
-  documento: "", telefono: "", eps: ""
+  documento: "", telefono: "", eps: "",
+  acepta_notificaciones: false
 };
 
 const NuevoPacienteModal = ({ show, onClose, onCreated }) => {
@@ -26,8 +27,9 @@ const NuevoPacienteModal = ({ show, onClose, onCreated }) => {
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrores({ ...errores, [e.target.name]: null });
+    const { name, type, value, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
+    setErrores({ ...errores, [name]: null });
   };
 
   const validar = () => {
@@ -148,6 +150,11 @@ const NuevoPacienteModal = ({ show, onClose, onCreated }) => {
                   {errores.eps && <span className="error-text">{errores.eps}</span>}
                 </div>
               </div>
+
+              <label className="check-paciente">
+                <input type="checkbox" name="acepta_notificaciones" checked={form.acepta_notificaciones} onChange={handleChange} />
+                <span>El paciente autorizó el tratamiento de sus datos y el envío de notificaciones de sus citas por correo.</span>
+              </label>
 
             </div>
 

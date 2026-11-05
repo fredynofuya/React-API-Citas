@@ -98,3 +98,21 @@
 @media (max-width: 768px) {
   .paciente-row { grid-template-columns: 1fr; }
 }
+
+.check-paciente {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #3d5f5c;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.check-paciente input {
+  width: auto;
+  padding: 0;
+  margin-top: 3px;
+  flex-shrink: 0;
+}

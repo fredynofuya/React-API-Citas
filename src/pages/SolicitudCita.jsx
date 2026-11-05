@@ -15,14 +15,16 @@ const SolicitudCita = () => {
     documento: "",
     telefono: "",
     eps: "",
-    motivo: ""
+    motivo: "",
+    aceptaNotificaciones: false
   });
 
   const [enviando, setEnviando] = useState(false);
   const [mensajeEstado, setMensajeEstado] = useState(null);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, type, value, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
   };
 
   const handleSubmit = (e) => {
@@ -37,13 +39,14 @@ const SolicitudCita = () => {
       documento: form.documento,
       telefono: form.telefono,
       eps: form.eps,
-      motivo: form.motivo
+      motivo: form.motivo,
+      acepta_notificaciones: form.aceptaNotificaciones
     };
 
     crearCita(cita)
       .then(() => {
         setMensajeEstado({ tipo: 'exito', texto: 'Tu solicitud fue enviada correctamente. Nos pondremos en contacto pronto.' });
-        setForm({ nombre: "", correo: "", tipoDocumento: "", documento: "", telefono: "", eps: "", motivo: "" });
+        setForm({ nombre: "", correo: "", tipoDocumento: "", documento: "", telefono: "", eps: "", motivo: "", aceptaNotificaciones: false });
       })
       .catch((error) => {
         console.error('Error creando la cita:', error);
@@ -106,6 +109,22 @@ const SolicitudCita = () => {
         </div>
 
         {/* Sección de subida de documentos removida por decisión del proyecto — se agregará más adelante */}
+
+        <label className="consentimiento">
+          <input
+            type="checkbox"
+            name="aceptaNotificaciones"
+            checked={form.aceptaNotificaciones}
+            onChange={handleChange}
+            required
+          />
+          <span>
+            Autorizo a MedSoftIA el tratamiento de mis datos personales, incluidos los datos de salud asociados a mi
+            solicitud, para gestionar mi cita y enviarme notificaciones sobre ella (recepción de la solicitud,
+            confirmación, reprogramación, cancelación y recordatorio) al correo electrónico que registré. Puedo revocar
+            esta autorización comunicándome al (604) 4449768.
+          </span>
+        </label>
 
         <button className="btn-sol" type="submit" disabled={enviando}>
           {enviando ? 'Enviando...' : 'Enviar solicitud'}

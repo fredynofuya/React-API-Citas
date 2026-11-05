@@ -10,15 +10,17 @@ const EditPacienteModal = ({ paciente, onClose, onGuardado }) => {
     tipo_documento: paciente.tipo_documento || "CC",
     documento: paciente.documento || "",
     telefono: paciente.telefono || "",
-    eps: paciente.eps || ""
+    eps: paciente.eps || "",
+    acepta_notificaciones: paciente.acepta_notificaciones === true
   });
   const [errores, setErrores] = useState({});
   const [guardando, setGuardando] = useState(false);
   const [mensaje, setMensaje] = useState(null);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrores({ ...errores, [e.target.name]: null });
+    const { name, type, value, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
+    setErrores({ ...errores, [name]: null });
   };
 
   const validar = () => {
@@ -114,6 +116,11 @@ const EditPacienteModal = ({ paciente, onClose, onGuardado }) => {
                 {errores.eps && <span className="error-text">{errores.eps}</span>}
               </div>
             </div>
+
+            <label className="check-paciente">
+              <input type="checkbox" name="acepta_notificaciones" checked={form.acepta_notificaciones} onChange={handleChange} />
+              <span>El paciente autorizó el tratamiento de sus datos y el envío de notificaciones de sus citas por correo.</span>
+            </label>
 
           </div>
 

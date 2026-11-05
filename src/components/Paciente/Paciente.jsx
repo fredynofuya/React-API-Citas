@@ -38,7 +38,7 @@ const Pacientes = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const { puede } = useAuth();
     const gestiona = puede('pacientes:gestionar');
-    const columnas = gestiona ? 6 : 5;
+    const columnas = gestiona ? 7 : 6;
     
     const cargar = () => {
         setCargando(true);
@@ -127,6 +127,7 @@ const Pacientes = () => {
                                 <th>Correo</th>
                                 <th>Teléfono</th>
                                 <th>EPS</th>
+                                <th>Notificaciones</th>
                                 {gestiona && <th className="cd-col-actions">Acciones</th>}
                             </tr>
                         </thead>
@@ -159,6 +160,16 @@ const Pacientes = () => {
                                     <td>{paciente.email || ' '}</td>
                                     <td>{paciente.telefono || ' '}</td>
                                     <td><span className={epsClase(paciente.eps)}>{paciente.eps || '—'}</span></td>
+                                    <td>
+                                      <span
+                                        className={`cd-badge ${paciente.acepta_notificaciones ? 'is-confirmed' : 'is-neutral'}`}
+                                        title={paciente.fecha_consentimiento
+                                          ? `Autorizado el ${String(paciente.fecha_consentimiento).substring(0, 10)}`
+                                          : 'Sin autorización registrada'}
+                                      >
+                                        {paciente.acepta_notificaciones ? 'Autorizadas' : 'Sin autorización'}
+                                      </span>
+                                    </td>
                                     {gestiona && (
                                         <td className="cd-col-actions">
                                             <div className="cd-actions">
