@@ -1,260 +1,3 @@
-// import React, { useState } from 'react';
-// import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-
-// import MenuIcon from '@mui/icons-material/Menu';
-// import CloseIcon from '@mui/icons-material/Close';
-// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-// import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-// import PeopleIcon from '@mui/icons-material/People';
-// import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-// import LogoutIcon from '@mui/icons-material/Logout';
-// import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-// import { ETIQUETAS_ROL } from '../utils/permisos';
-// import { useAuth } from '../context/AuthContext';
-
-// import LockResetIcon from '@mui/icons-material/LockReset';
-// import CambiarPasswordModal from '../components/Auth/CambiarPasswordModal';
-
-// import './AdminLayoutStyles.css';
-
-// const NAV_ITEMS = [
-//   { to: '/dashboard/citas', label: 'Citas', icon: CalendarMonthIcon, permiso: 'citas:ver' },
-//   { to: '/dashboard/agenda', label: 'Agenda confirmada', icon: EventAvailableIcon, permiso: 'agenda:ver' },
-//   { to: '/dashboard/pacientes', label: 'Pacientes', icon: PeopleIcon, permiso: 'pacientes:ver' },
-//   { to: '/dashboard/medicos', label: 'Médicos', icon: LocalHospitalIcon, permiso: 'medicos:ver' },
-//   { to: '/dashboard/usuarios', label: 'Usuarios', icon: ManageAccountsIcon, permiso: 'usuarios:ver' },
-// ];
-
-// const AdminLayout = () => {
-
-//   const [collapsed, setCollapsed] = useState(false);
-
-//   const [mobileOpen, setMobileOpen] = useState(false);
-
-//   const [cambioPassword, setCambioPassword] = useState(false);
-
-//   // Controla la expansión temporal mediante hover
-//   const [hoverExpanded, setHoverExpanded] = useState(false);
-
-//   const navigate = useNavigate();
-
-//   const { usuario, logout, puede } = useAuth();
-
-//   const cerrarMobile = () => setMobileOpen(false);
-
-//   const handleLogout = () => {
-//     logout();
-//     navigate('/signin');
-//   };
-
-//   const inicial =
-//     usuario?.nombre?.trim()?.charAt(0)?.toUpperCase() || '?';
-
-
-//   return (
-//     <div
-//       className={`admin-app ${
-//         collapsed ? 'sidebar-collapsed' : ''
-//       }`}
-//     >
-
-//       {/* BACKDROP MOBILE */}
-//       {mobileOpen && (
-//         <div
-//           className="admin-backdrop"
-//           onClick={cerrarMobile}
-//         />
-//       )}
-
-
-//       {/* SIDEBAR */}
-//       <aside
-//         className={`
-//           admin-sidebar
-//           ${collapsed ? 'collapsed' : ''}
-//           ${hoverExpanded ? 'hover-expanded' : ''}
-//           ${mobileOpen ? 'mobile-open' : ''}
-//         `}
-//       >
-
-//         {/* =========================================
-//             PARTE SUPERIOR
-//             CONTROL MANUAL
-//            ========================================= */}
-
-//         <div className="admin-sidebar-header">
-
-//           <div className="brand">
-//             Med<span>Soft</span>IA
-//           </div>
-
-//           <button
-//             className="admin-collapse-btn"
-//             onClick={() => {
-//               setCollapsed((c) => !c);
-
-//               // Cuando el usuario utiliza el botón,
-//               // quitamos cualquier expansión temporal.
-//               setHoverExpanded(false);
-//             }}
-//             aria-label={
-//               collapsed
-//                 ? 'Expandir menú'
-//                 : 'Colapsar menú'
-//             }
-//             title={
-//               collapsed
-//                 ? 'Expandir menú'
-//                 : 'Colapsar menú'
-//             }
-//           >
-//             {collapsed ? (
-//               <ChevronRightIcon fontSize="small" />
-//             ) : (
-//               <ChevronLeftIcon fontSize="small" />
-//             )}
-//           </button>
-
-
-//           {/* BOTÓN CERRAR MOBILE */}
-//           <button
-//             className="admin-close-btn"
-//             onClick={cerrarMobile}
-//             aria-label="Cerrar menú"
-//           >
-//             <CloseIcon fontSize="small" />
-//           </button>
-
-//         </div>
-
-
-//         {/* =========================================
-//             NAVEGACIÓN
-//             HOVER EXPANSIÓN
-//            ========================================= */}
-
-//         <nav
-//           className="admin-nav"
-
-//           onMouseEnter={() => {
-//             if (collapsed) {
-//               setHoverExpanded(true);
-//             }
-//           }}
-
-//           onMouseLeave={() => {
-//             if (collapsed) {
-//               setHoverExpanded(false);
-//             }
-//           }}
-//         >
-
-//           {NAV_ITEMS.filter(({ permiso }) => puede(permiso)).map(({ to, label, icon: Icon }) => (
-
-//               <NavLink
-//                 key={to}
-//                 to={to}
-//                 onClick={cerrarMobile}
-//                 title={label}
-
-//                 className={({ isActive }) =>
-//                   `admin-nav-item ${
-//                     isActive ? 'active' : ''
-//                   }`
-//                 }
-//               >
-
-//                 <Icon fontSize="small" />
-
-//                 <span className="admin-nav-label">
-//                   {label}
-//                 </span>
-
-//               </NavLink>
-
-//             )
-//           )}
-
-//         </nav>
-
-
-//         {/* =========================================
-//             USUARIO
-//            ========================================= */}
-
-//         <div className="admin-sidebar-footer">
-
-//           <div className="admin-user">
-
-//             <div className="admin-user-avatar">
-//               {inicial}
-//             </div>
-
-//             <div className="admin-user-info">
-
-//               <span className="admin-user-name">
-//                 {usuario?.nombre || 'Usuario'}
-//               </span>
-
-//               <span className="admin-user-role">{ETIQUETAS_ROL[usuario?.rol] || 'Usuario'}</span>
-
-//             </div>
-
-//           </div>
-
-
-//           <button
-//             className="admin-logout"
-//             onClick={handleLogout}
-//             title="Cerrar sesión"
-//             aria-label="Cerrar sesión"
-//           >
-//             <LogoutIcon fontSize="small" />
-//           </button>
-
-//         </div>
-
-//       </aside>
-
-
-//       {/* =========================================
-//           CONTENIDO PRINCIPAL
-//          ========================================= */}
-
-//       <div className="admin-main">
-
-//         <header className="admin-topbar">
-
-//           <button
-//             className="admin-menu-btn"
-//             onClick={() => setMobileOpen(true)}
-//             aria-label="Abrir menú"
-//           >
-//             <MenuIcon />
-//           </button>
-
-//           <span className="admin-topbar-brand">
-//             MedSoftIA
-//           </span>
-
-//         </header>
-
-
-//         <main className="admin-content">
-//           <Outlet />
-//         </main>
-
-//       </div>
-
-//     </div>
-//   );
-// };
-
-// export default AdminLayout;
-
-
 import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 
@@ -275,6 +18,8 @@ import { useAuth } from '../context/AuthContext';
 import CambiarPasswordModal from '../components/Auth/CambiarPasswordModal';
 
 import './AdminLayoutStyles.css';
+import { ToastProvider } from '../context/ToastContext';
+import ToastContainer from '../components/Toast/ToastContainer';
 
 const NAV_ITEMS = [
   {
@@ -331,6 +76,7 @@ const AdminLayout = () => {
     usuario?.nombre?.trim()?.charAt(0)?.toUpperCase() || '?';
 
   return (
+    <ToastProvider>
     <div
       className={`admin-app ${
         collapsed ? 'sidebar-collapsed' : ''
@@ -468,6 +214,7 @@ const AdminLayout = () => {
       {/* CONTENIDO PRINCIPAL */}
       <div className="admin-main">
         <header className="admin-topbar">
+          {/* Botón menú (solo mobile) */}
           <button
             className="admin-menu-btn"
             onClick={() => setMobileOpen(true)}
@@ -476,9 +223,14 @@ const AdminLayout = () => {
             <MenuIcon />
           </button>
 
-          <span className="admin-topbar-brand">
-            MedSoftIA
-          </span>
+          {/* Brand (solo mobile) */}
+          <span className="admin-topbar-brand">MedSoftIA</span>
+          
+          {/* Sección izquierda: breadcrumb (solo desktop) */}
+          <div className="admin-topbar-left">
+            <span className="admin-topbar-page">Bienvenido, {usuario?.nombre || 'Usuario'} </span>
+          </div>
+          
         </header>
 
         <main className="admin-content">
@@ -492,7 +244,11 @@ const AdminLayout = () => {
           onClose={() => setCambioPassword(false)}
         />
       )}
+
+      {/* NOTIFICACIONES TOAST */}
+      <ToastContainer />
     </div>
+    </ToastProvider>
   );
 };
 

@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import '../styles/SignInStyles.css';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import '../styles/RestablecerPasswordStyles.css';
 import logo from '../assets/logo-login.png';
 import { validarTokenRecuperacion, restablecerPassword } from '../services/AuthService';
 import { mensajeError } from '../utils/mensajeError';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const RestablecerPassword = () => {
-  const [params] = useSearchParams();
-  const token = params.get('token');
-  const navigate = useNavigate();
+  const [params]   = useSearchParams();
+  const token      = params.get('token');
+  const navigate   = useNavigate();
 
-  const [estado, setEstado] = useState('validando'); // validando | invalido | formulario | exito
-  const [form, setForm] = useState({ nueva: '', confirmar: '' });
-  const [error, setError] = useState(null);
+  const [estado, setEstado]     = useState('validando'); // validando | invalido | formulario | exito
+  const [form, setForm]         = useState({ nueva: '', confirmar: '' });
+  const [error, setError]       = useState(null);
   const [enviando, setEnviando] = useState(false);
+  const [showNueva, setShowNueva]         = useState(false);
+  const [showConfirmar, setShowConfirmar] = useState(false);
 
   useEffect(() => {
-    document.title = 'Restablecer contraseña';
+    document.title = 'Restablecer contraseña | MedSoftIA';
     if (!token) { setEstado('invalido'); return; }
     validarTokenRecuperacion(token)
       .then(() => setEstado('formulario'))
@@ -47,48 +51,131 @@ const RestablecerPassword = () => {
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-container">
-        <div className="login-icon-in">
-          <img src={logo} alt="MedSoftIA" />
+    <div className="rp-wrapper">
+      <div className="rp-card">
+
+        {/* ── Cabecera ─────────────────────────────── */}
+        <div className="rp-header">
+          <div className="rp-logo-wrap">
+            <img src={logo} alt="MedSoftIA" />
+          </div>
+          <div className="rp-brand">
+            <span className="rp-brand-primary">Med</span>
+            <span className="rp-brand-accent">Soft</span>
+            <span className="rp-brand-primary">IA</span>
+          </div>
         </div>
 
-        {estado === 'validando' && <p className="subtitle">Validando enlace…</p>}
+        {/* ── Estado: validando ────────────────────── */}
+        {estado === 'validando' && (
+          <div className="rp-loading">
+            <div className="rp-spinner" role="status" aria-label="Validando enlace" />
+            <p>Validando enlace…</p>
+          </div>
+        )}
 
+        {/* ── Estado: inválido ─────────────────────── */}
         {estado === 'invalido' && (
           <>
-            <p className="login-error">El enlace no es válido o ya venció.</p>
-            <p className="subtitle">Solicita uno nuevo desde la pantalla de inicio de sesión.</p>
-            <button className="btn-signin" onClick={() => navigate('/signin')}>Ir a iniciar sesión</button>
+            <span className="rp-estado-icon" aria-hidden="true">⚠️</span>
+            <h1 className="rp-estado-title">Enlace inválido o expirado</h1>
+            <p className="rp-estado-desc">
+              El enlace de recuperación no es válido o ya venció.<br />
+              Solicita uno nuevo desde la pantalla de inicio de sesión.
+            </p>
+            <button className="rp-btn" onClick={() => navigate('/signin')}>
+              Ir a iniciar sesión <FontAwesomeIcon icon={faArrowRight} />
+            </button>
           </>
         )}
 
+        {/* ── Estado: formulario ───────────────────── */}
         {estado === 'formulario' && (
           <>
-            <p className="subtitle">Crea tu nueva contraseña</p>
-            {error && <p className="login-error">{error}</p>}
-            <form className="login-form" onSubmit={handleSubmit}>
-              <div className="input-group">
-                <input type="password" name="nueva" placeholder="Nueva contraseña *"
-                  value={form.nueva} onChange={handleChange} autoComplete="new-password" required />
+            <h1 className="rp-form-title">Crea tu nueva contraseña</h1>
+            <p className="rp-form-subtitle">
+              Elige una contraseña segura de al menos 8 caracteres.
+            </p>
+
+            {error && (
+              <div className="rp-alert rp-alert--error" role="alert">
+                ⚠️ {error}
               </div>
-              <div className="input-group">
-                <input type="password" name="confirmar" placeholder="Confirmar contraseña *"
-                  value={form.confirmar} onChange={handleChange} autoComplete="new-password" required />
+            )}
+
+            <form className="rp-form" onSubmit={handleSubmit} noValidate>
+              <div className="rp-field">
+                <div className="rp-field-header">
+                  <label htmlFor="nueva">
+                    <FontAwesomeIcon icon={faLock} /> Nueva contraseña
+                  </label>
+                  <button
+                    type="button" className="rp-toggle-pass"
+                    onClick={() => setShowNueva(v => !v)}
+                  >
+                    {showNueva ? 'Ocultar' : 'Mostrar'}
+                  </button>
+                </div>
+                <input
+                  id="nueva" name="nueva"
+                  type={showNueva ? 'text' : 'password'}
+                  placeholder="Mínimo 8 caracteres"
+                  value={form.nueva} onChange={handleChange}
+                  autoComplete="new-password" required
+                />
+                <p className="rp-hint">Mínimo 8 caracteres</p>
               </div>
-              <button className="btn-signin" type="submit" disabled={enviando}>
-                {enviando ? 'Guardando...' : 'Guardar contraseña'}
+
+              <div className="rp-field">
+                <div className="rp-field-header">
+                  <label htmlFor="confirmar">
+                    <FontAwesomeIcon icon={faLock} /> Confirmar contraseña
+                  </label>
+                  <button
+                    type="button" className="rp-toggle-pass"
+                    onClick={() => setShowConfirmar(v => !v)}
+                  >
+                    {showConfirmar ? 'Ocultar' : 'Mostrar'}
+                  </button>
+                </div>
+                <input
+                  id="confirmar" name="confirmar"
+                  type={showConfirmar ? 'text' : 'password'}
+                  placeholder="Repite la contraseña"
+                  value={form.confirmar} onChange={handleChange}
+                  autoComplete="new-password" required
+                />
+              </div>
+
+              <button className="rp-btn" type="submit" disabled={enviando}>
+                {enviando ? '⏳ Guardando…' : <>Guardar contraseña <FontAwesomeIcon icon={faArrowRight} /></>}
               </button>
             </form>
           </>
         )}
 
+        {/* ── Estado: éxito ────────────────────────── */}
         {estado === 'exito' && (
           <>
-            <p className="login-exito">Contraseña actualizada. Ya puedes iniciar sesión.</p>
-            <button className="btn-signin" onClick={() => navigate('/signin')}>Iniciar sesión</button>
+            <div className="rp-exito-circle" aria-hidden="true">✓</div>
+            <h1 className="rp-estado-title">¡Contraseña actualizada!</h1>
+            <p className="rp-estado-desc">
+              Tu contraseña fue cambiada correctamente.<br />
+              Ya puedes iniciar sesión con tu nueva contraseña.
+            </p>
+            <button className="rp-btn" onClick={() => navigate('/signin')}>
+              Iniciar sesión <FontAwesomeIcon icon={faArrowRight} />
+            </button>
           </>
         )}
+
+        {/* ── Footer de la card ────────────────────── */}
+        {estado !== 'validando' && (
+          <div className="rp-card-footer">
+            <Link to="/signin" className="rp-back-link">← Volver a iniciar sesión</Link>
+          </div>
+        )}
+
       </div>
     </div>
   );

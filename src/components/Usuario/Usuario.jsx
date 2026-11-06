@@ -11,11 +11,13 @@ import { ETIQUETAS_ROL } from '../../utils/permisos';
 import { useAuth } from '../../context/AuthContext';
 import UsuarioFormModal from './UsuarioFormModal';
 import CambiarEstadoUsuarioModal from './CambiarEstadoUsuarioModal';
+import { useToast, TOAST } from '../../context/ToastContext';
 
 const PAGE_SIZES = [5, 10, 25, 50];
 
 const Usuarios = () => {
     const { usuario: yo } = useAuth();
+    const { push } = useToast();
     const [usuarios, setUsuarios] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
@@ -191,7 +193,10 @@ const Usuarios = () => {
                 <UsuarioFormModal
                     usuario={usuarioEditar}
                     onClose={() => setFormAbierto(false)}
-                    onGuardado={cargar}
+                    onGuardado={() => {
+                        cargar();
+                        push(usuarioEditar ? 'Usuario actualizado correctamente.' : 'Nuevo usuario creado correctamente.', TOAST.SUCCESS);
+                    }}
                 />
             )}
 
@@ -199,7 +204,10 @@ const Usuarios = () => {
                 <CambiarEstadoUsuarioModal
                     usuario={usuarioEstado}
                     onClose={() => setUsuarioEstado(null)}
-                    onCambiado={cargar}
+                    onCambiado={() => {
+                        cargar();
+                        push(`Usuario ${usuarioEstado.activo ? 'desactivado' : 'activado'} correctamente.`, usuarioEstado.activo ? TOAST.WARNING : TOAST.SUCCESS);
+                    }}
                 />
             )}
         </div>

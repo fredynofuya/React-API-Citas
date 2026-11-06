@@ -10,6 +10,7 @@ import UndoIcon from '@mui/icons-material/Undo';
 import { listaCitasConfirmada, listaCitas, listaCitasPorMedicoYEstado, editarCita } from '../../services/CitasService';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
 import { useAuth } from '../../context/AuthContext';
+import { useToast, TOAST } from '../../context/ToastContext';
 /* ---------- Helpers  ---------- */
 
 const nombreMedico = (c) =>
@@ -54,6 +55,7 @@ const Agenda = () => {
     const { usuario } = useAuth();
     const esMedico = usuario?.rol === 'MEDICO';
     const filtros = esMedico ? FILTROS.filter((f) => f.key !== 'TODAS') : FILTROS;
+    const { push } = useToast();
 
     const cargar = () => {
     if (esMedico && !usuario.idMedico) {
@@ -113,8 +115,17 @@ const Agenda = () => {
                 cargar();
                 setAccion(null);
                 setCitaSeleccionada(null);
+                push(
+                    accion === 'atendida'
+                        ? 'Cita marcada como atendida.'
+                        : 'Cita revertida a confirmada.',
+                    accion === 'atendida' ? TOAST.SUCCESS : TOAST.INFO
+                );
             })
-            .catch((err) => console.error('Error actualizando estado de la cita:', err))
+            .catch((err) => {
+                console.error('Error actualizando estado de la cita:', err);
+                push('No se pudo actualizar el estado de la cita. Intenta de nuevo.', TOAST.ERROR);
+            })
             .finally(() => setProcesando(false));
     };
 

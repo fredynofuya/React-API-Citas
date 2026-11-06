@@ -14,6 +14,7 @@ import NuevoMedicoModal from './NuevoMedicoModal';
 import EditMedicoModal from './EditMedicoModal';
 import CambiarEstadoMedicoModal from './CambiarEstadoMedicoModal';
 import { useAuth } from '../../context/AuthContext';
+import { useToast, TOAST } from '../../context/ToastContext';
 const PAGE_SIZES = [5, 10, 25, 50];
 
 const Medicos = () => {
@@ -30,6 +31,7 @@ const Medicos = () => {
     const { puede } = useAuth();
     const gestiona = puede('medicos:gestionar');
     const columnas = gestiona ? 6 : 5;
+    const { push } = useToast();
 
     const cargar = () => {
         setCargando(true);
@@ -194,14 +196,14 @@ const Medicos = () => {
                 )}
             </section>
 
-            <NuevoMedicoModal show={showNuevo} onClose={() => setShowNuevo(false)} onCreated={cargar} />
+            <NuevoMedicoModal show={showNuevo} onClose={() => setShowNuevo(false)} onCreated={() => { cargar(); push('Nuevo médico registrado correctamente.', TOAST.SUCCESS); }} />
 
             {medicoEditar && (
-                <EditMedicoModal medico={medicoEditar} onClose={() => setMedicoEditar(null)} onGuardado={cargar} />
+                <EditMedicoModal medico={medicoEditar} onClose={() => setMedicoEditar(null)} onGuardado={() => { cargar(); push('Médico actualizado correctamente.', TOAST.SUCCESS); }} />
             )}
 
             {medicoEstado && (
-                <CambiarEstadoMedicoModal medico={medicoEstado} onClose={() => setMedicoEstado(null)} onCambiado={cargar} />
+                <CambiarEstadoMedicoModal medico={medicoEstado} onClose={() => setMedicoEstado(null)} onCambiado={() => { cargar(); push(`Médico ${medicoEstado.activoMedico ? 'desactivado' : 'activado'} correctamente.`, medicoEstado.activoMedico ? TOAST.WARNING : TOAST.SUCCESS); }} />
             )}
         </div>
     );

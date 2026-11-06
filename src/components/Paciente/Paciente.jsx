@@ -12,6 +12,7 @@ import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
 import EditPacienteModal from './EditPacienteModal';
 import '../Dashboard/EditCitaStyles.css'
 import { useAuth } from '../../context/AuthContext';
+import { useToast, TOAST } from '../../context/ToastContext';
 
 const PAGE_SIZES = [5, 10, 25, 50];
 
@@ -39,6 +40,7 @@ const Pacientes = () => {
     const { puede } = useAuth();
     const gestiona = puede('pacientes:gestionar');
     const columnas = gestiona ? 7 : 6;
+    const { push } = useToast();
     
     const cargar = () => {
         setCargando(true);
@@ -82,8 +84,12 @@ const Pacientes = () => {
                 .then(() => {
                     setPacientes((prev) => prev.filter((p) => p.id !== pacienteSeleccionado.id));
                     setShowDeleteModal(false);
+                    push('Paciente eliminado correctamente.', TOAST.SUCCESS);
                 })
-                .catch((err) => console.error('Error deleting data:', err))
+                .catch((err) => {
+                    console.error('Error deleting data:', err);
+                    push('No se pudo eliminar el paciente. Intenta de nuevo.', TOAST.ERROR);
+                })
                 .finally(() => setEliminando(false));
         };
 
@@ -264,14 +270,14 @@ const Pacientes = () => {
                    <EditPacienteModal
                     paciente={pacienteSeleccionado}
                     onClose={() => setShowEditModal(false)}
-                    onGuardado={cargar}
+                    onGuardado={() => { cargar(); push('Paciente actualizado correctamente.', TOAST.SUCCESS); }}
                     />
                 )}
 
             <NuevoPacienteModal
                 show={showModal}
                 onClose={() => setShowModal(false)}
-                onCreated={cargar}
+                onCreated={() => { cargar(); push('Nuevo paciente registrado correctamente.', TOAST.SUCCESS); }}
             />
         </div>
     );

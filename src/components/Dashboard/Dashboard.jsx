@@ -13,6 +13,7 @@ import NuevaCitaModal from './NuevaCitaModal';
 import CancelarCitaModal from './CancelarCitaModal';
 import { normalizar, paginasVisibles } from '../../utils/tablaHelpers';
 import { useAuth } from '../../context/AuthContext';
+import { useToast, TOAST } from '../../context/ToastContext';
 
 /* ---------- Configuración ---------- */
 const COLUMNS = [
@@ -81,6 +82,7 @@ const Dashboard = () => {
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [citaCancelar, setCitaCancelar] = useState(null);
     const { puede } = useAuth();
+    const { push } = useToast();
     const gestiona = puede('citas:gestionar');
     const columnas = gestiona ? 11 : 10;
 
@@ -172,8 +174,12 @@ const Dashboard = () => {
             .then(() => {
                 setCitas((prev) => prev.filter((c) => c.id !== citaSeleccionada.id));
                 setShowDeleteModal(false);
+                push('Cita eliminada correctamente.', TOAST.SUCCESS);
             })
-            .catch((err) => console.error('Error deleting data:', err))
+            .catch((err) => {
+                console.error('Error deleting data:', err);
+                push('No se pudo eliminar la cita. Intenta de nuevo.', TOAST.ERROR);
+            })
             .finally(() => setEliminando(false));
     };
 
@@ -412,7 +418,7 @@ const Dashboard = () => {
                     <EditCitaModal
                         cita={citaSeleccionada}
                         onClose={() => setShowEditModal(false)}
-                        onGuardado={() => cargarCitas(true)}
+                        onGuardado={() => { cargarCitas(true); push('Cita actualizada correctamente.', TOAST.SUCCESS); }}
                     />
                 )}
 
@@ -420,7 +426,7 @@ const Dashboard = () => {
                     <NuevaCitaModal
                         show={showNuevaCita}
                         onClose={() => setShowNuevaCita(false)}
-                        onCreated={() => cargarCitas(true)}
+                        onCreated={() => { cargarCitas(true); push('Nueva cita creada correctamente.', TOAST.SUCCESS); }}
                     />
                 )}
 
@@ -428,7 +434,7 @@ const Dashboard = () => {
                     <CancelarCitaModal
                         cita={citaCancelar}
                         onClose={() => setShowCancelModal(false)}
-                        onCancelada={() => cargarCitas(true)}
+                        onCancelada={() => { cargarCitas(true); push('Cita cancelada.', TOAST.WARNING); }}
                     />
                 )}
             </div>

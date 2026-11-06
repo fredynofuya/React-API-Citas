@@ -1,0 +1,174 @@
+/* ─────────────────────────────────────────────────────────
+   TOAST NOTIFICATIONS
+───────────────────────────────────────────────────────── */
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;         /* los hijos sí capturan eventos */
+  max-width: 380px;
+  width: calc(100vw - 48px);
+}
+
+/* ─── item individual ──────────────────────────────────── */
+.toast-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  pointer-events: all;
+  animation: toastIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* barra de progreso inferior */
+.toast-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  animation: toastBar 3.5s linear both;
+  transform-origin: left;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(120%) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes toastBar {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+/* ─── variantes ───────────────────────────────────────── */
+.toast-item--success {
+  background: #f0faf5;
+  border: 1px solid #86d5a9;
+  color: #1a6b45;
+}
+
+.toast-item--success .toast-icon {
+  background: #1a7a45;
+  color: #fff;
+}
+
+.toast-item--success::after {
+  background: #1a7a45;
+}
+
+.toast-item--error {
+  background: #fff4f4;
+  border: 1px solid #f5a5a5;
+  color: #a01818;
+}
+
+.toast-item--error .toast-icon {
+  background: #c0392b;
+  color: #fff;
+}
+
+.toast-item--error::after {
+  background: #c0392b;
+}
+
+.toast-item--warning {
+  background: #fffbec;
+  border: 1px solid #f5d87a;
+  color: #7a5000;
+}
+
+.toast-item--warning .toast-icon {
+  background: #d4870a;
+  color: #fff;
+}
+
+.toast-item--warning::after {
+  background: #d4870a;
+}
+
+.toast-item--info {
+  background: #f0f6ff;
+  border: 1px solid #93c5fd;
+  color: #1e3a6e;
+}
+
+.toast-item--info .toast-icon {
+  background: #1d6fbf;
+  color: #fff;
+}
+
+.toast-item--info::after {
+  background: #1d6fbf;
+}
+
+/* ─── icono ───────────────────────────────────────────── */
+.toast-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ─── mensaje ─────────────────────────────────────────── */
+.toast-message {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  padding-top: 3px;
+}
+
+/* ─── botón cerrar ─────────────────────────────────────── */
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.45;
+  color: inherit;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  opacity: 0.85;
+}
+
+/* ─── responsive ──────────────────────────────────────── */
+@media (max-width: 480px) {
+  .toast-container {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: 100%;
+  }
+}
