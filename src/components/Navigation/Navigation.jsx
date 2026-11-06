@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
-import logo from '../../assets/logo-login.png';
+import logoin from '../../assets/logo-login.png';
+import logo from '../../assets/logo.png';
 
 import './NavigationStyles.css';
 
@@ -7,7 +8,10 @@ const Navigation = () => {
    return (
     <nav className='barraNavegacion'>
         <div className='Navigation'>
-          <div className="brand-section">
+          <div className="si-brand-header-nav">
+            <div className="si-brand-logo">
+              <img src={logo} alt="MedSoftIA" />
+            </div>
             <Link to='/home' className="brand-link">
               <div className="brand-logo">
                 <span className="brand-text brand-primary">Med</span>
@@ -45,7 +49,7 @@ const Navigation = () => {
 
           <div className='login-icon'>
             <Link className='nav-link login-link' to='/signin' title="Iniciar sesión">
-              <img src={logo} alt="Login" />
+              <img src={logoin} alt="Login" />
             </Link>
           </div>
         </div>
