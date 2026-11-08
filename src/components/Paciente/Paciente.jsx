@@ -78,20 +78,49 @@ const Pacientes = () => {
         setShowDeleteModal(true);
     };
 
-     const confirmarEliminar = () => {
-            setEliminando(true);
-            eliminarPaciente(pacienteSeleccionado.id)
-                .then(() => {
-                    setPacientes((prev) => prev.filter((p) => p.id !== pacienteSeleccionado.id));
-                    setShowDeleteModal(false);
-                    push('Paciente eliminado correctamente.', TOAST.SUCCESS);
-                })
-                .catch((err) => {
-                    console.error('Error deleting data:', err);
-                    push('No se pudo eliminar el paciente. Intenta de nuevo.', TOAST.ERROR);
-                })
-                .finally(() => setEliminando(false));
-        };
+    //  const confirmarEliminar = () => {
+    //         setEliminando(true);
+    //         eliminarPaciente(pacienteSeleccionado.id)
+    //             .then(() => {
+    //                 setPacientes((prev) => prev.filter((p) => p.id !== pacienteSeleccionado.id));
+    //                 setShowDeleteModal(false);
+    //                 push('Paciente eliminado correctamente.', TOAST.SUCCESS);
+    //             })
+    //             .catch((err) => {
+    //                 console.error('Error deleting data:', err);
+    //                 push('No se pudo eliminar el paciente. Intenta de nuevo.', TOAST.ERROR);
+    //             })
+    //             .finally(() => setEliminando(false));
+    //     };
+    
+    const confirmarEliminar = () => {
+    setEliminando(true);
+
+    eliminarPaciente(pacienteSeleccionado.id)
+        .then(() => {
+            setPacientes((prev) =>
+                prev.filter(
+                    (p) => p.id !== pacienteSeleccionado.id
+                )
+            );
+
+            setShowDeleteModal(false);
+
+            push(
+                'Paciente desactivado correctamente.',
+                TOAST.SUCCESS
+            );
+        })
+        .catch((err) => {
+            console.error('Error deleting data:', err);
+
+            push(
+                'No se pudo desactivar el paciente. Intenta de nuevo.',
+                TOAST.ERROR
+            );
+        })
+        .finally(() => setEliminando(false));
+};
 
     const totalPaginas = Math.max(1, Math.ceil(filtrados.length / porPagina));
     const paginaActual = Math.min(pagina, totalPaginas);
@@ -243,8 +272,7 @@ const Pacientes = () => {
                                 <div className="modal-body cita-modal-body">
                                     <div className="delete-cita-icon">🚨</div>
                                     <p className="delete-cita-texto">
-                                        Esta acción es permanente y no se puede deshacer.
-                                        ¿Seguro que deseas eliminar este paciente?
+                                        Esta acción es permanente y no se puede deshacer. ¿Seguro que deseas eliminar esta cita?
                                     </p>
                                     <div className="delete-cita-resumen">
                                         <div><span>Paciente</span><strong>{pacienteSeleccionado?.nombre}</strong></div>

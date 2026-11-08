@@ -224,11 +224,11 @@ const AdminLayout = () => {
           </button>
 
           {/* Brand (solo mobile) */}
-          <span className="admin-topbar-brand">MedSoftIA</span>
+          <span className="admin-topbar-brand">¡Bienvenido, {usuario?.nombre || 'Usuario'}!</span>
           
-          {/* Sección izquierda: breadcrumb (solo desktop) */}
+          {/* Sección bienvenida: breadcrumb (solo desktop) */}
           <div className="admin-topbar-left">
-            <span className="admin-topbar-page">Bienvenido, {usuario?.nombre || 'Usuario'} </span>
+            <span className="admin-topbar-page">¡Bienvenido, {usuario?.nombre || 'Usuario'}! </span>
           </div>
           
         </header>

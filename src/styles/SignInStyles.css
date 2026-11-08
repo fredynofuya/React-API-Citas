@@ -82,7 +82,7 @@
   margin-bottom: 20px;
 }
 
-.si-brand-logo img {
+.si-brand-login img {
   width: 64px;
   height: 64px;
   flex-shrink: 0;
@@ -96,8 +96,8 @@
 }
 
 .si-brand-name span {
-  font-size: 48px;
-  font-weight: 800;
+  font-size: 30px;
+  font-weight: 700;
   line-height: 1;
 }
 
@@ -110,6 +110,12 @@
   line-height: 1.65;
   margin-bottom: 40px;
   max-width: 340px;
+}
+
+.si-form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* lista de features */
@@ -171,15 +177,14 @@
 /* logo mobile — oculto en desktop */
 .si-mobile-logo {
   display: none;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 32px;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 20px;
 }
 
 .si-mobile-logo img {
   width: 44px;
   height: 44px;
-  filter: invert(35%) sepia(40%) saturate(600%) hue-rotate(140deg);
 }
 
 .si-mobile-brand { display: flex; gap: 2px; }
@@ -391,7 +396,9 @@
   .si-form-panel {
     min-height: 100vh;
     padding: 50px 30px;
-    background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal-bright) 100%);
+    background:
+    linear-gradient(160deg, rgba(30,42,42,.88) 0%, rgba(26,127,140,.82) 100%),
+    url('../assets/paciente.jpg') center / cover no-repeat;
   }
 
   .si-form-inner {

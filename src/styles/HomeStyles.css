@@ -172,7 +172,7 @@
 }
 
 .stat-value {
-  color: var(--teal-light);
+  color: var(--white);
   font-size: 38px;
   font-weight: 700;
   line-height: 1;

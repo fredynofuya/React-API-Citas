@@ -2,6 +2,8 @@ import './FooterStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import logo from '../../assets/logo.png';
+import {Link} from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -9,11 +11,21 @@ const Footer = () => {
       <div className='footer-content'>
         {/* Sección de Marca */}
         <div className='footer-section'>
-          <div className='footer-brand'>
-            <span className='footer-brand-text footer-brand-primary'>Med</span>
-            <span className='footer-brand-text footer-brand-accent'>Soft</span>
-            <span className='footer-brand-text footer-brand-primary'>IA</span>
+          {/* logo + nombre */}
+          <div className="si-brand-header-footer">
+            <div className="si-brand-logo">
+              <img src={logo} alt="MedSoftIA" />
+            </div>
+            <Link to='/home' className="brand-link">
+              <div className="brand-logo">
+                <span className="brand-text brand-primary">Med</span>
+                <span className="brand-text brand-accent">Soft</span>
+                <span className="brand-text brand-primary">IA</span>
+              </div>
+              <div className="brand-tagline">Tu salud, nuestra prioridad</div>
+            </Link>
           </div>
+          
           <p className='footer-description'>
             Tu plataforma confiable para gestionar citas médicas de forma rápida, 
             segura y eficiente. Conectando pacientes con profesionales de la salud.

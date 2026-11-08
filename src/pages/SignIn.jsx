@@ -53,13 +53,16 @@ const SignIn = () => {
         <div className="si-brand-content">
           {/* logo + nombre */}
           <div className="si-brand-header">
-            <div className="si-brand-logo">
+            <div className="si-brand-login">
               <img src={logo} alt="MedSoftIA" />
             </div>
-            <div className="si-brand-name">
-              <span className="si-brand-white">Med</span>
-              <span className="si-brand-accent">Soft</span>
-              <span className="si-brand-white">IA</span>
+            <div className="brand-link">
+              <div className="si-brand-name">
+                <span className="si-brand-white">Med</span>
+                <span className="si-brand-accent">Soft</span>
+                <span className="si-brand-white">IA</span>
+              </div>
+              <div className="brand-tagline">Tu salud, nuestra prioridad</div>
             </div>
           </div>
           <p className="si-brand-tagline">
@@ -94,9 +97,10 @@ const SignIn = () => {
               <span className="si-brand-white-m">IA</span>
             </span>
           </div>
-
-          <h1 className="si-title">Bienvenido de nuevo</h1>
-          <p className="si-subtitle">Ingresa tus credenciales para continuar</p>
+          <div className="si-form-header">
+            <h1 className="si-title">Bienvenido de nuevo</h1>
+            <p className="si-subtitle">Ingresa tus credenciales para continuar</p>
+          </div>
 
           {error && (
             <div className="si-alert si-alert--error" role="alert">

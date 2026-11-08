@@ -28,10 +28,23 @@
    SECCIÓN DE MARCA/LOGO
    ============================================ */
 .si-brand-header-nav {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.si-brand-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.si-brand-logo img {
+    width: 55px;
+    height: 55px;
+    filter: brightness(0) invert(1);
+    border-radius: 50%;
 }
 
 .brand-link {
@@ -54,7 +67,7 @@
 }
 
 .brand-text {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
     margin: 0;
     transition: all 0.3s ease;
@@ -170,11 +183,6 @@
     transform: translateY(-1px);
 }
 
-.btn-icon {
-    font-size: 18px;
-    filter: none;
-}
-
 /* ============================================
    ICONO DE LOGIN
    ============================================ */
@@ -203,117 +211,187 @@
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE — TABLET GRANDE (≤1200px)
    ============================================ */
 @media (max-width: 1200px) {
     .Navigation {
-        padding: 18px 40px;
+        padding: 16px 40px;
+        gap: 30px;
     }
-    
+
     .navbar {
         gap: 25px;
     }
-    
+
     .nav-link {
         font-size: 16px;
     }
-    
+
     .btn-cita {
         padding: 10px 22px;
         font-size: 15px;
     }
-}
 
-@media (max-width: 1024px) {
     .brand-text {
         font-size: 28px;
     }
-    
-    .brand-tagline {
-        font-size: 10px;
-    }
-    
-    .navbar {
-        gap: 20px;
-    }
-    
-    .nav-link {
-        font-size: 15px;
-    }
+
+    /* .si-brand-logo img {
+        width: 36px;
+        height: 36px;
+    } */
 }
 
-@media (max-width: 768px) {
+/* ============================================
+   RESPONSIVE — TABLET PEQUEÑO (≤1024px)
+   ============================================ */
+@media (max-width: 1024px) {
     .Navigation {
-        padding: 12px 20px;
-        flex-wrap: wrap;
+        padding: 14px 30px;
         gap: 20px;
     }
-    
+
     .brand-text {
         font-size: 24px;
     }
-    
+
     .brand-tagline {
         font-size: 9px;
     }
-    
+
+    .si-brand-logo img {
+        width: 50px;
+        height: 50px;
+    }
+
     .navbar {
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        margin-top: 10px;
-        gap: 15px;
+        gap: 18px;
     }
-    
-    .nav-item {
-        font-size: 14px;
-    }
-    
+
     .nav-link {
         font-size: 14px;
     }
-    
+
     .btn-cita {
-        padding: 10px 20px;
+        padding: 9px 18px;
         font-size: 14px;
     }
-    
-    .login-icon {
-        position: absolute;
-        top: 15px;
-        right: 20px;
+
+    .login-icon img {
+        width: 42px;
+        height: 42px;
     }
-    
+}
+
+/* ============================================
+   RESPONSIVE — MÓVIL (≤768px)
+   Layout en dos filas:
+   Fila 1: [Marca]                    [Login]
+   Fila 2: [Home | Servicios | Contáctanos | Solicitar Cita]
+   ============================================ */
+@media (max-width: 768px) {
+    .Navigation {
+        padding: 12px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    /* Marca ocupa toda la primera fila a la izquierda */
+    .si-brand-header-nav {
+        flex: 1;
+    }
+
+    .brand-text {
+        font-size: 22px;
+    }
+
+    .brand-tagline {
+        font-size: 9px;
+    }
+
+    .si-brand-logo img {
+        width: 48px;
+        height: 48px;
+    }
+
+    /* Login queda a la derecha en la primera fila (sin absolute) */
+    .login-icon {
+        margin-left: 0;
+    }
+
     .login-icon img {
         width: 40px;
         height: 40px;
     }
+
+    /* Navbar va a la segunda fila, centrado y con separador */
+    .navbar {
+        flex: 0 0 100%;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 12px;
+        padding-top: 12px;
+        gap: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-link {
+        font-size: 14px;
+    }
+
+    .btn-cita {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
 }
 
+/* ============================================
+   RESPONSIVE — MÓVIL PEQUEÑO (≤480px)
+   ============================================ */
 @media (max-width: 480px) {
     .Navigation {
-        padding: 10px 15px;
+        padding: 10px 16px;
     }
-    
+
     .brand-text {
-        font-size: 20px;
+        font-size: 18px;
     }
-    
+
+    /* Ocultar tagline para ganar espacio */
+    .brand-tagline {
+        display: none;
+    }
+
+    .si-brand-logo img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .si-brand-header-nav {
+        gap: 8px;
+    }
+
     .navbar {
-        gap: 10px;
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 10px;
     }
-    
+
     .nav-link {
         font-size: 13px;
         padding: 6px 0;
     }
-    
+
     .btn-cita {
-        padding: 8px 16px;
+        padding: 8px 14px;
         font-size: 13px;
     }
-    
-    .btn-icon {
-        font-size: 14px;
+
+    .login-icon img {
+        width: 36px;
+        height: 36px;
+        padding: 6px;
     }
 }
