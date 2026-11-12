@@ -1,13 +1,9 @@
-import axios from "axios";
+import api from './axiosConfig.js';
 
-const MEDICO_API_BASE_URL = "http://localhost:8080/medico";
-const ESPECIALIDAD_API_BASE_URL = "http://localhost:8080/especialidad";
-const CONSULTORIO_API_BASE_URL = "http://localhost:8080/consultorio";
-
-export const crearMedico = (medico) => axios.post(MEDICO_API_BASE_URL, medico);
-export const editarMedico = (id, medico) => axios.put(`${MEDICO_API_BASE_URL}/${id}`, medico);
+export const crearMedico = (medico) => api.post('/medico', medico);
+export const editarMedico = (id, medico) => api.put(`/medico/${id}`, medico);
 export const cambiarEstadoMedico = (id, activo) =>
-  axios.patch(`${MEDICO_API_BASE_URL}/${id}/estado`, { activo });
+  api.patch(`/medico/${id}/estado`, { activo });
 
-export const listaEspecialidades = () => axios.get(ESPECIALIDAD_API_BASE_URL);
-export const listaConsultorios = () => axios.get(CONSULTORIO_API_BASE_URL);
+export const listaEspecialidades = () => api.get('/especialidad');
+export const listaConsultorios = () => api.get('/consultorio');

@@ -1,0 +1,177 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Create the shared Axios instance with `baseURL`": [
+      {
+        "executionId": "f1795304-dfb2-4e39-9afa-929ca55f873e",
+        "chatSessionId": "sess_f0ca0e3a-f9ff-4193-b300-3cdf1896fcc7",
+        "timestamp": 1794515299497
+      },
+      {
+        "executionId": "f1795304-dfb2-4e39-9afa-929ca55f873e",
+        "chatSessionId": "sess_f0ca0e3a-f9ff-4193-b300-3cdf1896fcc7",
+        "timestamp": 1794515324078
+      }
+    ],
+    "1. Refactor `axiosConfig.js` to export a shared Axios instance": [
+      {
+        "executionId": "f1795304-dfb2-4e39-9afa-929ca55f873e",
+        "chatSessionId": "sess_f0ca0e3a-f9ff-4193-b300-3cdf1896fcc7",
+        "timestamp": 1794515324126
+      }
+    ],
+    "2.1 Migrate `AuthService.js`": [
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515406883
+      },
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515435746
+      }
+    ],
+    "2.2 Migrate `CitasService.js`": [
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515408748
+      },
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515439104
+      }
+    ],
+    "2.3 Migrate `MedicosService.js`": [
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515410787
+      },
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515440988
+      }
+    ],
+    "2.4 Migrate `PacientesService.js`": [
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515412891
+      },
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515442880
+      }
+    ],
+    "2.5 Migrate `UsuariosService.js`": [
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515414861
+      },
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515444730
+      }
+    ],
+    "2. Migrate service files to use the shared Axios instance": [
+      {
+        "executionId": "2f7326f1-4c89-4123-87fd-fbc17dd8880d",
+        "chatSessionId": "sess_10906799-2f1e-4d6f-b561-0a46b2178f88",
+        "timestamp": 1794515444754
+      }
+    ],
+    "4.1 Create `scripts/check-env.js`": [
+      {
+        "executionId": "07cec3b7-a06a-4956-80c3-4ad2e53cbca7",
+        "chatSessionId": "sess_e2894b6b-ece7-43c5-b168-8bfc7695024b",
+        "timestamp": 1794515596882
+      },
+      {
+        "executionId": "07cec3b7-a06a-4956-80c3-4ad2e53cbca7",
+        "chatSessionId": "sess_e2894b6b-ece7-43c5-b168-8bfc7695024b",
+        "timestamp": 1794515624379
+      }
+    ],
+    "4.2 Wire `check-env.js` to `package.json` as a `prebuild` hook": [
+      {
+        "executionId": "07cec3b7-a06a-4956-80c3-4ad2e53cbca7",
+        "chatSessionId": "sess_e2894b6b-ece7-43c5-b168-8bfc7695024b",
+        "timestamp": 1794515626542
+      },
+      {
+        "executionId": "07cec3b7-a06a-4956-80c3-4ad2e53cbca7",
+        "chatSessionId": "sess_e2894b6b-ece7-43c5-b168-8bfc7695024b",
+        "timestamp": 1794515640608
+      }
+    ],
+    "4. Add build-time environment validation script": [
+      {
+        "executionId": "07cec3b7-a06a-4956-80c3-4ad2e53cbca7",
+        "chatSessionId": "sess_e2894b6b-ece7-43c5-b168-8bfc7695024b",
+        "timestamp": 1794515640633
+      }
+    ],
+    "5.1 Create `vercel.json`": [
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515796077
+      },
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515833960
+      }
+    ],
+    "5.2 Create `.nvmrc`": [
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515797928
+      },
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515835958
+      }
+    ],
+    "5.3 Create `.env.example`": [
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515799931
+      },
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515838233
+      }
+    ],
+    "5.4 Update `.gitignore`": [
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515801677
+      },
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515840822
+      }
+    ],
+    "5. Add configuration files": [
+      {
+        "executionId": "2d479945-c74d-4eb7-93f4-0c2e9144d1a9",
+        "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
+        "timestamp": 1794515840860
+      }
+    ]
+  }
+}

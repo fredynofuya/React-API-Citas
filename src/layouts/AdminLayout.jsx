@@ -151,6 +151,7 @@ const AdminLayout = () => {
         >
           {NAV_ITEMS.filter(({ permiso }) =>
             puede(permiso)
+          // eslint-disable-next-line no-unused-vars
           ).map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}

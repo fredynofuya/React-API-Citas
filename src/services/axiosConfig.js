@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+});
+
 // Agrega el token JWT a toda petición saliente, sin tocar los services existentes.
-axios.interceptors.request.use((config) => {
+api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -11,7 +15,7 @@ axios.interceptors.request.use((config) => {
 
 // Si el backend responde 401 (token vencido o inválido), limpia la sesión
 // y manda al login — evita que la UI se quede mostrando datos a medias.
-axios.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -25,4 +29,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export default api;

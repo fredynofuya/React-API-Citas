@@ -1,15 +1,13 @@
-import axios from "axios";
-// URL base para las operaciones relacionadas con pacientes
-const REST_API_BASE_URL = "http://localhost:8080/paciente";
+import api from './axiosConfig.js';
 // Función para obtener la lista de pacientes
-export const listaPacientes = () => axios.get(REST_API_BASE_URL); 
+export const listaPacientes = () => api.get('/paciente'); 
 // Función para obtener un paciente por su documento
 export const getPacienteByDocumento = (documento) =>
-  axios.get(`${REST_API_BASE_URL}/documento/${documento}`);
+  api.get(`/paciente/documento/${documento}`);
 // Función para crear un nuevo paciente
 export const crearPaciente = (paciente) =>
-  axios.post(REST_API_BASE_URL, paciente);
+  api.post('/paciente', paciente);
 export const editarPaciente = (id, paciente) =>
-  axios.put(`${REST_API_BASE_URL}/${id}`, paciente);
+  api.put(`/paciente/${id}`, paciente);
 export const eliminarPaciente = (id) =>
-  axios.delete(`${REST_API_BASE_URL}/${id}`);
+  api.delete(`/paciente/${id}`);

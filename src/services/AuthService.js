@@ -1,12 +1,10 @@
-import axios from 'axios';
-
-const REST_API_BASE_URL = 'http://localhost:8080/auth';
+import api from './axiosConfig.js';
 
 export const login = (email, password) =>
-  axios.post(`${REST_API_BASE_URL}/login`, { email, password });
+  api.post('/auth/login', { email, password });
 
 export const obtenerUsuarioActual = () =>
-  axios.get(`${REST_API_BASE_URL}/me`);
+  api.get('/auth/me');
 
 export const guardarSesion = (data) => {
   localStorage.setItem('token', data.token);
@@ -21,15 +19,15 @@ export const cerrarSesion = () => {
 };
 
 export const cambiarPassword = (passwordActual, passwordNueva) =>
-  axios.put(`${REST_API_BASE_URL}/password`, { passwordActual, passwordNueva });
+  api.put('/auth/password', { passwordActual, passwordNueva });
 
 export const solicitarRecuperacion = (email) =>
-  axios.post(`${REST_API_BASE_URL}/recuperar/solicitar`, { email });
+  api.post('/auth/recuperar/solicitar', { email });
 
 export const validarTokenRecuperacion = (token) =>
-  axios.post(`${REST_API_BASE_URL}/recuperar/validar`, { token });
+  api.post('/auth/recuperar/validar', { token });
 
 export const restablecerPassword = (token, passwordNueva) =>
-  axios.post(`${REST_API_BASE_URL}/recuperar/restablecer`, { token, passwordNueva });
+  api.post('/auth/recuperar/restablecer', { token, passwordNueva });
 
 export const hayTokenGuardado = () => !!localStorage.getItem('token');
