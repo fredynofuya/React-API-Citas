@@ -172,6 +172,35 @@
         "chatSessionId": "sess_ed0ba8c9-6597-4f57-9103-2663e477979c",
         "timestamp": 1794515840860
       }
+    ],
+    "8. [MANUAL] Configure Railway backend variables": [
+      {
+        "executionId": "b235e70a-81cb-4331-afc8-a05c2ce2fb87",
+        "chatSessionId": "sess_462f072e-45b8-4a55-9685-67314d80fe95",
+        "timestamp": 1794519791774
+      }
+    ],
+    "9. Final checkpoint — Post-deploy verification": [
+      {
+        "executionId": "c531431f-fa66-4c1a-88d8-ca66fb3a644f",
+        "chatSessionId": "sess_663f350a-84f2-40d2-b23c-249c6da0a830",
+        "timestamp": 1794522376222
+      },
+      {
+        "executionId": "c531431f-fa66-4c1a-88d8-ca66fb3a644f",
+        "chatSessionId": "sess_663f350a-84f2-40d2-b23c-249c6da0a830",
+        "timestamp": 1794524323994
+      },
+      {
+        "executionId": "cccd9f76-c8b2-45ea-a0d6-495213608126",
+        "chatSessionId": "sess_c295afbf-6f1b-49f3-b950-8adc49dd0cc6",
+        "timestamp": 1794525976019
+      },
+      {
+        "executionId": "cccd9f76-c8b2-45ea-a0d6-495213608126",
+        "chatSessionId": "sess_c295afbf-6f1b-49f3-b950-8adc49dd0cc6",
+        "timestamp": 1794526035775
+      }
     ]
   }
 }

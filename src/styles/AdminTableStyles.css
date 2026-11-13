@@ -50,36 +50,6 @@
   font-size: 0.875rem;
 }
 
-/* Botón de acción principal (Nueva cita, Nuevo paciente…) */
-.btn-paciente-guardar {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 20px;
-  background: var(--cd-accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(26, 127, 140, 0.25);
-  white-space: nowrap;
-  font-family: inherit;
-}
-
-.btn-paciente-guardar:hover {
-  background: var(--cd-accent-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(26, 127, 140, 0.35);
-}
-
-.btn-paciente-guardar:active {
-  transform: translateY(0);
-}
-
-
 /* =========================================================
    TARJETA CONTENEDORA
    ========================================================= */

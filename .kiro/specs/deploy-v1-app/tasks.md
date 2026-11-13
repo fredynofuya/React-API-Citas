@@ -90,14 +90,14 @@ Migrate all five service files to a shared Axios instance with a build-time envi
   - Copy the Stable_Origin URL from the Vercel deployment dashboard (e.g., `https://project-name.vercel.app`)
   - _Requirements: 3.3, 3.4, 3.5_
 
-- [ ] 8. [MANUAL] Configure Railway backend variables
+- [x] 8. [MANUAL] Configure Railway backend variables
   - **This task cannot be executed by a coding agent. Perform these steps manually:**
   - In the Railway backend service environment settings, set `CORS_ORIGINS` to include the Stable_Origin obtained in task 7 (must NOT be `*`)
   - Set `FRONTEND_URL` to the Stable_Origin so password-recovery emails link to `https://<stable-origin>/restablecer-contrasena?token=...`
   - Redeploy the backend on Railway after updating both variables
   - _Requirements: 6.3, 6.4_
 
-- [ ] 9. Final checkpoint — Post-deploy verification
+- [x] 9. Final checkpoint — Post-deploy verification
   - Ensure all automated tests pass, then verify the following manually using the Post-Deploy Checklist in `requirements.md`:
     - Login from the Vercel URL succeeds and routes correctly by role
     - Network tab shows zero requests to `localhost:8080`
